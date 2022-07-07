@@ -13,12 +13,15 @@
     </head>
     <body>
         <nav>
-            <!-- <img src="images/logo.png"> -->
+            <a href="#">
+                <img class="navbar-logo" src="images/logo.png">
+            </a>
+            
             <ul class="navbar">
-                <li class="navbar-item"><a>About</a></li>
-                <li class="navbar-item"><a>Reviews</a></li>
-                <li class="navbar-item"><a>Privacy Policy</a></li>
-                <li class="navbar-item"><a>Contact</a></li>
+                <li class="navbar-item"><a href="#features">Features</a></li>
+                <li class="navbar-item"><a href="#reviews">Reviews</a></li>
+                <li class="navbar-item"><a href="#privacy">Privacy Policy</a></li>
+                <li class="navbar-item"><a href="#contact">Contact</a></li>
                 <li class="navbar-item"><a href="https://www.paypal.com/donate/?business=EU2L6GUY4F8MG&no_recurring=1&item_name=Thank+you+for+supporting+QR+Me+-+Contact%21%0AYour+donation+helps+me+cover+the+developer+fee+and+continue+to+make+new+features.&currency_code=USD">Donate</a></li>
             </ul>
         </nav>
@@ -26,7 +29,7 @@
             <div class="header-text">
                 <h1>QR Me - Contact</h1>
                 <p>Quickly and easily share your contact information with a QR Code</p>
-                <a href="https://apps.apple.com/us/app/qr-me-contact/id1412627381" target="_blank">
+                <a class="download-button" href="https://apps.apple.com/us/app/qr-me-contact/id1412627381" target="_blank">
                     <img src="images/apple/appstore_black.svg" />
                 </a>
             </div>
@@ -35,7 +38,7 @@
             </div>
         </header>
 
-        <section>
+        <section id="features">
             <h2>Features</h2>
 
             <div class="other-features">
@@ -99,7 +102,7 @@
             </div> 
         </section>
 
-        <section>
+        <section id="reviews">
             <h2>Reviews</h2>
             <div class="stats">
                 <div>
@@ -132,9 +135,16 @@
                 <p>I would have easily paid for this app! Thank you for saving me so much time in communicating my contact info.</p>
                 <p>The app does exactly what it should do and nothing more. Fantastic to be used at networking events where sending the .icv file via text requires the other person's phone number.</p>
             </div>
+            
+            <p class="reviews-link">
+                Read more reviews on the 
+                <a href="https://apps.apple.com/us/app/qr-me-contact/id1412627381?see-all=reviews" target="_blank">
+                    App Store
+                </a>
+            </p>
         </section>
 
-        <section>
+        <section id="privacy">
             <h2>Privacy Policy</h2>
             <div class="privacy-text">
                 <p>I value privacy, so <b>I do not collect any personal information</b> from users.</p>
@@ -145,7 +155,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="contact">
             <h2>Contact</h2>
             <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScqT77ZMt-Avzk8JQsEDO4SbwZD4e6jxcIQiJmWt58ZdUiYdA/viewform?embedded=true" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </section>
