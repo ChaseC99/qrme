@@ -1,0 +1,152 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+b {
+    text-decoration: underline;
+}
+
+
+/* NAVIGATION BAR */
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-item {
+    display: inline;
+}
+
+.navbar-item a {
+    padding: 8px;
+}
+
+
+/* HEADER */
+header {
+    height: 80vh;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    justify-content: center;
+    background-color: #a8edfe;
+}
+
+.header-text {
+    text-align: left;
+    max-width: 400px;
+}
+
+.header-screenshot {
+    height: 70vh;
+    aspect-ratio: 9 / 19.5;
+}
+
+
+/* FEATURES */
+section {
+    margin-top: 100px;
+}
+
+.main-feature {
+    margin: 3em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1120px;
+}
+
+.main-feature h3 {
+    margin: 1em auto;
+}
+
+.main-feature-content {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.main-feature-text {
+    padding-top: 10px;
+    width: 500px;
+}
+
+.feature-screenshot {
+    height: 500px;
+}
+
+.feature {
+    text-align: center; 
+    width: 550px;  
+}
+
+.other-features{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+}
+
+.two-column-list {
+    columns: 2;
+}
+
+
+/* REVIEWS */
+.stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+    text-align: center;
+}
+
+.user-reviews {
+    margin: 2em auto;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+.user-reviews p {
+    border: #a8edfe solid 1px;
+    border-radius: 2em;
+    box-shadow: #a8edfe 0 0 5px 0;
+    padding: 1em;
+    width: 300px;
+}
+
+/* PRIVACY POLICY */
+.privacy-text {
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* FOOTER */
+footer p {
+    text-align: center;
+    background-color: #a8edfe;
+    margin: 0 auto;
+    padding: 20px;
+}

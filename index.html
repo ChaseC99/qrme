@@ -5,39 +5,153 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="images/logo.png">
         <link rel="stylesheet" href="styles.css">
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <div>
+        <nav>
+            <!-- <img src="images/logo.png"> -->
+            <ul class="navbar">
+                <li class="navbar-item"><a>About</a></li>
+                <li class="navbar-item"><a>Reviews</a></li>
+                <li class="navbar-item"><a>Privacy Policy</a></li>
+                <li class="navbar-item"><a>Contact</a></li>
+                <li class="navbar-item"><a href="https://www.paypal.com/donate/?business=EU2L6GUY4F8MG&no_recurring=1&item_name=Thank+you+for+supporting+QR+Me+-+Contact%21%0AYour+donation+helps+me+cover+the+developer+fee+and+continue+to+make+new+features.&currency_code=USD">Donate</a></li>
+            </ul>
+        </nav>
+        <header class="header">
+            <div class="header-text">
                 <h1>QR Me - Contact</h1>
-                <p>Description blah blah blah blah</p>
+                <p>Quickly and easily share your contact information with a QR Code</p>
                 <a href="https://apps.apple.com/us/app/qr-me-contact/id1412627381" target="_blank">
-                    <img src="images/download_black.svg" />
+                    <img src="images/apple/appstore_black.svg" />
                 </a>
             </div>
             <div>
-                <img src="images/logo.png" />
+                <img class="header-screenshot" src="images/views/qrcode_view.png" />
             </div>
         </header>
 
         <section>
-            <h2>Detailed Description</h2>
+            <h2>Features</h2>
+
+            <div class="other-features">
+                <div class="feature">
+                    <div>
+                        <h3>Multiple QR Codes</h3>
+                        <p>Create an many as you need for business, personal, etc.</p>
+                    </div>
+                    <img class="feature-screenshot" src="images/views/multiple-qr-codes.gif" />
+                </div> 
+    
+                <div class="feature">
+                    <div>
+                        <h3>Light & Dark Mode</h3>
+                        <p>Take your pick or let it automatically match your system preference.</p>
+                    </div>
+                    <img class="feature-screenshot" src="images/views/light_dark_mode.png" />
+                </div> 
+            </div>
+
+            <div class="main-feature">
+                <h3>Add all of your important information</h3>
+                <div class="main-feature-content">
+                    <img class="feature-screenshot" src="images/views/input_view.png" />
+                    <div class="main-feature-text">
+                        
+                        <p>QR Me - Contact gives you a wide variety of contact fields to choose from.</p>
+                        
+                        Start with your basic info:
+                        <ul class="two-column-list">
+                            <li>First name</li>
+                            <li>Last name</li>
+                            <li>Birthday</li>
+                            <li>Job title</li>
+                            <li>Company</li>
+                        </ul>
+
+                        Add <b>multiple</b> fields for each of the following along with custom labels to specify which are for work, home, school, etc.
+                        <ul class="two-column-list">
+                            <li>Phone numbers</li>
+                            <li>Emails</li>
+                            <li>Websites</li>
+                            <li>Addresses</li>
+                        </ul>
+
+                        Customize your name and job even further with additional fields such as:
+                        <ul class="two-column-list">
+                            <li>Middle name</li>
+                            <li>Maiden name</li>
+                            <li>Nickname</li>
+                            <li>Name prefix</li>
+                            <li>Name suffix</li>
+                            <li>Phonetic first name</li>
+                            <li>Phonetic middle name</li>
+                            <li>Phonetic last name</li>
+                            <li>Phonetic company name</li>
+                            <li>Department</li>
+                        </ul>
+                    </div>
+                </div>
+            </div> 
         </section>
 
         <section>
             <h2>Reviews</h2>
+            <div class="stats">
+                <div>
+                    Over 
+                    <p>20k Downloads</p> 
+                    <img src="images/icons/download.svg" />
+                </div>
+                <div>
+                    Rated
+                    <p>5/5 Stars</p>
+                    <div>
+                        <img src="images/icons/star.svg" />
+                        <img src="images/icons/star.svg" />
+                        <img src="images/icons/star.svg" />
+                        <img src="images/icons/star.svg" />
+                        <img src="images/icons/star.svg" />
+                    </div>
+                </div>
+                <div>
+                    Used in 
+                    <p>50+ Countries</p>
+                    <img src="images/icons/world.svg" />
+                </div>
+            </div>
+
+            <div class="user-reviews">
+                <p>Intuitive app design makes it so easy to create your QR code contact in seconds. Plus the new update is really nice for keeping different versions of your contact for different situations!</p>
+                <p>Simple, efficient, and effective way to share contact info. Great way to share contact info in large group settings, such as networking events. The customization options on what you can include is excellent too.</p>
+                <p>As an educator I'm constantly having to give out my contact info to students and parents. Being able to customize the info shared in such a quick and convenient manner also ensures that errors aren't made when inputing in each device! Brilliant!</p>
+                <p>I would have easily paid for this app! Thank you for saving me so much time in communicating my contact info.</p>
+                <p>The app does exactly what it should do and nothing more. Fantastic to be used at networking events where sending the .icv file via text requires the other person's phone number.</p>
+            </div>
         </section>
 
         <section>
             <h2>Privacy Policy</h2>
+            <div class="privacy-text">
+                <p>I value privacy, so <b>I do not collect any personal information</b> from users.</p>
+                <p>
+                    All of your contact information is stored locally on your own device.
+                    Only you and the people with whom you share your QR Code will ever see your contact information.
+                </p>
+            </div>
         </section>
 
         <section>
             <h2>Contact</h2>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScqT77ZMt-Avzk8JQsEDO4SbwZD4e6jxcIQiJmWt58ZdUiYdA/viewform?embedded=true" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </section>
 
         <footer>
             <p>&copy; 2022 <a href="http://www.chasecarnaroli.com">Chase Carnaroli</a></p>
-          </footer>
+        </footer>
     </body>
 </html>
