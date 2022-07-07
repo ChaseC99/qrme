@@ -38,19 +38,26 @@ b {
 
 /* NAVIGATION BAR */
 nav {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: #a8edfe 0 0 10px 5px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    padding: 0 16px;
 }
 
 .navbar-logo {
     height: 50px;
     width: 50px;
-    margin: 4px;
+    margin: 8px 0;
+    border-radius: 8px;
 }
 
-.navbar {
+#navbar-items {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -62,6 +69,30 @@ nav {
 
 .navbar-item a {
     padding: 8px;
+}
+
+#ham-menu {
+    margin: 8px 0;
+    display: none;
+}
+
+@media only screen and (max-width: 500px) {
+    #ham-menu {
+        display: block;
+    }
+
+    #navbar-items {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 2em;
+        text-align: center;
+        margin-bottom: 2em;
+    }
+
+    .show {
+        display: flex !important;
+    }
 }
 
 
