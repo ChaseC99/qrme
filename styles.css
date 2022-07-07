@@ -24,6 +24,17 @@ b {
     text-decoration: underline;
 }
 
+@media only screen and (max-width: 500px) {
+    h1 {
+        font-size: 2em
+    }
+
+    .screenshot-frame {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 
 /* NAVIGATION BAR */
 nav {
@@ -83,6 +94,23 @@ header {
     width: 200px;
 }
 
+@media only screen and (max-width: 500px) {
+    header {
+        height: auto;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .header-text {
+        padding: 0;
+        margin: auto;
+    }
+}
+
+
 /* FEATURES */
 section {
     margin-top: 100px;
@@ -132,6 +160,37 @@ section {
 }
 
 
+@media only screen and (max-width: 500px) {
+    .other-features {
+        flex-direction: column;
+    }
+
+    .feature {
+        width: 100%
+    }
+
+    .feature div {
+        width: 80%;
+        margin: auto;
+    }
+
+    .main-feature-content {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .main-feature-text {
+        width: 80%;
+        padding: 0;
+        margin: auto;
+    }
+
+    .main-feature h3 {
+        text-align: center;
+    }
+}
+
+
 /* REVIEWS */
 .stats {
     display: flex;
@@ -162,11 +221,34 @@ section {
     text-align: center;
 }
 
+@media only screen and (max-width: 500px) {
+    .stats {
+        flex-wrap: wrap;
+        gap: 3em;
+    }
+
+    .stats div {
+        width: 100%;
+    }
+
+    .user-reviews {
+        gap: 0.5em;
+    }
+}
+
+
 /* PRIVACY POLICY */
 .privacy-text {
     max-width: 1000px;
     margin: auto;
 }
+
+@media only screen and (max-width: 500px) {
+    .privacy-text {
+        width: 80%;
+    }
+}
+
 
 /* FOOTER */
 footer p {
