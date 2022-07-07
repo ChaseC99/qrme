@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>QR Me - Contact</title>
+    <script type="text/javascript">
+      const redirects = {
+        "download": "https://apps.apple.com/us/app/qr-me-contact/id1412627381#?platform=iphone"
+      }
+      
+      const path = window.location.pathname.split('/')[2];
+
+      const redirect = redirects[path];
+      if (redirect) {
+        window.location.replace(redirect);
+      } else {
+        window.location.replace("/qrme#"+path);
+      }
+    </script>
+  </head>
+
+</html>
