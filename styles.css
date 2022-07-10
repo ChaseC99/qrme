@@ -69,6 +69,12 @@ nav {
 
 .navbar-item a {
     padding: 8px;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-item a:hover {
+    text-decoration: underline;
 }
 
 #ham-menu {
