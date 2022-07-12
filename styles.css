@@ -278,11 +278,28 @@ section {
 /* PRIVACY POLICY */
 .privacy-text {
     max-width: 1000px;
+    text-align: center;
     margin: auto;
 }
 
 @media only screen and (max-width: 500px) {
     .privacy-text {
+        width: 80%;
+    }
+}
+
+
+ /* DONATE */
+ .donation-content {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+ @media only screen and (max-width: 500px) {
+    .donation-content {
         width: 80%;
     }
 }
