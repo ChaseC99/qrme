@@ -294,6 +294,36 @@ section {
 }
 
 
+/* ABOUT ME */
+.bio {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+
+.profile-pic {
+    width: 300px;
+    border: #a8edfe solid 1px;
+    border-radius: 2em;
+    box-shadow: #a8edfe 0 0 5px 5px;
+    margin-top: 10px;
+}
+
+.bio-text {
+    max-width: 500px;
+}
+
+@media only screen and (max-width: 500px) {
+    .bio {
+        width: 80%;
+        flex-direction: column;
+        gap: auto;
+    }
+}
+
+
  /* DONATE */
  .donation-content {
     max-width: 1000px;
