@@ -233,6 +233,45 @@ section {
     }
 }
 
+/* UPGRADE */
+.upgrade {
+    margin: 3em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1120px;
+}
+
+.upgrade h3 {
+    margin: 1em auto;
+}
+
+.upgrade ul {
+    margin: 1em auto;
+    width: fit-content;
+    text-align: left;
+}
+
+.upgrade-content {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.upgrade-screenshot {
+    max-width: 80%;
+    width: 500px;
+}
+
+@media only screen and (max-width: 500px) {
+    .upgrade-content {
+        width: 90%;
+    }
+}
+
 
 /* REVIEWS */
 .stats {
@@ -289,38 +328,6 @@ section {
 
 @media only screen and (max-width: 500px) {
     .privacy-text {
-        width: 80%;
-    }
-}
-
-
- /* DONATE */
- .donation-content {
-    max-width: 1000px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
- }
-
-.donation-options {
-    display: flex;
-    gap: 2em;
-    margin-top: 1em;
-}
-
- .donation-options a {
-    text-decoration: none;
- }
-
- .donation-icon {
-    height: 100px;
-    width: 100px;
- }
-
- @media only screen and (max-width: 500px) {
-    .donation-content {
         width: 80%;
     }
 }
