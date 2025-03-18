@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>QR Me - Contact | Download</title>
+    <link rel="icon" href="images/logo.png">
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Download for free on iOS and Android. Quickly and easily share your contact information with a QR Code.">
+    <meta name="keywords" content="QR Me Contact, QR Contact, QR Me, Digitial Business Card, vCard, Virtual Business Card">
+    <meta property="og:url" content="https://qrme.contact">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QR Me - Contact | Download">
+    <meta property="og:description" content="Download for free on iOS and Android. Quickly and easily share your contact information with a QR Code.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="QR Me - Contact">
+    <meta name="twitter:description" content="Download for free on iOS and Android. Quickly and easily share your contact information with a QR Code.">
+    <meta name="twitter:image" content="https://qrme.contact/images/logo.png">
+
+    <script type="text/javascript">      
+        // Check if the user is on iOS or Android
+        const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        // Check where the user is coming from qrme.contact
+        const referrer = document.referrer;
+        const isFromQRMeContact = referrer.includes("qrme.contact");
+        
+        if (isAndroid) {
+            // Open the Google Play Store link
+            window.location.replace("https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact");
+        } else if (isiOS || isFromQRMeContact) {
+            // Open the Apple App Store link
+            window.location.replace("https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone");
+        } else {
+            // Default to the homepage
+            window.location.replace("/");
+        }
+    </script>
+  </head>
+
+</html>
