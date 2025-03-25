@@ -19,11 +19,14 @@
       // e.g. "qrme.contact/download" -> "download"
       const path = window.location.pathname.substring(1).toLowerCase();
 
+      // Preserve query parameters
+      const query = window.location.search;
+
       const redirect = redirects[path];
       if (redirect) {
         window.location.replace(redirect);
       } else {
-        window.location.replace("/#"+path);
+        window.location.replace("/" + query + "#" + path);
       }
     </script>
   </head>

@@ -23,6 +23,18 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+        <!-- On Page Load Events -->
+        <script>
+            // Set the contact form iframe src on page load
+            // Overriding the default with one that potentially has pre-filled values
+            document.addEventListener('DOMContentLoaded', function() {
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.src = generateGoogleFormsLink();
+                }
+            });
+        </script>
     </head>
     <body>
         <nav>
@@ -223,6 +235,7 @@
         <section id="contact">
             <h2>Contact</h2>
             <iframe 
+                id="contact-form"
                 src="https://docs.google.com/forms/d/e/1FAIpQLScqT77ZMt-Avzk8JQsEDO4SbwZD4e6jxcIQiJmWt58ZdUiYdA/viewform?embedded=true" 
                 title="QR Me Contact Feedback Google Form"
                 width="100%" 
