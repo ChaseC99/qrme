@@ -28,11 +28,6 @@ b {
     h1 {
         font-size: 2em
     }
-
-    .screenshot-frame {
-        display: flex;
-        justify-content: center;
-    }
 }
 
 
@@ -127,9 +122,25 @@ header {
     max-width: 400px;
 }
 
+.header-text h1 {
+    margin: 0.75em 0 0 0;
+}
+
+.header-text p {
+    margin: 1.75em 0 2em 0 ;
+    text-wrap: balance;
+}
+
+.screenshot-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2em;
+}
+
 .header-screenshot {
     height: 70vh;
-    aspect-ratio: 9 / 19.5;
+    aspect-ratio: auto;
 }
 
 .download-button img{
