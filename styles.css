@@ -45,6 +45,17 @@ nav {
     padding: 0 16px;
 }
 
+.navbar-logo-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
 .navbar-logo {
     height: 50px;
     width: 50px;
@@ -73,8 +84,13 @@ nav {
 }
 
 .download-button {
+    text-decoration: none;
     background-color: #a8edfe;
     border-radius: 8px;
+}
+
+.download-button:hover {
+    text-decoration: none !important;
 }
 
 #ham-menu {
