@@ -1,0 +1,386 @@
+---
+import { Image } from 'astro:assets';
+import inputView from "../images/views/input_view.png";
+import lightDarkMode from "../images/views/light_dark_mode.png";
+import multipleQrCodes from "../images/views/multiple-qr-codes.gif";
+import upgradeExamples from "../images/views/upgrade-examples.png";
+
+import downloadIcon from "../images/icons/download.svg";
+import starIcon from "../images/icons/star.svg";
+import worldIcon from "../images/icons/world.svg";
+
+import ContactForm from '../components/ContactForm';
+import Headline from '../components/Headline.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+	<Headline />
+
+	<section id="features">
+		<h2>Features</h2>
+
+		<div class="other-features">
+			<div class="feature">
+				<div>
+					<h3>Multiple QR Codes*</h3>
+					<p>
+						Create an many as you need for business, personal, etc. <br>
+						<i>*Premium feature from Professional Branding Upgrade</i>
+					</p>
+				</div>
+				<Image class="feature-screenshot" src={multipleQrCodes} alt="Swiping between two QR codes on the app"/>
+			</div> 
+
+			<div class="feature">
+				<div>
+					<h3>Light & Dark Mode</h3>
+					<p>
+						Take your pick or let it automatically <br>
+						match your system preference.
+					</p>
+				</div>
+				<Image class="feature-screenshot" src={lightDarkMode} alt="Two screenshots of the app in light and dark mode"/>
+			</div> 
+		</div>
+
+		<div class="main-feature">
+			<h3>Add all of your important information</h3>
+			<div class="main-feature-content">
+				<div class="screenshot-frame">
+					<Image class="feature-screenshot" src={inputView} alt="Screenshot of the contact input page on the app"/>
+				</div>
+				<div class="main-feature-text">
+					
+					<p>QR Me - Contact gives you a wide variety of contact fields to choose from.</p>
+					
+					Start with your basic info:
+					<ul class="two-column-list">
+						<li>First name</li>
+						<li>Last name</li>
+						<li>Birthday</li>
+						<li>Job title</li>
+						<li>Company</li>
+					</ul>
+
+					Add <b>multiple</b> fields for each of the following along with custom labels to specify which are for work, home, school, etc.
+					<ul class="two-column-list">
+						<li>Phone numbers</li>
+						<li>Emails</li>
+						<li>Websites</li>
+						<li>Addresses</li>
+						<li>Social Media Accounts</li>
+					</ul>
+
+					Customize your contact even further with additional fields such as:
+					<ul class="two-column-list">
+						<li>Notes</li>
+						<li>Job Department</li>
+						<li>Nickname</li>
+						<li>Middle name</li>
+						<li>Maiden name</li>
+						<li>Name prefix</li>
+						<li>Name suffix</li>
+						<li>Phonetic first name</li>
+						<li>Phonetic middle name</li>
+						<li>Phonetic last name</li>
+					</ul>
+				</div>
+			</div>
+		</div> 
+
+		<div class="upgrade">
+			<h3>Professional Branding Upgrade</h3>
+			<div class="upgrade-content">
+				<div class="screenshot-frame">
+					<Image class="upgrade-screenshot" src={upgradeExamples} alt="Examples of colorful QR Codes with logo overlays"/>
+				</div>
+				<div>
+					<p>
+						Customize the look of your QR Code to match your personal or business branding.<br>
+						The Professional Branding Upgrade includes these features:
+					</p>
+					<ul>
+						<li>Create multiple QR Codes</li>
+						<li>Customize the colors</li>
+						<li>Add a logo overlay</li>
+					</ul>
+					<i>
+						Please see the <a href="https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" target="_blank">App Store</a> for pricing.
+					</i>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="reviews">
+		<h2>Reviews</h2>
+		<div class="stats">
+			<div>
+				Over 
+				<p>150k Downloads</p> 
+				<Image src={downloadIcon} alt="Download icon"/>
+			</div>
+			<div>
+				Rated
+				<p>4.6/5 Stars</p>
+				<div>
+					<Image src={starIcon} alt="Star icon"/>
+					<Image src={starIcon} alt="Star icon"/>
+					<Image src={starIcon} alt="Star icon"/>
+					<Image src={starIcon} alt="Star icon"/>
+					<Image src={starIcon} alt="Star icon"/>
+				</div>
+			</div>
+			<div>
+				Used in 
+				<p>115+ Countries</p>
+				<Image src={worldIcon} alt="World icon"/>
+			</div>
+		</div>
+
+		<div class="user-reviews">
+			<p>Intuitive app design makes it so easy to create your QR code contact in seconds. Plus the new update is really nice for keeping different versions of your contact for different situations!</p>
+			<p>Simple, efficient, and effective way to share contact info. Great way to share contact info in large group settings, such as networking events. The customization options on what you can include is excellent too.</p>
+			<p>As an educator I'm constantly having to give out my contact info to students and parents. Being able to customize the info shared in such a quick and convenient manner also ensures that errors aren't made when inputing in each device! Brilliant!</p>
+			<p>I would have easily paid for this app! Thank you for saving me so much time in communicating my contact info.</p>
+			<p>The app does exactly what it should do and nothing more. Fantastic to be used at networking events where sending the .icv file via text requires the other person's phone number.</p>
+		</div>
+		
+		<p class="reviews-link">
+			Read more reviews on the 
+			<a href="https://apps.apple.com/us/app/qr-me-contact/id1412627381?see-all=reviews" target="_blank">
+				App Store
+			</a>
+		</p>
+	</section>
+
+	<section id="privacy">
+		<h2>Privacy Policy</h2>
+		<div class="privacy-text">
+			<p>I value privacy, so <b>I do not collect any personal information</b> from users.</p>
+			<p>
+				All of your contact information is stored locally on your own device.
+				Only you and the people with whom you share your QR Code will ever see your contact information.
+			</p>
+			<p>
+				Please see the <a href="privacy">Privacy Policy</a> for more information.
+			</p>
+		</div>
+	</section>
+
+	<section id="contact">
+		<h2>Contact</h2>
+		<ContactForm client:only="react"/>
+	</section>
+
+	<footer>
+		<p>&copy; 2018-2025 <a href="http://www.chasecarnaroli.com">Chase Carnaroli</a></p>
+	</footer>
+</Layout>
+
+<style>
+	h2 {
+		text-align: center;
+	}
+
+	/* FEATURES */
+	section {
+		padding-top: 70px;
+		margin-top: 100px;
+	}
+
+	.main-feature {
+		margin: 3em auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		max-width: 1120px;
+	}
+
+	.main-feature h3 {
+		margin: 1em auto;
+	}
+
+	.main-feature-content {
+		display: flex;
+		justify-content: center;
+		gap: 50px;
+	}
+
+	.main-feature-text {
+		padding-top: 10px;
+		width: 500px;
+	}
+
+	.feature-screenshot {
+		max-height: 500px;
+		max-width: 100vw;
+		width: auto;
+		height: auto;
+	}
+
+	.feature {
+		text-align: center; 
+		width: 550px;  
+	}
+
+	.screenshot-frame {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 2em;
+	}
+
+	.other-features{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 50px;
+	}
+
+	.two-column-list {
+		columns: 2;
+	}
+
+
+	@media only screen and (max-width: 500px) {
+		.other-features {
+			flex-direction: column;
+		}
+
+		.feature {
+			width: 100%
+		}
+
+		.feature div {
+			width: 80%;
+			margin: auto;
+		}
+
+		.main-feature-content {
+			flex-direction: column;
+			gap: 0;
+		}
+		
+		.main-feature-text {
+			width: 80%;
+			padding: 0;
+			margin: auto;
+		}
+
+		.main-feature h3 {
+			text-align: center;
+		}
+	}
+
+	/* UPGRADE */
+	.upgrade {
+		margin: 3em auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		max-width: 1120px;
+	}
+
+	.upgrade h3 {
+		margin: 1em auto;
+		text-align: center;
+	}
+
+	.upgrade ul {
+		margin: 1em auto;
+		width: fit-content;
+		text-align: left;
+	}
+
+	.upgrade-content {
+		max-width: 1000px;
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.upgrade-screenshot {
+		max-width: 80%;
+		width: 500px;
+		height: auto;
+	}
+
+	@media only screen and (max-width: 500px) {
+		.upgrade-content {
+			width: 90%;
+		}
+	}
+
+
+	/* REVIEWS */
+	.stats {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 100px;
+		text-align: center;
+	}
+
+	.user-reviews {
+		margin: 2em auto;
+		width: 80%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1.5em;
+	}
+
+	.user-reviews p {
+		border: #a8edfe solid 1px;
+		border-radius: 2em;
+		box-shadow: #a8edfe 0 0 5px 0;
+		padding: 1em;
+		width: 300px;
+	}
+
+	.reviews-link {
+		text-align: center;
+	}
+
+	@media only screen and (max-width: 500px) {
+		.stats {
+			flex-wrap: wrap;
+			gap: 3em;
+		}
+
+		.stats div {
+			width: 100%;
+		}
+
+		.user-reviews {
+			gap: 0.5em;
+		}
+	}
+
+
+	/* PRIVACY POLICY */
+	.privacy-text {
+		max-width: 1000px;
+		text-align: center;
+		margin: auto;
+	}
+
+	@media only screen and (max-width: 500px) {
+		.privacy-text {
+			width: 80%;
+		}
+	}
+
+
+	/* FOOTER */
+	footer p {
+		text-align: center;
+		background-color: #a8edfe;
+		margin: 0 auto;
+		padding: 20px;
+	}
+</style>

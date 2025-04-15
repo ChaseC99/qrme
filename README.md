@@ -1,2 +1,12 @@
-# App Landing Page for QR Me - Contact
-This is a simple website to highlight features, display reviews, post the privacy policy, accept donations, and solicit feedback.
+# Qr Me - Contact | Landing Page
+A simple landing page for [QR Me - Contact](https://qrme.contact).
+
+## Local Development
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |

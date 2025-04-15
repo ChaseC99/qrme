@@ -1,0 +1,18 @@
+---
+import DynamicDownloadButton from './DynamicDownloadButton';
+const { url = "https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" } = Astro.props;
+---
+
+<DynamicDownloadButton client:only="react">
+    <a slot="fallback" href={url}>Download</a>
+</DynamicDownloadButton>
+
+<style>
+    a {
+        padding: 8px;
+        text-decoration: none;
+        background-color: #a8edfe;
+        border-radius: 8px;
+        color: black
+    }
+</style>

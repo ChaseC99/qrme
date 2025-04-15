@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import appStoreBadge from '../images/apple/appstore_black.svg';
+import googlePlayBadge from '../images/android/google-play-badge.png';
+import qrCodeView from '../images/views/qrcode_view.png';
+---
+
+<header class="header">
+    <div class="header-text">
+        <h1>QR Me - Contact</h1>
+        <p>Quickly and easily share your contact information with a QR Code</p>
+        <div>
+            <a href="https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" target="_blank">
+                <Image src={appStoreBadge} alt="Download on the App Store" class="download-button-img" />
+            </a>
+            <a class="download-button" href="https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact" target="_blank">
+                <Image src={googlePlayBadge} alt="Download on Google Play" class="download-button-img" />
+            </a>
+        </div>
+    </div>
+    <div class="screenshot-frame">
+        <Image 
+            class="header-screenshot" 
+            src={qrCodeView}
+            alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
+        />
+    </div>
+</header>
+
+<style>
+    header {
+		height: 80vh;
+		margin: auto;
+	}
+
+	.header {
+		display: flex;
+		flex-direction: row;
+		gap: 100px;
+		justify-content: center;
+		background-color: #a8edfe;
+	}
+
+	.header-text {
+		text-align: center;
+		padding-top: 100px;
+		max-width: 400px;
+	}
+
+	.header-text h1 {
+		margin: 0.75em 0 0 0;
+	}
+
+	.header-text p {
+		margin: 1.75em 0 2em 0 ;
+		text-wrap: balance;
+	}
+
+	.screenshot-frame {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 2em;
+	}
+
+	.header-screenshot {
+		height: 70vh;
+		width: auto;
+		aspect-ratio: auto;
+	}
+
+	.download-button-img{
+		width: 200px;
+		height: auto;
+	}
+
+	@media only screen and (max-width: 500px) {
+		header {
+			height: auto;
+		}
+
+		.header {
+			flex-direction: column;
+			gap: 0px;
+		}
+
+		.header-text {
+			padding: 0;
+			margin: auto;
+		}
+	}
+</style>
