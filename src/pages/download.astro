@@ -22,7 +22,7 @@ import Layout from "../layouts/Layout.astro";
                 <a class="download-button" href="https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" target="_blank">
                     <Image src={appStoreBadge} alt="Download on the App Store"/>
                 </a>
-                <a class="download-button" href="https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact" target="_blank">
+                <a class="download-button" href="https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=website" target="_blank">
                     <Image src={googlePlayBadge} alt="Download on Google Play"/>
                 </a>
             </div>
@@ -55,7 +55,7 @@ import Layout from "../layouts/Layout.astro";
         
         if (isAndroid) {
             // Open the Google Play Store link
-            window.location.replace("https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact");
+            window.location.replace("https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=website");
         } else if (isiOS || isFromQRMeContact) {
             // Open the Apple App Store link
             // This is also the default if the user is coming from qrme.contact because the App Store listing is nicer

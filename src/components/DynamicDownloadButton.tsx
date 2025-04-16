@@ -5,7 +5,7 @@ export default function DownloadButton() {
     // Open the Apple App Store for iOS devices
     // App Store is the default because it's nicer
     const url = isAndroid
-        ? "https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact"
+        ? "https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=website"
         : "https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone";
     
     return (
