@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type LabeledValue = {
     label: string;
@@ -42,6 +42,20 @@ URL;type=QR Me:qrme.contact
 BDAY:2025-04-15
 NOTE:I love building great products. \\nLooking forward to connecting with you!
 END:VCARD`);
+
+    // If the user is on Android, replace the X-SOCIALPROFILE with URL
+    // because Android doesn't support X-SOCIALPROFILE
+    useEffect(() => {
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        if (isAndroid) {
+            const regex = /X-SOCIALPROFILE;type=(.*?);x-userid=(.*?):(.*)/g;
+            const updatedVCard = vcard.replace(regex, (match, type, userId, url) => {
+                return `URL;type=${type}:${url}`;
+            }); 
+            setVcard(updatedVCard);
+        }
+    }, []);
 
     // Convert a vcard string to a contact object
     const parseVCard = (vcard: string): Contact => {
