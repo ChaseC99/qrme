@@ -1,0 +1,12 @@
+---
+import VcardComponent from '../components/vcard/Vcard';
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+    title="QR Me - Contact | Download Contact"
+    pageDescription="Download your contact information as a vCard."
+    showNavbar={false}
+>
+    <VcardComponent client:only="react"/>
+</Layout>
+
