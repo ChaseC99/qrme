@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type LabeledValue = {
     label: string;
     value: string;
@@ -21,7 +23,7 @@ type Contact = {
 }
 
 export default function VCard() {
-    const vcard = `BEGIN:VCARD
+    const [vcard, setVcard] = useState(`BEGIN:VCARD
 VERSION:3.0
 PRODID:-//Apple Inc.//iPhone OS 18.2//EN
 N:Carnaroli;Chase;;;
@@ -38,8 +40,8 @@ X-SOCIALPROFILE;type=twitter;x-userid=ChaseCarnaroli:https://twitter.com/ChaseCa
 URL;type=pref;type=_$!<HomePage>!$_:chasecarnaroli.com
 URL;type=QR Me:qrme.contact
 BDAY:2025-04-15
-NOTE:I love building great products. \nLooking forward to connecting with you!
-END:VCARD`;
+NOTE:I love building great products. \\nLooking forward to connecting with you!
+END:VCARD`);
 
     // Convert a vcard string to a contact object
     const parseVCard = (vcard: string): Contact => {
@@ -132,6 +134,13 @@ END:VCARD`;
                     <li key={index}>{profile.type}: {profile.url}</li>
                 ))}
             </ul>
+
+            <textarea
+                value={vcard}
+                onChange={(e) => setVcard(e.target.value)}
+                rows={10}
+                style={{ width: "100%", marginBottom: "1rem", whiteSpace: "pre-wrap" }}
+            />
             <h3>Download vCard</h3>
             <button id="download-vcard" onClick={downloadVCard}>
                 Download vCard
