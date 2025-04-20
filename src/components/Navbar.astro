@@ -35,8 +35,8 @@ const path = pathname === '/' ? '#' : '/';
     
     <ul id="navbar-items" onclick="toggleNavbar()">
         <li class="navbar-item"><a href={path + "features"}>Features</a></li>
-        <li class="navbar-item"><a href={path + "reviews"}>Reviews</a></li>
         <li class="navbar-item"><a href={path + "privacy"}>Privacy Policy</a></li>
+        <li class="navbar-item"><a href={path + "faq"}>FAQs</a></li>
         <li class="navbar-item"><a href={path + "contact"}>Contact</a></li>
         <li class="navbar-item"><DownloadButton /></li>
     </ul>
@@ -54,6 +54,7 @@ const path = pathname === '/' ? '#' : '/';
         justify-content: space-between;
         align-items: center;
         padding: 0 16px;
+        z-index: 100;
     }
 
     .navbar-logo-button {

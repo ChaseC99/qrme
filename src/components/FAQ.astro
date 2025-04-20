@@ -1,0 +1,86 @@
+---
+export interface Props {
+    question: string;
+}
+
+const { question } = Astro.props;
+---
+
+<div class="faq-item">
+    <button class="faq-question" aria-expanded="false">
+        <span class="faq-question-text">{question}</span>
+        <span class="icon" aria-hidden="true"></span>
+    </button>
+    <div class="faq-answer" hidden>
+        <slot/>
+    </div>
+</div>
+
+<style>
+    .faq-item {
+        border-bottom: 1px solid #eee;
+        margin-bottom: 1rem;
+    }
+
+    .faq-question {
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-question:hover
+    .faq-question-text {
+        background-color: #a8edfe;
+    }
+
+    .faq-answer {
+        padding-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .icon {
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+        transition: transform 0.3s ease-in-out;
+        margin-left: 10px;
+    }
+
+    .faq-question[aria-expanded="true"] .icon {
+        transform: rotate(225deg);
+    }
+
+    .faq-question[aria-expanded="true"] .faq-question-text {
+        background-color: #a8edfe;
+    }
+</style>
+
+<script>
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.nextElementSibling as HTMLElement;
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+            button.setAttribute('aria-expanded', String(!isExpanded));
+            answer.hidden = isExpanded;
+
+            // Optional: Close other open FAQs
+            document.querySelectorAll('.faq-question').forEach(otherButton => {
+              if (otherButton !== button) {
+                otherButton.setAttribute('aria-expanded', 'false');
+                (otherButton.nextElementSibling as HTMLElement).hidden = true;
+              }
+            });
+        });
+    });
+</script>

@@ -9,10 +9,13 @@ import downloadIcon from "../images/icons/download.svg";
 import starIcon from "../images/icons/star.svg";
 import halfStarIcon from "../images/icons/half-star.svg";
 import worldIcon from "../images/icons/world.svg";
+import codeScanner from "../images/icons/code-scanner.png";
+import googleLens from "../images/icons/google-lens.png";
 
 import ContactForm from '../components/ContactForm';
 import Headline from '../components/Headline.astro';
 import Layout from '../layouts/Layout.astro';
+import FAQ from '../components/FAQ.astro';
 ---
 
 <Layout>
@@ -170,6 +173,89 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 	</section>
 
+	<section id="faq">
+		<h2>Frequently Asked Questions</h2>
+		<div class="questions">
+			<FAQ question="How is QR Me different from other digital business cards?">
+				<ul>
+					<li>
+						QR Me opens your contact card directly in the other person's contacts app
+						<p>
+							Other digital business cards open a link to a website where people can download your contact from their database. 
+							QR Me encodes your contact information directly into the QR code and opens the other person's contacts app.
+						</p>
+					</li>
+					<li>
+						Privacy focused - no personal data collection
+						<p>
+							All of your contact information is stored locally on your own device. Only you and the people with whom you share your QR Code will ever see your contact information.
+						</p>
+					</li>
+					<li>
+						Works offline, no internet connection required!
+						<p>
+							No internet is needed to share your contact information. This is especially useful in areas with bad wifi, like crowded conferences.
+						</p>
+					</li>
+				</ul>
+			</FAQ>
+			<FAQ question='Does it work on iOS and Android?'>
+				Yes! Your QR code can be scanned by both iOS and Android devices.
+			</FAQ>
+			<FAQ question='Do people need to download QR Me to scan my QR code?'>
+				<p>
+					Nope, they do not need to have QR Me installed! They can scan it with their phone's regular camera. 
+				</p>
+			</FAQ>
+			<FAQ question="Someone was not able to scan my QR code. Help!">
+				<p>
+					If their regular camera is struggling to scan the code, try using one of the built-in scanner apps:
+				</p> 
+				<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5em;">
+					<Image src={codeScanner} alt="Code Scanner Icon" width={35}/>
+					<span><strong>Code Scanner</strong> on iOS</span>
+				</div>
+				<div style="display: flex; align-items: center; gap: 10px;">
+					<Image src={googleLens} alt="Google Lens Icon" width={35}/>
+					<span><strong>Google Lens</strong> on Android</span>
+				</div>
+				<p>These are pre-installed and don't require any additional downloads.</p>
+			</FAQ>
+			<FAQ  question="Can I add a profile picture?">
+				<p>No, not at the moment...</p>
+				<p>
+					Unfortunately, a profile picture would be too big to fit inside of a QR code.
+					However, you can add a logo overlay on top of your QR code with the Professional Branding Upgrade.
+				</p>
+				<p>
+					But stay tuned! I'm looking at alternative ways to add a profile picture in the future.
+				</p>
+			</FAQ>
+			<FAQ question="What's included in the free version?">
+				<p>You can create one black and white QR code with all of the contact fields and unlimited edits!</p>
+				<p>
+					Purchase the Professional Branding Upgrade to customize the colors, add a logo overlay, and create multiple QR codes.
+				</p>
+			</FAQ>
+			<FAQ question="Can I add my QR code to my Apple Wallet?">
+				<p>
+					No, not right now.
+				</p>
+				<p>
+					However you can add your QR code to your home screen as a widget on both iOS and Android!
+				</p>
+			</FAQ>
+			<FAQ question="Will my QR code expire?">
+				<p>
+					Nope! Your QR code will never expire. 
+				</p>
+				<p>
+					Your contact information is encoded directly into the QR code, so it will always work.
+				</p>
+			</FAQ>
+		</div>
+	</section>
+
 	<section id="contact">
 		<h2>Contact</h2>
 		<ContactForm client:only="react"/>
@@ -314,6 +400,12 @@ import Layout from '../layouts/Layout.astro';
 		.upgrade-content {
 			width: 90%;
 		}
+	}
+
+	/* FAQ */
+	.questions {
+		margin: auto;
+		width: 80%;
 	}
 
 
