@@ -43,6 +43,37 @@ BDAY:2025-04-15
 NOTE:I love building great products. \\nLooking forward to connecting with you!
 END:VCARD`);
 
+    // Fetch the image's base64 and add it to the vCard
+    const fetchImage = async () => {
+        const imageUrl = "https://chasecarnaroli.com/img/profile_pic.jpg";
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+            const base64data = reader.result;
+
+            if (!base64data) {
+                console.error("Failed to load image");
+                return;
+            }
+            if (typeof base64data !== "string") {
+                console.error("Base64 data is not a string");
+                return;
+            }
+
+            // Split the string on the first comma,
+            // and take the second part (the actual base64 data)
+            const base64String = base64data.split(',')[1];
+            const photo = "PHOTO;TYPE=JPEG;ENCODING=b:" + base64String;
+
+            // Replace the last line in the vCard with the photo line
+            const updatedVCard = vcard.replace(/END:VCARD/, `${photo}\nEND:VCARD`);
+            
+            setVcard(updatedVCard);
+        };
+    };
+
     // If the user is on Android, replace the X-SOCIALPROFILE with URL
     // because Android doesn't support X-SOCIALPROFILE
     useEffect(() => {
@@ -55,6 +86,8 @@ END:VCARD`);
             }); 
             setVcard(updatedVCard);
         }
+
+        fetchImage();
     }, []);
 
     // Convert a vcard string to a contact object
