@@ -258,7 +258,11 @@ import FAQ from '../components/FAQ.astro';
 
 	<section id="contact">
 		<h2>Contact</h2>
-		<ContactForm client:only="react"/>
+		<ContactForm client:only="react">
+			<!-- Add a loading placeholder that is the height of the iframe -->
+			<!-- This ensures that /#contact scrolls to the correct spot onload -->
+			<div slot="fallback" style="height: 1000px;"/>
+		</ContactForm>
 	</section>
 
 	<footer>
@@ -301,6 +305,7 @@ import FAQ from '../components/FAQ.astro';
 	}
 
 	.feature-screenshot {
+		min-height: 500px;
 		max-height: 500px;
 		max-width: 100vw;
 		width: auto;
