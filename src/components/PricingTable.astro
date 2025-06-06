@@ -1,0 +1,309 @@
+---
+// Majorly Vibe Coded
+import { Image } from 'astro:assets';
+import upgradeExamples from "../images/views/upgrade-examples.png";
+
+interface Feature {
+    name: string;
+    free: boolean;
+    premium: boolean;
+}
+
+const features: Feature[] = [
+    { name: "Black & white QR Code", free: true, premium: true },
+    { name: "All of your contact fields", free: true, premium: true },
+    { name: "Unlimited edits", free: true, premium: true },
+    { name: "Create multiple QR Codes", free: false, premium: true },
+    { name: "Customize the colors", free: false, premium: true },
+    { name: "Add a logo overlay", free: false, premium: true },
+];
+---
+
+<div class="pricing">
+    <h2>Pricing</h2>
+    <div class="pricing-header">
+        <Image 
+            src={upgradeExamples} 
+            alt="Examples of QR codes: black and white, blue with logo, and pink with profile picture" 
+        />
+        <p>
+            You can create one black and white QR Code for free!<br/>
+            To make multiple QR Codes with custom colors and a logo overlay, consider the Professional Branding Upgrade.
+        </p>
+    </div>
+    <div class="pricing-table">
+        <div class="table-card">
+            <div class="table-wrapper">
+                <div class="pricing-headers">
+                    <div class="spacer"></div>
+                    <div class="plan plan-free">Free</div>
+                    <div class="plan plan-upgrade">Upgrade</div>
+                </div>
+                <div class="features">
+                    {features.map((feature, index) => (
+                        <div class={`feature-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
+                            <span class="feature-name">{feature.name}</span>
+                            <span class="checkmark feature-value">{feature.free ? "✓" : ""}</span>
+                            <span class="checkmark feature-value">{feature.premium ? "✓" : ""}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+        <div class="pricing-options">
+            <div class="price-box">
+                <div class="price">
+                    $1.99
+                    <span class="period">/ month</span>
+                </div>
+                <div class="note"> </div>
+            </div>
+            <div class="price-box">
+                <div class="price">
+                    $9.99 
+                    <span class="period">/ year</span>
+                </div>
+                <div class="trial">3 day free trial</div>
+            </div>
+            <div class="price-box">
+                <div class="price">
+                    $25
+                    <span class="period">/ lifetime</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="disclaimer">
+        Prices may vary based on location.<br/>
+        Please see the <a href="https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" target="_blank">App Store</a> for pricing.
+    </p>
+</div>
+
+<style>
+    .pricing {
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .pricing h2 {
+        font-size: 2em;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 2rem;
+    }
+
+    .pricing-header {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pricing-header img {
+        max-width: 80%;
+		width: 500px;
+		height: auto;
+    }
+
+    .pricing-header p {
+        max-width: 80%;
+        max: 500px;
+        margin: 2rem 0;
+    }
+
+    .pricing-table {
+        margin: 0;
+        padding: 0 2rem;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        padding: 0 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pricing-headers {
+        display: grid;
+        grid-template-columns: 250px 100px 100px;
+        font-weight: bold;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    .plan {
+        padding: 1rem
+    }
+
+    .pricing-headers .plan:last-child {
+        background: #a8edfe;
+        color: #1e293b;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(168, 237, 254, 0.3);
+        font-weight: 700;
+    }
+
+    .features {
+        margin: 1rem 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-row {
+        display: grid;
+        grid-template-columns: 250px 100px 100px;
+        align-items: center;
+        padding: 0.5rem;
+        text-align: center;
+        border-bottom: 1px solid #f1f5f9;
+        background: white;
+    }
+
+    .feature-row.even {
+        background: #fafbfc;
+    }
+
+    .feature-row.odd {
+        background: white;
+    }
+
+    .feature-name {
+        text-align: left;
+        font-weight: 600;
+        font-size: 1rem;
+        color: #1e293b;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .feature-value {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+    }
+
+    .feature-row .checkmark:last-child {
+        background: linear-gradient(135deg, #e0f7fe 0%, #b3ebf2 100%);
+        border-radius: 6px;
+        padding: 0.5rem 0.75rem;
+        font-weight: 600;
+        color: #0891b2;
+        border: 1px solid #a8edfe;
+    }
+
+    .checkmark {
+        color: #4CAF50;
+        font-size: 1.2rem;
+    }
+
+    .pricing-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin: 2.5rem 0;
+        flex-wrap: wrap;
+    }
+
+    .price-box {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.5rem;
+        width: 180px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        position: relative;
+    }
+
+    .price-box:hover {
+        border-color: #a8edfe;
+        box-shadow: 0 4px 20px rgba(168, 237, 254, 0.3);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+
+    .price-box:nth-child(2) {
+        border-color: #a8edfe;
+    }
+
+    .price-box:nth-child(2)::before {
+        content: "Great Value";
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #a8edfe;
+        color: #1e293b;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+    .price {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .period {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+        display: block;
+        margin-top: 0.25rem;
+    }
+
+    .note, .trial {
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-top: 0.75rem;
+    }
+
+    .trial {
+        color: #059669;
+        background: #ecfdf5;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        border: 1px solid #a7f3d0;
+    }
+
+    .disclaimer {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .table-wrapper {
+            padding: 0 0.5rem;
+        }
+
+        .pricing-table {
+            padding: 0 0.75rem;
+        }
+
+        .pricing-headers, .feature-row {
+            grid-template-columns: 160px 80px 90px;
+        }
+
+        .pricing-options {
+            flex-direction: column;
+        }
+
+        .feature-name, .plan {
+            font-size: 0.75rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+        }
+    }
+</style>

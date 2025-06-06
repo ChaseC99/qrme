@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import inputView from "../images/views/input_view.png";
 import lightDarkMode from "../images/views/light_dark_mode.png";
 import multipleQrCodes from "../images/views/multiple-qr-codes.gif";
-import upgradeExamples from "../images/views/upgrade-examples.png";
+import PricingTable from '../components/PricingTable.astro';
 
 import downloadIcon from "../images/icons/download.svg";
 import starIcon from "../images/icons/star.svg";
@@ -92,29 +92,10 @@ import FAQ from '../components/FAQ.astro';
 				</div>
 			</div>
 		</div> 
+	</section>
 
-		<div class="upgrade">
-			<h3>Professional Branding Upgrade</h3>
-			<div class="upgrade-content">
-				<div class="screenshot-frame">
-					<Image class="upgrade-screenshot" src={upgradeExamples} alt="Examples of colorful QR Codes with logo overlays"/>
-				</div>
-				<div>
-					<p>
-						Customize the look of your QR Code to match your personal or business branding.<br>
-						The Professional Branding Upgrade includes these features:
-					</p>
-					<ul>
-						<li>Create multiple QR Codes</li>
-						<li>Customize the colors</li>
-						<li>Add a logo overlay</li>
-					</ul>
-					<i>
-						Please see the <a href="https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" target="_blank">App Store</a> for pricing.
-					</i>
-				</div>
-			</div>
-		</div>
+	<section id="pricing">
+		<PricingTable />
 	</section>
 
 	<section id="reviews">
