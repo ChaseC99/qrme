@@ -16,7 +16,7 @@ export default function ContactForm() {
     const qrmeVersion = params.get('qrme_version') || '';
 
     // Construct the Google Forms link with the query parameters
-    const googleFormsEmbeddedLink = `https://docs.google.com/forms/d/e/1FAIpQLScqT77ZMt-Avzk8JQsEDO4SbwZD4e6jxcIQiJmWt58ZdUiYdA/viewform?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&embedded=true`;
+    const googleFormsEmbeddedLink = `https://airtable.com/embed/appOmOkjX2cwpWEdD/pagjgoQtXCgKcN5XN/form`;
 
     return (
         <iframe 
@@ -24,7 +24,7 @@ export default function ContactForm() {
             src={googleFormsEmbeddedLink}
             title="QR Me Contact Feedback Google Form"
             width="100%" 
-            height="1000" 
+            height="1500" 
             frameBorder="0" 
         >
             Loading contact form...

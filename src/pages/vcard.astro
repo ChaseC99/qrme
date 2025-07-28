@@ -1,12 +1,126 @@
 ---
 import VcardComponent from '../components/vcard/Vcard';
 import Layout from '../layouts/Layout.astro';
+import type { Contact } from '../types';
+
+const url = new URL(Astro.request.url);
+const searchParams = url.searchParams;
+
+var vcard = searchParams.get('vcard') || `
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iPhone OS 18.2//EN
+N:Carnaroli;Chase;;;
+FN:Chase Carnaroli
+ORG:Tech Company;
+TITLE:Software Engineer
+EMAIL;type=INTERNET;type=HOME;type=pref:chase@email.com
+TEL;type=CELL;type=VOICE;type=pref:(555) 555-5555
+ADR;type=HOME;type=pref:;;1533 10th Ave;San Francisco;CA;94122;USA
+X-SOCIALPROFILE;type=linkedin;x-userid=ChaseCarnaroli:https://www.linkedin.com/in/ChaseCarnaroli
+X-SOCIALPROFILE;type=twitter;x-userid=ChaseCarnaroli:https://twitter.com/ChaseCarnaroli
+URL;type=pref;type=_$!<HomePage>!$_:chasecarnaroli.com
+BDAY:2025-05-14
+NOTE:I love building great products.\nLooking forward to connecting with you!
+END:VCARD
+`;
+
+const isAndroid = /Android/.test(navigator.userAgent);
+
+// If the user is on Android, replace the X-SOCIALPROFILE with URL
+// because Android doesn't support X-SOCIALPROFILE
+if (isAndroid) {
+    const regex = /X-SOCIALPROFILE;type=(.*?);x-userid=(.*?):(.*)/g;
+    const updatedVCard = vcard.replace(regex, (match, type, userId, url) => {
+        return `URL;type=${type}:${url}`;
+    }); 
+    vcard = updatedVCard;
+}
+
+// Parse the vCard string into a Contact object
+const contact: Contact = {};
+vcard.split('\n').forEach((line) => {
+    const [key, ...value] = line.split(':');
+    const formattedValue = value.join(':');
+    if (key && value) {
+        const trimmedKey = key.trim();
+        const trimmedValue = formattedValue.trim();
+
+        // Regex to find the type in the key string (ex: "TEL;type=HOME;type=VOICE;type=pref" -> "CELL")
+        const type = (trimmedKey.match(/type=([^;]+)/) || [])[1] || '';
+
+        if (trimmedKey === 'FN') {
+            contact.name = trimmedValue;
+        } else if (trimmedKey === 'ORG') {
+            const [org, dept] = trimmedValue.split(';');
+            contact.org = org;
+            if (dept) {
+                contact.dept = dept;
+            }
+        } else if (trimmedKey === 'TITLE') {
+            contact.title = trimmedValue;
+        } else if (trimmedKey.includes('EMAIL')) {
+            contact.emails = contact.emails || [];
+            contact.emails.push({
+                label: type,
+                value: trimmedValue
+            });
+        } else if (trimmedKey.includes('TEL')) {
+            contact.phones = contact.phones || [];
+            contact.phones.push({
+                label: type,
+                value: trimmedValue
+            });
+        } else if (trimmedKey.includes('ADR')) {
+            contact.postalAddresses = contact.postalAddresses || [];
+            const [poBox, extended, street, city, state, zip, country] = trimmedValue.split(';');
+
+            const lines = [
+                poBox,
+                extended,
+                street,
+                [city, state, zip].filter(Boolean).join(' '),
+                country,
+            ]
+
+            const addressString = lines.filter(Boolean).join('\n');
+
+            contact.postalAddresses.push({
+                label: type,
+                value: addressString
+            });
+        } else if (trimmedKey.includes('URL')) {
+            contact.urls = contact.urls || [];
+            contact.urls.push({
+                label: type,
+                value: trimmedValue
+            });
+        } else if (trimmedKey === 'BDAY') {
+            contact.birthday = trimmedValue;
+        } else if (trimmedKey === 'NOTE') {
+            contact.note = trimmedValue;
+        } else if (trimmedKey.includes('X-SOCIALPROFILE')) {
+            // Regex to extract the x-userid from the key string
+            const userId = (trimmedKey.match(/x-userid=([^:]+)/) || [])[1] || '';
+            
+            const socialProfile = {
+                type,
+                userId: userId,
+                url: trimmedValue,
+            };
+            contact.socialProfiles = contact.socialProfiles || [];
+            contact.socialProfiles.push(socialProfile);
+        }
+    }
+});
+
+console.log('Parsed contact:', contact);
 ---
 <Layout
     title="QR Me - Contact | Download Contact"
     pageDescription="Download your contact information as a vCard."
     showNavbar={false}
 >
-    <VcardComponent client:only="react"/>
+    <VcardComponent client:only="react" contact={contact} vcard={vcard}/>
 </Layout>
 

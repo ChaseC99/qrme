@@ -1,29 +1,13 @@
 import { useEffect, useState } from "react";
+import type { Contact } from "../../types";
 
-type LabeledValue = {
-    label: string;
-    value: string;
+interface VCardProps {
+    vcard: string;
+    contact: Contact;
+    picture?: string;
 }
 
-type Contact = {
-    name?: string;
-    org?: string;
-    title?: string;
-    emails?: string[];
-    phones?: string[];
-    postalAddresses?: string[];
-    socialProfiles?: {
-        type?: string;
-        userId?: string;
-        url?: string;
-    }[];
-    urls?: string[];
-    birthday?: string;
-    note?: string;
-}
-
-export default function VCard() {
-    const [vcard, setVcard] = useState(`BEGIN:VCARD
+const defaultVCard = `BEGIN:VCARD
 VERSION:3.0
 PRODID:-//Apple Inc.//iPhone OS 18.2//EN
 N:Carnaroli;Chase;;;
@@ -41,8 +25,10 @@ URL;type=pref;type=_$!<HomePage>!$_:chasecarnaroli.com
 URL;type=QR Me:qrme.contact
 BDAY:2025-04-15
 NOTE:I love building great products. \\nLooking forward to connecting with you!
-END:VCARD`);
+END:VCARD`;
 
+export default function VCard({ vcard = defaultVCard, contact, picture }: VCardProps) {
+    
     // Fetch the image's base64 and add it to the vCard
     const fetchImage = async () => {
         const imageUrl = "https://chasecarnaroli.com/img/profile_pic.jpg";
@@ -69,76 +55,12 @@ END:VCARD`);
 
             // Replace the last line in the vCard with the photo line
             const updatedVCard = vcard.replace(/END:VCARD/, `${photo}\nEND:VCARD`);
-            
-            setVcard(updatedVCard);
+
+            // setVcard(updatedVCard);
         };
     };
 
-    // If the user is on Android, replace the X-SOCIALPROFILE with URL
-    // because Android doesn't support X-SOCIALPROFILE
-    useEffect(() => {
-        const isAndroid = /Android/.test(navigator.userAgent);
-
-        if (isAndroid) {
-            const regex = /X-SOCIALPROFILE;type=(.*?);x-userid=(.*?):(.*)/g;
-            const updatedVCard = vcard.replace(regex, (match, type, userId, url) => {
-                return `URL;type=${type}:${url}`;
-            }); 
-            setVcard(updatedVCard);
-        }
-
-        fetchImage();
-    }, []);
-
-    // Convert a vcard string to a contact object
-    const parseVCard = (vcard: string): Contact => {
-        const lines = vcard.split('\n');
-        const contact: Contact = {};
-        lines.forEach(line => {
-            const [key, value] = line.split(':');
-            switch (key) {
-                case 'FN':
-                    contact.name = value;
-                    break;
-                case 'ORG':
-                    contact.org = value;
-                    break;
-                case 'TITLE':
-                    contact.title = value;
-                    break;
-                case 'EMAIL':
-                    contact.emails = contact.emails || [];
-                    contact.emails.push(value);
-                    break;
-                case 'TEL':
-                    contact.phones = contact.phones || [];
-                    contact.phones.push(value);
-                    break;
-                case 'ADR':
-                    contact.postalAddresses = contact.postalAddresses || [];
-                    contact.postalAddresses.push(value);
-                    break;
-                case 'X-SOCIALPROFILE':
-                    contact.socialProfiles = contact.socialProfiles || [];
-                    const [type, userId, url] = value.split(':');
-                    contact.socialProfiles.push({ type, userId, url });
-                    break;
-                case 'URL':
-                    contact.urls = contact.urls || [];
-                    contact.urls.push(value);
-                    break;
-                case 'BDAY':
-                    contact.birthday = value;
-                    break;
-                case 'NOTE':
-                    contact.note = value;
-                    break;
-                default:
-                    break;
-            }
-        });
-        return contact;
-    }
+    
 
     const downloadVCard = () => {
         console.log("Downloading vCard...");
@@ -153,7 +75,7 @@ END:VCARD`);
         URL.revokeObjectURL(url);
     }
 
-    const contact = parseVCard(vcard);
+    // const contact = parseVCard(vcard);
 
     return (
         <div>
@@ -166,28 +88,28 @@ END:VCARD`);
             <h3>Contact Details</h3>
             <ul>
                 {contact.emails?.map((email, index) => (
-                    <li key={index}>{email}</li>
+                    <li key={index}>{email.value}</li>
                 ))}
                 {contact.phones?.map((phone, index) => (
-                    <li key={index}>{phone}</li>
+                    <li key={index}>{phone.value}</li>
                 ))}
                 {contact.postalAddresses?.map((address, index) => (
-                    <li key={index}>{address}</li>
+                    <li key={index}>{address.value}</li>
                 ))}
                 {contact.urls?.map((url, index) => (
-                    <li key={index}>{url}</li>
+                    <li key={index}>{url.value}</li>
                 ))}
                 {contact.socialProfiles?.map((profile, index) => (
                     <li key={index}>{profile.type}: {profile.url}</li>
                 ))}
             </ul>
 
-            <textarea
+            {/* <textarea
                 value={vcard}
                 onChange={(e) => setVcard(e.target.value)}
                 rows={10}
                 style={{ width: "100%", marginBottom: "1rem", whiteSpace: "pre-wrap" }}
-            />
+            /> */}
             <h3>Download vCard</h3>
             <button id="download-vcard" onClick={downloadVCard}>
                 Download vCard
