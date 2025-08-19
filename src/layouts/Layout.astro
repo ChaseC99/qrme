@@ -13,6 +13,7 @@ if (frontmatter && frontmatter.title) {
 	title = frontmatter.title;
 }
 
+import GoogleTag from '../components/GoogleTag.astro';
 import Navbar from '../components/Navbar.astro';
 ---
 <!doctype html>
@@ -39,6 +40,8 @@ import Navbar from '../components/Navbar.astro';
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+		
+		<GoogleTag />
 	</head>
 	<body style={`background-color: ${backgroundColor};`}>
 		{showNavbar && <Navbar />}
