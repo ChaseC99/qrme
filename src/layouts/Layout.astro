@@ -15,6 +15,7 @@ if (frontmatter && frontmatter.title) {
 
 import GoogleTag from '../components/GoogleTag.astro';
 import Navbar from '../components/Navbar.astro';
+import PostHog from '../components/PostHog.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -40,7 +41,8 @@ import Navbar from '../components/Navbar.astro';
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-		
+
+		<PostHog />
 		<GoogleTag />
 	</head>
 	<body style={`background-color: ${backgroundColor};`}>
