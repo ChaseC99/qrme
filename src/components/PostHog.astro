@@ -8,4 +8,15 @@
         api_host: 'https://us.i.posthog.com',
         defaults: '2025-05-24',
     })
+
+    // Track link clicks
+    document.addEventListener('click', (e) => {
+        const a = e.target && e.target.closest && e.target.closest('a');
+        if (a && a.href) {
+            posthog.capture('Link Clicked', {
+                href: a.href,
+                text: a.ariaLabel
+            });
+        }
+    });
 </script>
