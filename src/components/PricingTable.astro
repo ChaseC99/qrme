@@ -2,6 +2,7 @@
 // Majorly Vibe Coded
 import { Image } from 'astro:assets';
 import upgradeExamples from "../images/views/upgrade-examples.png";
+import Checkmark from './Checkmark.astro';
 
 interface Feature {
     name: string;
@@ -43,8 +44,8 @@ const features: Feature[] = [
                     {features.map((feature, index) => (
                         <div class={`feature-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
                             <span class="feature-name">{feature.name}</span>
-                            <span class="checkmark feature-value">{feature.free ? "✓" : ""}</span>
-                            <span class="checkmark feature-value">{feature.premium ? "✓" : ""}</span>
+                            <span class="checkmark feature-value">{feature.free && <Checkmark />}</span>
+                            <span class="checkmark feature-value">{feature.premium && <Checkmark />}</span>
                         </div>
                     ))}
                 </div>
@@ -139,11 +140,8 @@ const features: Feature[] = [
     }
 
     .pricing-headers .plan:last-child {
-        background: #a8edfe;
-        color: #1e293b;
+        outline: 2px solid var(--color-app);
         border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(168, 237, 254, 0.3);
-        font-weight: 700;
     }
 
     .features {
@@ -189,16 +187,14 @@ const features: Feature[] = [
     }
 
     .feature-row .checkmark:last-child {
-        background: linear-gradient(135deg, #e0f7fe 0%, #b3ebf2 100%);
         border-radius: 6px;
         padding: 0.5rem 0.75rem;
         font-weight: 600;
-        color: #0891b2;
-        border: 1px solid #a8edfe;
+        color: var(--color-app);
     }
 
     .checkmark {
-        color: #4CAF50;
+        color: var(--color-app);
         font-size: 1.2rem;
     }
 
@@ -223,23 +219,23 @@ const features: Feature[] = [
     }
 
     .price-box:hover {
-        border-color: #a8edfe;
+        border-color: var(--color-app);
         box-shadow: 0 4px 20px rgba(168, 237, 254, 0.3);
         transform: translateY(-2px);
         transition: all 0.3s ease;
     }
 
     .price-box:nth-child(2) {
-        border-color: #a8edfe;
+        border-color: var(--color-app);
     }
 
     .price-box:nth-child(2)::before {
-        content: "Great Value";
+        content: "Most Popular";
         position: absolute;
         top: -10px;
         left: 50%;
         transform: translateX(-50%);
-        background: #a8edfe;
+        background: var(--color-app);
         color: #1e293b;
         padding: 0.25rem 0.75rem;
         border-radius: 12px;

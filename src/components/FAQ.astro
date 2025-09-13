@@ -73,14 +73,6 @@ const { question } = Astro.props;
 
             button.setAttribute('aria-expanded', String(!isExpanded));
             answer.hidden = isExpanded;
-
-            // Optional: Close other open FAQs
-            document.querySelectorAll('.faq-question').forEach(otherButton => {
-              if (otherButton !== button) {
-                otherButton.setAttribute('aria-expanded', 'false');
-                (otherButton.nextElementSibling as HTMLElement).hidden = true;
-              }
-            });
         });
     });
 </script>
