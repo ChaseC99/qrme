@@ -1,0 +1,11 @@
+:root {
+  /* App main color */
+  --color-app: #a8edfe;
+}
+
+/* Optional dark theme override (toggle by setting data-theme="dark" on <html>) */
+/* Currently, dark mode is not implemented. Maybe in the future. */
+:root[data-theme="dark"] {
+  /* App main color */
+  --color-app: #a8edfe;
+}

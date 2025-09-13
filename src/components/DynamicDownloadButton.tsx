@@ -25,7 +25,7 @@ export default function DownloadButton() {
 const styles = {
     downloadButton: {
         textDecoration: 'none',
-        backgroundColor: '#a8edfe',
+        backgroundColor: 'var(--color-app)',
         borderRadius: '8px',
         padding: '8px',
         color: 'black',

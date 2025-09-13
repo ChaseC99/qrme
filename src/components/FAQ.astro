@@ -38,7 +38,7 @@ const { question } = Astro.props;
 
     .faq-question:hover
     .faq-question-text {
-        background-color: #a8edfe;
+        background-color: var(--color-app);
     }
 
     .faq-answer {
@@ -61,7 +61,7 @@ const { question } = Astro.props;
     }
 
     .faq-question[aria-expanded="true"] .faq-question-text {
-        background-color: #a8edfe;
+        background-color: var(--color-app);
     }
 </style>
 
