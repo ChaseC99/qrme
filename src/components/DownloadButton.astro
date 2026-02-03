@@ -1,6 +1,8 @@
 ---
 import DynamicDownloadButton from './DynamicDownloadButton';
-const { url = "https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone" } = Astro.props;
+import { CAMPAIGN_IDS } from "../constants";
+
+const { url = `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${CAMPAIGN_IDS.WEBSITE}&mt=8&platform=iphone` } = Astro.props;
 ---
 
 <DynamicDownloadButton client:only="react">

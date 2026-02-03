@@ -1,12 +1,18 @@
+import { CAMPAIGN_IDS } from "../constants";
+
+// Check for Google Click ID (for attribution tracking)
+const urlParams = new URLSearchParams(window.location.search);
+const gadCampaignId = urlParams.get('gad_campaignid');
+const source = gadCampaignId ? gadCampaignId : CAMPAIGN_IDS.WEBSITE;
+
 export default function DownloadButton() {
     const isAndroid = /Android/.test(navigator.userAgent);
-
     // Open the Google Play Store for Android devices
     // Open the Apple App Store for iOS devices
     // App Store is the default because it's nicer
     const url = isAndroid
-        ? "https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=website"
-        : "https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=QR%20Me%20Website&mt=8&platform=iphone";
+        ? `https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${source}`
+        : `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${source}&mt=8&platform=iphone`;
 
     const ariaLabel = isAndroid ? "Download on Google Play" : "Download on App Store";
 
