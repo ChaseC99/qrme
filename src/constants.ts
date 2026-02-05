@@ -4,6 +4,7 @@ export const CAMPAIGN_IDS = {
     // Active
     WEBSITE: 'website',
     DOWNLOAD_PAGE: 'website_download_page',
+    MICROSOFT_AD: 'ms_ad',
 
     // Inactive
     // Might use these one day for more specific tracking

@@ -1,11 +1,7 @@
-import { CAMPAIGN_IDS } from "../constants";
-
-// Check for Google Click ID (for attribution tracking)
-const urlParams = new URLSearchParams(window.location.search);
-const gadCampaignId = urlParams.get('gad_campaignid');
-const source = gadCampaignId ? gadCampaignId : CAMPAIGN_IDS.WEBSITE;
+import { getAttributionSource } from "../utils";
 
 export default function DownloadButton() {
+    const source = getAttributionSource();
     const isAndroid = /Android/.test(navigator.userAgent);
     // Open the Google Play Store for Android devices
     // Open the Apple App Store for iOS devices
