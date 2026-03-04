@@ -16,7 +16,8 @@ export default function ContactForm() {
     const qrmeVersion = params.get('qrme_version') || '';
 
     // Construct the Google Forms link with the query parameters
-    const googleFormsEmbeddedLink = `https://docs.google.com/forms/d/e/1FAIpQLScqT77ZMt-Avzk8JQsEDO4SbwZD4e6jxcIQiJmWt58ZdUiYdA/viewform?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&embedded=true`;
+    const googleFormsLink = "https://docs.google.com/forms/d/e/1FAIpQLSfTgzERT5XvIN8HsecAvqo3eb_gfAOjD-hd2j2FTfi4pcDm-Q/viewform";
+    const googleFormsEmbeddedLink = `${googleFormsLink}?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&embedded=true`;
 
     return (
         <iframe 
