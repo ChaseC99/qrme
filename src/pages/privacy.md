@@ -4,7 +4,7 @@ title: 'QR Me - Contact | Privacy Policy'
 ---
 # Privacy Policy
 
-This privacy policy applies to the "QR Me - Contact" app (hereafter referred to as "Application") for mobile devices that was created by Chase Carnaroli (hereafter referred to as "Service Provider").
+This privacy policy applies to the "QR Me - Contact" app (hereafter referred to as "Application") for mobile devices that was created by Carnaroli Software LLC (hereafter referred to as "Service Provider").
 
 For the Terms of Service, please see the [qrme.contact/terms](https://qrme.contact/terms).
 
