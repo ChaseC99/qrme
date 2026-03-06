@@ -3,8 +3,8 @@
 export const CAMPAIGN_IDS = {
     // Active
     WEBSITE: 'website',
-    DOWNLOAD_PAGE: 'website_download_page',
-    MICROSOFT_AD: 'ms_ad',
+    DOWNLOAD_PAGE: 'download',
+    MICROSOFT_AD: 'msft',
 
     // Inactive
     // Might use these one day for more specific tracking
