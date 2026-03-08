@@ -4,14 +4,15 @@ import { getAttributionSource } from "../utils";
 
 export type DownloadBadgeProps = {
     platform: 'android' | 'ios';
+    defaultSource?: string;
 }
 
 export default function DownloadBadge(props: DownloadBadgeProps) {
-    const { platform } = props;
+    const { platform, defaultSource } = props;
     const isAndroid = platform === 'android';
 
     // Attribution tracking source
-    const source = getAttributionSource();
+    const source = getAttributionSource(defaultSource);
 
     // Construct the appropriate download link
     const href = isAndroid
