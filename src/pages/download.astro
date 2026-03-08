@@ -6,6 +6,7 @@ import qrCodeView from "../images/views/qrcode_view.png";
 
 import Layout from "../layouts/Layout.astro";
 import { CAMPAIGN_IDS } from "../constants";
+import DownloadBadge from "../components/DownloadBadge";
 ---
 
 <Layout 
@@ -19,13 +20,9 @@ import { CAMPAIGN_IDS } from "../constants";
             <a href="/" class="header-title">
                 <h1>QR Me - Contact</h1>
             </a>
-            <div>
-                <a class="download-button" href={`https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${CAMPAIGN_IDS.DOWNLOAD_PAGE}&mt=8&platform=iphone`} target="_blank">
-                    <Image src={appStoreBadge} alt="Download on the App Store"/>
-                </a>
-                <a class="download-button" href={`https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${CAMPAIGN_IDS.DOWNLOAD_PAGE}`} target="_blank">
-                    <Image src={googlePlayBadge} alt="Download on Google Play"/>
-                </a>
+            <div class="download-buttons">
+                <DownloadBadge platform="ios" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} client:only/>
+                <DownloadBadge platform="android" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} client:only/>
             </div>
             <div>
                 <p>Download for free on iOS and Android!</p>
@@ -42,24 +39,22 @@ import { CAMPAIGN_IDS } from "../constants";
     </div>
 </Layout>
 
-<script is:inline>
+<script>
+    import { CAMPAIGN_IDS } from "../constants";
+    import { getAttributionSource } from "../utils";
+
     // Defer the loading of the script until the window has rendered,
     // so it isn't a blank screen after redirecting
     window.addEventListener('load', function() {
         // Check if the user is on iOS or Android
-        const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
         const isAndroid = /Android/.test(navigator.userAgent);
 
         // Check if the user is coming from qrme.contact
         const referrer = document.referrer;
         const isFromQRMeContact = referrer.includes("qrme.contact");
 
-        // Check for Google Ads campaign ID from the `gad_campaignid` parameter (for attribution tracking)
-        const urlParams = new URLSearchParams(window.location.search);
-        const gadCampaignId = urlParams.get('gad_campaignid');
-        
-        // Ideally use campaignIds.DOWNLOAD_PAGE, but idk how to access JS constants inline
-        const source = gadCampaignId ? gadCampaignId : "website_download_page";
+        const source = getAttributionSource(CAMPAIGN_IDS.DOWNLOAD_PAGE);
 
         if (isAndroid) {
             // Open the Google Play Store link
@@ -118,14 +113,13 @@ import { CAMPAIGN_IDS } from "../constants";
 		aspect-ratio: auto;
 	}
 
-    .download-button {
-        margin: 0.5em 0;
+    .download-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        justify-content: center;
+        align-items: center;
     }
-
-	.download-button img{
-		width: 200px;
-        height: auto;
-	}
 
 	@media only screen and (max-width: 500px) {
 		header {
