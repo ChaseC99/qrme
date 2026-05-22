@@ -1,0 +1,45 @@
+# QR Me - Contact
+
+> QR Me - Contact is an iOS and Android app to easily share your contact information with a QR code.
+
+## Summary
+
+QR Me - Contact is the fastest and easiest way to share your contact information. 
+Use the app to generate a QR code of your contact. The QR code encodes your information as a vCard.
+When someone scans it, their phone will open their Contacts app and load in your contact information. Shares instantly with no internet required - perfect for conferences with bad Wi-Fi.
+
+Access your QR code even quicker by using the QR Me widget to see your QR code on your home screen.
+
+Contact information is stored directly within the QR code and on the user's device. Carnaroli Software LLC does not collect personal information entered into the app.
+
+## Key Pages
+
+- [Home](https://qrme.contact/): Product overview, features, pricing, reviews, privacy summary, FAQ, and contact form.
+- [Download](https://qrme.contact/download): Download page for iOS and Android, redirects to the appropriate app store.
+- [iOS Download Link](https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=llm&mt=8&platform=iphone): App Store listing.
+- [Android Download Link](https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=llm): Google Play Store listing.
+- [Privacy Policy](https://qrme.contact/privacy): Privacy policy covering local data storage, third-party services, in-app purchases, and contact options.
+- [Terms of Service](https://qrme.contact/terms): Terms covering app use, subscriptions, purchases, warranty, support, and legal terms.
+
+## Product Facts
+
+- Available for iOS and Android.
+- Creates QR codes that encode contact information directly.
+- QR codes can be scanned by regular phone cameras.
+- Recipients do not need to install QR Me to scan a shared code.
+- Works offline because contact data is stored in the QR code.
+- Free version supports one black-and-white QR code with all contact fields, unlimited scans, and unlimited edits.
+- Professional Branding Upgrade adds multiple QR codes, custom colors, and logo overlays.
+- Premium pricing shown on the site: $1.99/month, $12.99/year with 3-day free trial, or $25 lifetime; prices may vary by location. See the App Store for current prices.
+
+## Privacy Facts
+
+- Contact information entered in the app is stored locally on the user's device.
+- Carnaroli Software LLC does not collect personal information entered into the app.
+- In-app purchases are managed by Apple, Google, and RevenueCat.
+- Anonymous and aggregated usage or purchase-related data may be visible through third-party services, but not personally identifiable contact data.
+
+## Contact
+
+- [Contact form](https://qrme.contact/contact)
+- Company: Carnaroli Software LLC
