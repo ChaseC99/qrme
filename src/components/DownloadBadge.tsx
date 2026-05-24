@@ -1,6 +1,7 @@
 import appStoreBadge from "../images/apple/appstore_black.svg";
 import googlePlayBadge from "../images/android/google-play-badge.png";
 import { getAttributionSource } from "../utils";
+import "./DownloadBadge.css";
 
 export type DownloadBadgeProps = {
     platform: 'android' | 'ios';
@@ -24,14 +25,7 @@ export default function DownloadBadge(props: DownloadBadgeProps) {
 
     return (
         <a href={href} target="_blank" aria-label={aria}>
-            <img src={badge.src} alt={alt} style={styles.downloadButtonImg} />
+            <img src={badge.src} alt={alt} className="download-badge__img" />
         </a>
     );
-}
-
-const styles = {
-    downloadButtonImg: {
-        width: '200px',
-        height: 'auto',
-    }
 }

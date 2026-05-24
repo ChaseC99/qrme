@@ -2,83 +2,298 @@
 import { Image } from 'astro:assets';
 import qrCodeView from '../images/views/qrcode_view.png';
 import DownloadBadge from './DownloadBadge';
+import RatingStar from './RatingStar.astro';
 ---
 
-<header class="header">
-    <div class="header-text">
-        <h1>QR Me - Contact</h1>
-        <p>Quickly and easily share your contact information with a QR Code</p>
-        <div>
-			<DownloadBadge platform="ios" client:only="react" />
-			<DownloadBadge platform="android" client:only="react" />
+<header class="hero">
+    <div class="hero-bg-panel" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+        <div class="hero-text">
+            <h2>
+                <span class="desktop-headline">
+                    Your contact,<br />
+                    <span class="highlight">one scan away.</span>
+                </span>
+                <span class="mobile-headline">
+					<span class="highlight">QR Me - Contact</span>
+				</span>
+            </h2>
+
+            <p class="lede">
+                Quickly and easily share your contact info with a QR code that drops your details right into their Contacts app.
+            </p>
+
+            <div class="badges">
+                <DownloadBadge platform="ios" client:only="react" />
+                <DownloadBadge platform="android" client:only="react" />
+            </div>
+
+            <div class="social-proof">
+                <div class="stat">
+                    <strong>200k+</strong>
+                    <span class="stat-label">Downloads</span>
+                </div>
+				<div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-row">
+						<strong>4.9</strong>
+                        <span class="stars" aria-label="4.9 out of 5 stars">
+                            <RatingStar />
+                            <RatingStar />
+                            <RatingStar />
+                            <RatingStar />
+                            <RatingStar filled={0.9} />
+                        </span>
+                    </div>
+                    <span class="stat-label">App Store rating</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <strong>Free</strong>
+                    <span class="stat-label">Download</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="screenshot-frame">
-        <Image 
-            class="header-screenshot" 
-            src={qrCodeView}
-            alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
-			loading="eager"
-			fetchpriority="high"
-        />
+
+        <div class="hero-phone">
+            <Image
+                class="phone-shot"
+                src={qrCodeView}
+                alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
+                loading="eager"
+                fetchpriority="high"
+            />
+        </div>
     </div>
 </header>
 
 <style>
-    header {
-		height: 80vh;
-		margin: auto;
-	}
+    .hero {
+        position: relative;
+        overflow: hidden;
+        color: #1d1a16;
+    }
 
-	.header {
-		display: flex;
-		flex-direction: row;
-		gap: 100px;
-		justify-content: center;
-		background-color: var(--color-app);
-	}
+    .hero-bg-panel {
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: clamp(680px, 62vw, 920px);
+        min-width: 54%;
+        background: linear-gradient(
+            90deg,
+            rgba(168, 237, 254, 0) 0%,
+            rgba(168, 237, 254, 0.16) 16%,
+            rgba(168, 237, 254, 0.62) 44%,
+            rgba(168, 237, 254, 0.96) 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            180deg,
+            #000 0%,
+            #000 86%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        mask-image: linear-gradient(
+            180deg,
+            #000 0%,
+            #000 86%,
+            rgba(0, 0, 0, 0) 100%
+        );
+        z-index: 0;
+        pointer-events: none;
+    }
 
-	.header-text {
-		text-align: center;
-		padding-top: 100px;
-		max-width: 400px;
-	}
+    .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 72px 64px;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: 60px;
+        min-height: calc(80vh - 78px);
+        box-sizing: border-box;
+    }
 
-	.header-text h1 {
-		margin: 0.75em 0 0 0;
-	}
+    .hero-text h2 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1.02;
+        margin: 24px 0 20px;
+        font-weight: 600;
+        letter-spacing: -1.2px;
+        text-wrap: balance;
+    }
 
-	.header-text p {
-		margin: 1.75em 0 2em 0 ;
-		text-wrap: balance;
-	}
+    .mobile-headline {
+        display: none;
+    }
 
-	.screenshot-frame {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin: 2em;
-	}
+    .highlight {
+        padding-inline: 0.02em;
+        background-image: linear-gradient(var(--color-app), var(--color-app));
+        background-repeat: no-repeat;
+        background-position: 0 86%;
+        background-size: 100% 0.34em;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
 
-	.header-screenshot {
-		height: 70vh;
-		width: auto;
-		aspect-ratio: auto;
-	}
+    .lede {
+        font-size: 19px;
+        line-height: 1.5;
+        margin: 0 0 36px;
+        color: #3a3a3a;
+        max-width: 480px;
+    }
 
-	@media only screen and (max-width: 500px) {
-		header {
-			height: auto;
+    .badges {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 34px 0;
+        flex-wrap: wrap;
+    }
+
+    .badges :global(a) {
+        display: inline-flex;
+    }
+
+    .social-proof {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e6e1d6;
+        flex-wrap: wrap;
+    }
+
+    .stat strong {
+        font-weight: 700;
+        font-size: 18px;
+        color: #1d1a16;
+        text-decoration: none;
+    }
+
+    .stat-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stars {
+        display: inline-flex;
+        gap: 2px;
+        align-items: center;
+    }
+
+    .stat-label {
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 34px;
+        background: #e6e1d6;
+    }
+
+    .hero-phone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .phone-shot {
+        width: 340px;
+        max-width: 100%;
+        height: auto;
+        transform: rotate(-2deg);
+        border-radius: 38px;
+    }
+
+    @media (max-width: 900px) {
+        .hero-inner {
+            grid-template-columns: 1fr;
+            padding: 20px 24px 48px;
+            gap: 24px;
+            text-align: center;
+        }
+
+        .hero-bg-panel {
+            inset: auto 0 0;
+            width: 100%;
+            min-width: 0;
+            height: clamp(460px, 64vh, 620px);
+            background: linear-gradient(
+                180deg,
+                rgba(168, 237, 254, 0) 0%,
+                rgba(168, 237, 254, 0.3) 20%,
+                rgba(168, 237, 254, 0.9) 100%
+            );
+        }
+
+        .lede {
+            margin: auto;
+        }
+
+        .badges {
+            justify-content: center;
+        }
+
+        .social-proof {
+            justify-content: center;
+            gap: 14px;
+            border-bottom: 1px solid #e6e1d6;
+            padding-bottom: 14px;
+        }
+
+        .stat strong {
+            font-size: 16px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+        }
+
+        .stat-row {
+            gap: 6px;
+        }
+
+        .stars {
+            gap: 1px;
+        }
+
+        .stars :global(.rating-star) {
+            width: 15px;
+            height: 15px;
+        }
+
+        .hide-on-mobile {
+            display: none;
+        }
+
+        .desktop-headline {
+            display: none;
+        }
+
+        .mobile-headline {
+            display: inline;
+        }
+
+		.hero-text {
+			margin-bottom: 8px;
 		}
 
-		.header {
-			flex-direction: column;
-			gap: 0px;
-		}
+        .hero-text h2 {
+            font-size: clamp(2rem, 9vw, 2.5rem);
+        }
 
-		.header-text {
-			padding: 0;
-			margin: auto;
-		}
-	}
+        .phone-shot {
+            width: 240px;
+        }
+    }
 </style>

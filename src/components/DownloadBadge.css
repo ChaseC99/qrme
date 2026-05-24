@@ -1,0 +1,11 @@
+.download-badge__img {
+    width: auto;
+    height: 64px;
+}
+
+@media (max-width: 900px) {
+    .download-badge__img {
+        width: 200px;
+        height: auto;
+    }
+}

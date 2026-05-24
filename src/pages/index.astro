@@ -6,8 +6,6 @@ import multipleQrCodes from "../images/views/multiple-qr-codes.gif";
 import PricingTable from '../components/PricingTable.astro';
 
 import downloadIcon from "../images/icons/download.svg";
-import starIcon from "../images/icons/star.svg";
-import partialStarIcon from "../images/icons/partial-star.svg";
 import worldIcon from "../images/icons/world.svg";
 import codeScanner from "../images/icons/code-scanner.png";
 import googleLens from "../images/icons/google-lens.png";
@@ -16,38 +14,13 @@ import ContactForm from '../components/ContactForm';
 import Headline from '../components/Headline.astro';
 import Layout from '../layouts/Layout.astro';
 import FAQ from '../components/FAQ.astro';
+import RatingStar from '../components/RatingStar.astro';
 ---
 
 <Layout>
 	<Headline />
 
 	<section id="features">
-		<h2>Features</h2>
-
-		<div class="other-features">
-			<div class="feature">
-				<div>
-					<h3>Multiple QR Codes*</h3>
-					<p>
-						Create an many as you need for business, personal, etc. <br>
-						<i>*Premium feature from Professional Branding Upgrade</i>
-					</p>
-				</div>
-				<Image class="feature-screenshot" src={multipleQrCodes} alt="Swiping between two QR codes on the app"/>
-			</div> 
-
-			<div class="feature">
-				<div>
-					<h3>Light & Dark Mode</h3>
-					<p>
-						Take your pick or let it automatically <br>
-						match your system preference.
-					</p>
-				</div>
-				<Image class="feature-screenshot" src={lightDarkMode} alt="Two screenshots of the app in light and dark mode"/>
-			</div> 
-		</div>
-
 		<div class="main-feature">
 			<h3>Add all of your important information</h3>
 			<div class="main-feature-content">
@@ -92,6 +65,30 @@ import FAQ from '../components/FAQ.astro';
 				</div>
 			</div>
 		</div> 
+
+		<div class="other-features">
+			<div class="feature">
+				<div>
+					<h3>Multiple QR Codes*</h3>
+					<p>
+						Create as many as you need for business, personal, etc. <br>
+						<i>*Premium feature from Professional Branding Upgrade</i>
+					</p>
+				</div>
+				<Image class="feature-screenshot" src={multipleQrCodes} alt="Swiping between two QR codes on the app"/>
+			</div> 
+
+			<div class="feature">
+				<div>
+					<h3>Light & Dark Mode</h3>
+					<p>
+						Take your pick or let it automatically <br>
+						match your system preference.
+					</p>
+				</div>
+				<Image class="feature-screenshot" src={lightDarkMode} alt="Two screenshots of the app in light and dark mode"/>
+			</div> 
+		</div>
 	</section>
 
 	<section id="pricing">
@@ -103,18 +100,18 @@ import FAQ from '../components/FAQ.astro';
 		<div class="stats">
 			<div>
 				Over 
-				<p>185k Downloads</p> 
+				<p>200k Downloads</p> 
 				<Image src={downloadIcon} alt="Download icon"/>
 			</div>
 			<div>
 				Rated
 				<p>4.9/5 Stars</p>
-				<div>
-					<Image src={starIcon} alt="Star icon"/>
-					<Image src={starIcon} alt="Star icon"/>
-					<Image src={starIcon} alt="Star icon"/>
-					<Image src={starIcon} alt="Star icon"/>
-					<Image src={partialStarIcon} alt="Partial Star icon"/>
+				<div class="stars" aria-label="4.9 out of 5 stars">
+					<RatingStar filledColor='#000' size={24}/>
+					<RatingStar filledColor='#000' size={24}/>
+					<RatingStar filledColor='#000' size={24}/>
+					<RatingStar filledColor='#000' size={24}/>
+					<RatingStar filledColor='#000' size={24} filled={0.9}/>
 				</div>
 			</div>
 			<div>
@@ -264,7 +261,7 @@ import FAQ from '../components/FAQ.astro';
 	}
 
 	.main-feature {
-		margin: 3em auto;
+		margin: 0 auto 3em auto;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -403,6 +400,13 @@ import FAQ from '../components/FAQ.astro';
 		justify-content: center;
 		gap: 100px;
 		text-align: center;
+	}
+
+	.stars {
+		display: flex;
+		gap: 2px;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.user-reviews {
