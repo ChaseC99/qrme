@@ -26,22 +26,26 @@ Licensor grants to you a nontransferable license to use the Application on any A
 
 QR Me - Contact offers an optional premium upgrade that provides additional features beyond the basic service.
 This can be purchased as a one-time payment or as a subscription that is billed on a recurring basis.
-Payment will be charged to your Apple account (on iOS) or Google account (on Android) at confirmation of purchase.
+Payment will be charged to your Apple account (on iOS) or Google Play account (on Android) at confirmation of purchase.
 Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period.
 You can cancel anytime from the settings of your Apple account (on iOS) or Google account (on Android).
 Any unused portion of a free trial will be forfeited if you purchase a subscription.
 
-All in-app purchases and subscriptions are processed by Apple (on iOS) and Google (on Android). We do not have access to your payment details or personal information. Subscription prices may vary by location and are confirmed prior to purchase. All purchases and subscriptions are subject to the terms and conditions of Apple Media Services (on iOS) and Google LLC (on Android).
+All in-app purchases and subscriptions are processed by Apple (on iOS) and Google (on Android). We do not have access to your payment details or personal information. 
+Subscription prices may vary by location and are confirmed prior to purchase. 
+All purchases and subscriptions are subject to the terms and conditions of Apple Media Services (on iOS) and Google LLC (on Android).
 
 Payments and subscriptions are managed by Apple (on iOS) and Google (on Android). Purchases made through Apple (on iOS) and Google (on Android) are not transferable between platforms. To request a refund, you must do so through your Apple account or Google account, as outlined in their respective Terms and Conditions.
+
+Refund requests must be made through [Apple](https://reportaproblem.apple.com/) or [Google Play](https://support.google.com/googleplay/answer/15574897), subject to their refund policies and applicable law.
 
 ## Privacy Policy
 
 QR Me - Contact respects your privacy.
-No personal information is collected.
-Your contact data is stored locally on your device.
+Your contact data is stored locally on your device and is not transmitted to the Licensor.
 
-In-App Purchases are managed by RevenueCat, which collects non-personal purchase history for app functionality and analytics.
+In-app purchases are managed by RevenueCat, Apple (on iOS), and Google Play (on Android).
+RevenueCat processes purchase-related information, such as anonymous app user IDs, purchase status, transaction identifiers, and Google purchase tokens, for app functionality, purchase restoration, and purchase-related analytics.
 
 Consent to Use of Data: You agree that Licensor may collect and use technical data and related information—including but not limited to technical information about your device, system and application software, and peripherals—that is gathered periodically to facilitate the provision of software updates, product support, and other services to you (if any) related to the Application. Licensor may use this information, as long as it is in a form that does not personally identify you, to improve its products or to provide services or technologies to you.
 
@@ -49,7 +53,7 @@ Your privacy is my priority. For more details, please see the [privacy policy](h
 
 ## Maintenance and Support
 
-The licensor is solely responsible for providing any maintenance and support services with respect to the Application or as required under applicable law. You acknowledge that Apple (on iOS) and Google (on Android) has no obligation whatsoever to furnish any maintenance and support services with respect to the Application.
+The licensor is solely responsible for providing any maintenance and support services with respect to the Application or as required under applicable law. You acknowledge that Apple (on iOS) and Google (on Android) have no obligation whatsoever to furnish any maintenance and support services with respect to the Application.
 
 ## Legal Compliance
 
@@ -73,7 +77,7 @@ You acknowledge and agree that Apple, Apple's subsidiaries, Google, and Google's
 ## Termination
 
 If you wish to terminate your use of QR Me - Contact, you may simply discontinue using the app.
-If you have an active subscription, remember to manage this through the settings of your Apple account (on iOS) and Google account (on Android) to avoid further charges.
+If you have an active subscription, remember to manage or cancel it through your Apple account settings (on iOS) or Google Play subscriptions (on Android) to avoid further charges.
 
 ## Changes to Terms
 

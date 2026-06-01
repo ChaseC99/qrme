@@ -10,7 +10,7 @@ When someone scans it, their phone will open their Contacts app and load in your
 
 Access your QR code even quicker by using the QR Me widget to see your QR code on your home screen.
 
-Contact information is stored directly within the QR code and on the user's device. Carnaroli Software LLC does not collect personal information entered into the app.
+Contact information is stored directly within the QR code and on the user's device. Carnaroli Software LLC does not collect or transmit contact information entered into the app.
 
 ## Key Pages
 
@@ -30,12 +30,12 @@ Contact information is stored directly within the QR code and on the user's devi
 - Works offline because contact data is stored in the QR code.
 - Free version supports one black-and-white QR code with all contact fields, unlimited scans, and unlimited edits.
 - Professional Branding Upgrade adds multiple QR codes, custom colors, and logo overlays.
-- Premium pricing shown on the site: $1.99/month, $12.99/year with 3-day free trial, or $25 lifetime; prices may vary by location. See the App Store for current prices.
+- Premium pricing shown on the site: $1.99/month, $12.99/year with 3-day free trial, or $25 lifetime; prices may vary by location. See the App Store or Google Play for current prices.
 
 ## Privacy Facts
 
 - Contact information entered in the app is stored locally on the user's device.
-- Carnaroli Software LLC does not collect personal information entered into the app.
+- Carnaroli Software LLC does not collect or transmit contact information entered into the app.
 - In-app purchases are managed by Apple, Google, and RevenueCat.
 - Anonymous and aggregated usage or purchase-related data may be visible through third-party services, but not personally identifiable contact data.
 
