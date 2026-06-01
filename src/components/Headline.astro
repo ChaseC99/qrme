@@ -15,13 +15,16 @@ import RatingStar from './RatingStar.astro';
                     Your contact,<br />
                     <span class="highlight">one scan away.</span>
                 </span>
-                <span class="mobile-headline">
+                <span class="mobile-only">
 					<span class="highlight">QR Me - Contact</span>
 				</span>
             </h2>
 
-            <p class="lede">
+            <p class="lede hide-on-mobile">
                 Quickly and easily share your contact info with a QR code that drops your details right into their Contacts app.
+            </p>
+            <p class="lede mobile-only">
+                Quickly and easily share your contact info with a QR code
             </p>
 
             <div class="badges">
@@ -126,7 +129,7 @@ import RatingStar from './RatingStar.astro';
         text-wrap: balance;
     }
 
-    .mobile-headline {
+    .mobile-only {
         display: none;
     }
 
@@ -280,7 +283,7 @@ import RatingStar from './RatingStar.astro';
             display: none;
         }
 
-        .mobile-headline {
+        .mobile-only {
             display: inline;
         }
 

@@ -1,0 +1,462 @@
+---
+import { Image } from 'astro:assets';
+import qrCodeView from '../images/views/qrcode_view.png';
+---
+
+<section class="how">
+    <div class="how-bg" aria-hidden="true"></div>
+
+    <div class="how-inner">
+        <div class="how-header">
+            <span class="eyebrow">How it works</span>
+            <h2>
+                Hand off your contact<br class="desktop-break" />
+                in a single scan.
+            </h2>
+            <p class="lede">
+                No links to click. No accounts to make. No internet required. Your QR code drops your details right into their contacts app.
+            </p>
+        </div>
+
+        <div class="stage">
+            <div class="phone phone-a">
+                <Image
+                    class="phone-shot"
+                    src={qrCodeView}
+                    alt="QR Me app showing your contact QR code"
+                />
+            </div>
+
+            <svg class="beam beam-h" viewBox="0 0 200 200" aria-hidden="true">
+                <path d="M 20 100 Q 100 30 180 100" stroke="#5cb8c7" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round" fill="none"/>
+                <path d="M 170 92 L 182 100 L 170 108" stroke="#5cb8c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="20" cy="100" r="6" fill="#5cb8c7"/>
+            </svg>
+
+            <svg class="beam beam-v" viewBox="0 0 80 56" aria-hidden="true">
+                <path d="M 20 4 Q 40 28 20 52" stroke="#5cb8c7" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round" fill="none"/>
+                <path d="M 12 44 L 20 52 L 28 44" stroke="#5cb8c7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <circle cx="20" cy="4" r="4" fill="#5cb8c7"/>
+            </svg>
+
+            <div class="phone phone-b">
+                <div class="ios-phone">
+                    <div class="ios-screen">
+                        <div class="ios-statusbar">
+                            <span>2:21</span>
+                            <div class="ios-notch"></div>
+                            <span class="ios-status-icons">●●●●</span>
+                        </div>
+                        <div class="ios-sheet-actions">
+                            <span class="ios-cancel">Cancel</span>
+                            <span class="ios-add">Add</span>
+                        </div>
+                        <div class="ios-sheet-title">New Contact</div>
+                        <div class="ios-avatar">CC</div>
+                        <div class="ios-name">Chase Carnaroli</div>
+                        <div class="ios-company">Tech Company</div>
+                        <div class="ios-fields">
+                            <div class="ios-field">
+                                <div class="ios-field-label">mobile</div>
+                                <div class="ios-field-value">(555) 555-5555</div>
+                            </div>
+                            <div class="ios-field">
+                                <div class="ios-field-label">home</div>
+                                <div class="ios-field-value">chase@email.com</div>
+                            </div>
+                            <div class="ios-field">
+                                <div class="ios-field-label">homepage</div>
+                                <div class="ios-field-value">chasecarnaroli.com</div>
+                            </div>
+                        </div>
+                        <div class="ios-cta-wrap">
+                            <div class="ios-cta">Add to Contacts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ol class="steps">
+            <li>
+                <span class="step-num">01</span>
+                <div>
+                    <div class="step-title">Open your QR</div>
+                    <div class="step-body">Your contact card lives as a code on your phone.</div>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">02</span>
+                <div>
+                    <div class="step-title">They scan it</div>
+                    <div class="step-body">Any phone camera. No app needed on their end.</div>
+                </div>
+            </li>
+            <li>
+                <span class="step-num">03</span>
+                <div>
+                    <div class="step-title">Contact added</div>
+                    <div class="step-body">Drops straight into their address book — done.</div>
+                </div>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<style>
+    .how {
+        position: relative;
+        background: #fff;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    .how-bg {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1100px;
+        max-width: 110%;
+        height: 600px;
+        background: radial-gradient(ellipse, rgba(168, 237, 254, 0.55) 0%, transparent 65%);
+        filter: blur(2px);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .how-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 80px 64px 56px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .how-header {
+        text-align: center;
+        max-width: 780px;
+    }
+
+    .eyebrow {
+        font-family: monospace;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #5cb8c7;
+        display: block;
+        margin-bottom: 18px;
+    }
+
+    .how-header h2 {
+        font-size: clamp(2rem, 4.5vw, 3.25rem);
+        line-height: 1.04;
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        color: #1d1a16;
+        text-align: center;
+    }
+
+    .how-header .lede {
+        font-size: 18px;
+        line-height: 1.55;
+        color: #444;
+        margin: 18px auto 0;
+        max-width: 560px;
+    }
+
+    .stage {
+        margin-top: 36px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 140px;
+        min-height: 560px;
+    }
+
+    .phone-a {
+        transform: rotate(-6deg) translateY(8px);
+    }
+
+    .phone-b {
+        transform: rotate(4deg) translateY(-8px);
+    }
+
+    .phone-shot {
+        width: 260px;
+        height: auto;
+        border-radius: 38px;
+        filter: drop-shadow(0 60px 100px rgba(0, 30, 60, 0.35)) drop-shadow(0 20px 30px rgba(0, 30, 60, 0.2));
+        display: block;
+    }
+
+    .beam-h {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        pointer-events: none;
+    }
+
+    .beam-v {
+        display: none;
+    }
+
+    /* iOS phone mockup */
+    .ios-phone {
+        width: 280px;
+        aspect-ratio: 9 / 19.5;
+        background: #0b0b0c;
+        border-radius: 42px;
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    .ios-screen {
+        width: 100%;
+        height: 100%;
+        background: #f2f2f6;
+        border-radius: 34px;
+        padding: 12px 16px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+        font-family: -apple-system, 'SF Pro Text', system-ui, sans-serif;
+        color: #000;
+    }
+
+    .ios-statusbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .ios-notch {
+        width: 90px;
+        height: 24px;
+        background: #000;
+        border-radius: 99px;
+    }
+
+    .ios-status-icons {
+        font-size: 11px;
+    }
+
+    .ios-sheet-actions {
+        position: absolute;
+        top: 48px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #007aff;
+    }
+
+    .ios-cancel { font-weight: 500; }
+    .ios-add { font-weight: 700; }
+
+    .ios-sheet-title {
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        margin-top: 50px;
+    }
+
+    .ios-avatar {
+        margin: 24px auto 12px;
+        width: 74px;
+        height: 74px;
+        border-radius: 99px;
+        background: #d8d8de;
+        display: grid;
+        place-items: center;
+        color: #8a8a8e;
+        font-size: 30px;
+        font-weight: 300;
+    }
+
+    .ios-name {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .ios-company {
+        text-align: center;
+        font-size: 12px;
+        color: #8a8a8e;
+        margin-top: 2px;
+    }
+
+    .ios-fields {
+        margin-top: 18px;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .ios-field {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .ios-field:last-child {
+        border-bottom: none;
+    }
+
+    .ios-field-label {
+        font-size: 10px;
+        color: #8a8a8e;
+        text-transform: lowercase;
+    }
+
+    .ios-field-value {
+        font-size: 13px;
+        color: #007aff;
+    }
+
+    .ios-cta-wrap {
+        position: absolute;
+        bottom: 14px;
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+
+    .ios-cta {
+        display: inline-block;
+        padding: 9px 36px;
+        background: #007aff;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* Steps */
+    .steps {
+        margin: 32px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 48px;
+        max-width: 880px;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #444;
+    }
+
+    .steps li {
+        display: block;
+    }
+
+    .step-num {
+        display: block;
+        font-family: monospace;
+        font-size: 11px;
+        color: #5cb8c7;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .step-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: #1d1a16;
+        margin-bottom: 6px;
+    }
+
+    .step-body {
+        line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+        .how-inner {
+            padding: 48px 24px 40px;
+        }
+
+        .how-bg {
+            top: 200px;
+            width: 520px;
+            height: 520px;
+        }
+
+        .desktop-break { display: none; }
+
+        .stage {
+            flex-direction: column;
+            gap: 16px;
+            min-height: 0;
+        }
+
+        .phone-a {
+            transform: rotate(-4deg);
+        }
+
+        .phone-a .phone-shot {
+            width: 190px;
+        }
+
+        .phone-b {
+            transform: rotate(3deg) scale(0.78);
+            transform-origin: center top;
+            margin-top: -20px;
+        }
+
+        .beam-h {
+            display: none;
+        }
+
+        .beam-v {
+            display: block;
+            position: static;
+            width: 80px;
+            height: 56px;
+            margin: -8px 0;
+        }
+
+        .steps {
+            margin-top: 36px;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            text-align: left;
+            max-width: 320px;
+            font-size: 13px;
+        }
+
+        .steps li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .step-num {
+            display: inline-block;
+            background: #e8f8fb;
+            padding: 4px 7px;
+            border-radius: 6px;
+            margin: 2px 0 0;
+            flex: 0 0 auto;
+        }
+
+        .step-title {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+    }
+</style>
