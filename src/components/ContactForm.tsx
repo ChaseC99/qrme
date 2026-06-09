@@ -27,7 +27,7 @@ export default function ContactForm() {
             src={googleFormsEmbeddedLink}
             title="QR Me Contact Feedback Google Form"
             width="100%" 
-            height="1000" 
+            height="1200" 
             frameBorder="0" 
         >
             Loading contact form...
