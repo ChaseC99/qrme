@@ -4,7 +4,8 @@ export default function ContactForm() {
         platform: 'entry.1498958727',
         device: 'entry.1473862599',
         osVersion: 'entry.388596581',
-        qrmeVersion: 'entry.571404993'
+        qrmeVersion: 'entry.571404993',
+        supportId: "entry.1939801648"
     };
 
     // Get the query parameters from the URL
@@ -14,10 +15,11 @@ export default function ContactForm() {
     const device = params.get('device') || '';
     const osVersion = params.get('os_version') || '';
     const qrmeVersion = params.get('qrme_version') || '';
+    const supportId = params.get('support_id') || '';
 
     // Construct the Google Forms link with the query parameters
     const googleFormsLink = "https://docs.google.com/forms/d/e/1FAIpQLSfTgzERT5XvIN8HsecAvqo3eb_gfAOjD-hd2j2FTfi4pcDm-Q/viewform";
-    const googleFormsEmbeddedLink = `${googleFormsLink}?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&embedded=true`;
+    const googleFormsEmbeddedLink = `${googleFormsLink}?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&${googleFormFields.supportId}=${supportId}&embedded=true`;
 
     return (
         <iframe 
