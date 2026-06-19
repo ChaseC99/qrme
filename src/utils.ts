@@ -14,6 +14,10 @@ export function getAttributionSource(defaultSource: string = CAMPAIGN_IDS.WEBSIT
     if (msClickId) {
         source = CAMPAIGN_IDS.MICROSOFT_AD;
     }
+    const fbClickId = urlParams.get('fbclid');
+    if (fbClickId) {
+        source = CAMPAIGN_IDS.FACEBOOK_AD;
+    }
     // Check for a standard utm_source on inbound links
     const utmSource = urlParams.get('utm_source');
     if (utmSource) {
