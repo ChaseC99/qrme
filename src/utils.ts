@@ -14,9 +14,14 @@ export function getAttributionSource(defaultSource: string = CAMPAIGN_IDS.WEBSIT
     if (msClickId) {
         source = CAMPAIGN_IDS.MICROSOFT_AD;
     }
+    // Check for Facebook
     const fbClickId = urlParams.get('fbclid');
     if (fbClickId) {
         source = CAMPAIGN_IDS.FACEBOOK_AD;
+    }
+    // Check for OpenAI referral parameters
+    if (urlParams.has('oppref') || urlParams.has('olref')) {
+        source = CAMPAIGN_IDS.OPENAI;
     }
     // Check for a standard utm_source on inbound links
     const utmSource = urlParams.get('utm_source');

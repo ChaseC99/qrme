@@ -6,6 +6,7 @@ export const CAMPAIGN_IDS = {
     DOWNLOAD_PAGE: 'download',
     MICROSOFT_AD: 'msft',
     FACEBOOK_AD: 'facebook',
+    OPENAI: 'openai',
 
     // Inactive
     // Might use these one day for more specific tracking
