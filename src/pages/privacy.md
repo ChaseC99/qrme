@@ -10,15 +10,30 @@ For the Terms of Service, please see the [qrme.contact/terms](https://qrme.conta
 
 ## I. Information Collection and Use
 
-Contact information you enter in the Application is stored locally on your device and is not transmitted to the Service Provider.
-The Service Provider **does not collect or transmit your contact data** from the Application.
-If you use or restore in-app purchases, purchase-related data is processed as described below so the Application can confirm your premium access.
+QR code content, including contact information, that you enter in the Application gets stored locally on your device. 
+For iOS users, this data may also be stored in your iCloud account.
+The Service Provider **does not collect or store this data** from the Application.
+
+To understand how the Application is being used and to measure the effectiveness of advertising campaigns, [third-party services](#iii-third-party-services) may collect information including but not limited to:
+- Your device's Internet Protocol address (e.g. IP address);
+- The time and date of your visit;
+- The operating system you use on your mobile device;
+- Technical information about your device and app version;
+- Pseudonymous identifiers;
+- The coarse location of your device;
+- Advertising source, campaign, referral, and conversion information;
+- Pseudonymous app usage information, such as whether the user has successfully created their first QR code; and
+- Purchase-related information if you use or restore in-app purchases.
 
 ## II. Data Retention and Deletion Policy
 
-The Service Provider does not store your contact data. 
+The Service Provider does not store your contact data or QR code content. 
 If you'd like to delete your data, please uninstall the Application from your device.
-Purchase records may be retained by Apple, Google Play, and RevenueCat as needed for purchase entitlement, purchase restoration, refunds, fraud prevention, legal compliance, and platform requirements.
+To remove your data from iCloud (if applicable), please refer to the [iCloud User Guide](https://support.apple.com/en-lamr/guide/icloud/welcome/icloud).
+
+Purchase records, attribution, analytics, and pseudonymous identifiers may be retained by [third-party services](#iii-third-party-services) as needed for purchase entitlement, purchase restoration, refunds, fraud prevention, legal compliance, and platform requirements.
+
+You may contact the Service Provider through [qrme.contact/contact](https://qrme.contact/contact) to request access to or deletion of attribution or analytics information associated with you. Additional information, such as an anonymous Application or installation identifier, may be required to locate the applicable records. Some information may be retained when required by law or for legitimate fraud-prevention, accounting, dispute-resolution, or security purposes.
 
 ## III. Third-Party Services
 
@@ -33,32 +48,34 @@ The Application utilizes third-party services that have their own privacy policy
 - [RevenueCat](https://www.revenuecat.com/privacy) (iOS and Android)  
     RevenueCat is used to manage paid subscriptions and in-app purchases. You can learn more about their policies by visiting [https://www.revenuecat.com/privacy](https://www.revenuecat.com/privacy).
 
-These third-party services may collect information when you download and use the Application. This may include (but is not limited to) information such as:
+- [AppsFlyer](https://www.appsflyer.com/legal/services-privacy-policy/) (iOS)  
+    AppsFlyer is used for advertising attribution and marketing analytics, including installation, campaign, session, conversion, and subscription-revenue measurement. If the Application detects that a device is located in the European Union, United Kingdom, or Switzerland, AppsFlyer will be disabled. You can learn more about their policies by visiting [https://www.appsflyer.com/legal/services-privacy-policy/](https://www.appsflyer.com/legal/services-privacy-policy/).
 
-- Your device's Internet Protocol address (e.g. IP address);
-- The time and date of your visit;
-- The operating system you use on your mobile device;
-- Technical information about your device and app version;
-- The country of your device; and
-- Purchase-related information if you use or restore in-app purchases.
-
-The Service Provider may see anonymized or aggregated data around usage of the Application from these third-party services.
+The Service Provider may receive aggregated or anonymized reports and pseudonymous event-level records from these providers.
 
 ## IV. In-App Purchases
 
-To handle in-app purchases, an anonymous app user ID is created when you first launch the Application.
-No contact information is revealed to the Service Provider through this user ID.
-If you choose to make an in-app purchase, RevenueCat may process your purchase status, purchase history, transaction identifiers, Apple receipt information (on iOS), and Google purchase tokens (on Android).
-This information is used to determine premium entitlement, restore purchases, provide purchase support, prevent fraud, and meet legal or platform requirements.
-The Service Provider does not have access to your payment card, bank account, or billing details because Apple Inc. (on iOS) or Google LLC (on Android) processes the payment.
+An anonymous app user ID is created when you first launch the Application. 
+If you make or restore an in-app purchase, RevenueCat may process purchase status, product information, purchase history, transaction identifiers, receipt information, subscription status, renewal, cancellation, refund, and related lifecycle information.
+
+When advertising attribution is enabled, RevenueCat may send subscription and purchase lifecycle events to AppsFlyer together with pseudonymous identifiers so that revenue can be attributed to an advertising campaign. 
+
+Apple (on iOS) or Google LLC (on Android) processes your payment information;
+The Service Provider, RevenueCat, and AppsFlyer **do not** have access to your payment card, bank account, or billing details.
 
 ## V. Changes
 
-This Privacy Policy may be updated from time to time for any reason. Any significant changes to this Privacy Policy will be mentioned in the Application's release notes. Continued use of the Application constitutes acceptance of this Privacy Policy. The most current version of this Policy will always be available here.
+This Privacy Policy may be updated from time to time for any reason. 
+Any significant changes to this Privacy Policy will be mentioned in the Application's release notes.
+Continued use of the Application constitutes acceptance of this Privacy Policy. 
+The most current version of this Policy will always be available here.
 
-## VI. Your Consent
+## VI. Your Privacy Rights and Choices
 
-By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.
+Depending on where you live, you may have rights to request access to, correction of, deletion of, or restriction of personal information, or to object to certain processing. To submit a request, contact the Service Provider at [qrme.contact/contact](https://qrme.contact/contact).
+
+You may also use privacy controls provided by Apple, Google, and your device. 
+Exercising a privacy right will not affect contact information or QR code content stored solely on your device.
 
 ## VII. Contact Us
 
