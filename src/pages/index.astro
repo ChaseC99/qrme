@@ -237,11 +237,13 @@ import RatingStar from '../components/RatingStar.astro';
 
 	<section id="contact">
 		<h2>Contact</h2>
-		<ContactForm client:only="react">
-			<!-- Add a loading placeholder that is the height of the iframe -->
-			<!-- This ensures that /#contact scrolls to the correct spot onload -->
-			<div slot="fallback" style="height: 1000px;"/>
-		</ContactForm>
+		<div class="contact-form">
+			<ContactForm client:only="react">
+				<!-- Add a loading placeholder that is the height of the iframe -->
+				<!-- This ensures that /#contact scrolls to the correct spot onload -->
+				<div slot="fallback" style="height: 1000px;"/>
+			</ContactForm>
+		</div>
 	</section>
 
 	<footer>
@@ -445,6 +447,13 @@ import RatingStar from '../components/RatingStar.astro';
 		}
 	}
 
+
+	/* CONTACT */
+	.contact-form {
+		max-width: 800px;
+		width: 90%;
+		margin: 0 auto;
+	}
 
 	/* PRIVACY POLICY */
 	.privacy-text {

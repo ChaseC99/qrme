@@ -1,34 +1,34 @@
-export default function ContactForm() {
-    // Map the query parameters to the Google Forms fields
-    const googleFormFields = {
-        platform: 'entry.1498958727',
-        device: 'entry.1473862599',
-        osVersion: 'entry.388596581',
-        qrmeVersion: 'entry.571404993',
-        supportId: "entry.1939801648"
-    };
+// The query parameter names in our URL match the field names the Tally form expects,
+// so they can be forwarded through to the embed as-is.
+const TALLY_FIELDS = ['platform', 'device', 'os_version', 'qrme_version', 'support_id'];
+const TALLY_EMBED_URL = 'https://tally.so/embed/xXbEWE';
 
-    // Get the query parameters from the URL
+export default function ContactForm() {
     const params = new URLSearchParams(window.location.search);
 
-    const platform = params.get('platform') || '';
-    const device = params.get('device') || '';
-    const osVersion = params.get('os_version') || '';
-    const qrmeVersion = params.get('qrme_version') || '';
-    const supportId = params.get('support_id') || '';
+    const embedParams = new URLSearchParams({
+        hideTitle: '1',
+        transparentBackground: '1',
+    });
 
-    // Construct the Google Forms link with the query parameters
-    const googleFormsLink = "https://docs.google.com/forms/d/e/1FAIpQLSfTgzERT5XvIN8HsecAvqo3eb_gfAOjD-hd2j2FTfi4pcDm-Q/viewform";
-    const googleFormsEmbeddedLink = `${googleFormsLink}?usp=pp_url&${googleFormFields.platform}=${platform}&${googleFormFields.device}=${device}&${googleFormFields.osVersion}=${osVersion}&${googleFormFields.qrmeVersion}=${qrmeVersion}&${googleFormFields.supportId}=${supportId}&embedded=true`;
+    for (const field of TALLY_FIELDS) {
+        const value = params.get(field);
+        if (value) {
+            embedParams.set(field, value);
+        }
+    }
 
     return (
-        <iframe 
+        <iframe
             id="contact-form"
-            src={googleFormsEmbeddedLink}
-            title="QR Me Contact Feedback Google Form"
-            width="100%" 
-            height="1200" 
-            frameBorder="0" 
+            src={`${TALLY_EMBED_URL}?${embedParams.toString()}`}
+            title="QR Me Contact Form"
+            loading="lazy"
+            width="100%"
+            height="1200"
+            frameBorder="0"
+            marginHeight={0}
+            marginWidth={0}
         >
             Loading contact form...
         </iframe>
