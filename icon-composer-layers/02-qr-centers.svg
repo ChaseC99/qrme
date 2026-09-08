@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100">
+  <g id="qr-centers" fill="#191919">
+    <rect id="top-left-center" x="16" y="15" width="11" height="11" rx="1.5" />
+    <rect id="bottom-left-center" x="16" y="70" width="11" height="11" rx="1.5" />
+    <rect id="top-right-center" x="73" y="15" width="11" height="11" rx="1.5" />
+  </g>
+</svg>

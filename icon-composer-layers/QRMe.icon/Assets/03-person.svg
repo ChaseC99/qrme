@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100">
+  <g id="person" fill="#191919">
+    <path
+      id="person-body"
+      d="M42 95.5Q39.5 95.5 39.5 93V86A28.5 25.5 0 0 1 96.5 86V93Q96.5 95.5 94 95.5Z"
+    />
+    <circle id="person-head" cx="68" cy="46" r="15.5" />
+  </g>
+</svg>
