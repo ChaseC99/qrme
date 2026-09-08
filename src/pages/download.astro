@@ -1,12 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import appStoreBadge from "../images/apple/appstore_black.svg";
-import googlePlayBadge from "../images/android/google-play-badge.png";
 import qrCodeView from "../images/views/qrcode_view.png";
 
 import Layout from "../layouts/Layout.astro";
 import { CAMPAIGN_IDS } from "../constants";
-import DownloadBadge from "../components/DownloadBadge";
+import DownloadBadge from "../components/DownloadBadge.astro";
 ---
 
 <Layout 
@@ -21,8 +19,8 @@ import DownloadBadge from "../components/DownloadBadge";
                 <h1>QR Me - Contact</h1>
             </a>
             <div class="download-buttons">
-                <DownloadBadge platform="ios" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} client:only/>
-                <DownloadBadge platform="android" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} client:only/>
+                <DownloadBadge platform="ios" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} />
+                <DownloadBadge platform="android" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} />
             </div>
             <div>
                 <p>Download for free on iOS and Android!</p>

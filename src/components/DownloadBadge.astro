@@ -1,0 +1,33 @@
+---
+import appStoreBadge from "../images/apple/appstore_black.svg";
+import googlePlayBadge from "../images/android/google-play-badge.png";
+import { CAMPAIGN_IDS } from "../constants";
+import { getStoreUrl, type Platform } from "../utils";
+import "./DownloadBadge.css";
+
+interface Props {
+    platform: Platform;
+    defaultSource?: string;
+}
+
+const { platform, defaultSource = CAMPAIGN_IDS.WEBSITE } = Astro.props;
+const isAndroid = platform === 'android';
+
+// The href here is the build-time fallback; attributeStoreLinks corrects the
+// attribution source on load and applies AppsFlyer attribution if it resolves.
+---
+
+<a
+    class="download-badge"
+    href={getStoreUrl(platform, defaultSource)}
+    target="_blank"
+    aria-label={isAndroid ? 'Link to Google Play' : 'Link to the App Store'}
+    data-store-link={platform}
+    data-store-source={defaultSource}
+>
+    <img
+        src={(isAndroid ? googlePlayBadge : appStoreBadge).src}
+        alt={isAndroid ? 'Download on Google Play' : 'Download on the App Store'}
+        class="download-badge__img"
+    />
+</a>

@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import qrCodeView from '../images/views/qrcode_view.png';
-import DownloadBadge from './DownloadBadge';
+import DownloadBadge from './DownloadBadge.astro';
 import HoverQrCode from './HoverQrCode.astro';
 import RatingStar from './RatingStar.astro';
 import { CAMPAIGN_IDS } from '../constants';
@@ -46,14 +46,8 @@ const qrCodes = [
             </p>
 
             <div class="badges">
-                <!-- Wrappers are the QR triggers: the badges themselves are -->
-                <!-- client:only islands that don't exist yet at script time. -->
-                <span class="badge" data-platform="ios">
-                    <DownloadBadge platform="ios" client:only="react" />
-                </span>
-                <span class="badge" data-platform="android">
-                    <DownloadBadge platform="android" client:only="react" />
-                </span>
+                <DownloadBadge platform="ios" />
+                <DownloadBadge platform="android" />
             </div>
 
             <div class="social-proof">
@@ -185,11 +179,6 @@ const qrCodes = [
         gap: 14px;
         margin: 34px 0;
         flex-wrap: wrap;
-    }
-
-    .badge,
-    .badges :global(a) {
-        display: inline-flex;
     }
 
     .social-proof {
@@ -341,12 +330,13 @@ const qrCodes = [
         const desktop = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
         const hide = () => preview.classList.remove('is-showing-qr');
 
-        badges.querySelectorAll<HTMLElement>('[data-platform]').forEach((badge) => {
+        // data-store-link carries the badge's platform, so it doubles as the QR key.
+        badges.querySelectorAll<HTMLAnchorElement>('a[data-store-link]').forEach((badge) => {
             badge.addEventListener('pointerenter', () => {
                 if (!desktop.matches) return;
                 let selected = false;
                 cards.forEach((card) => {
-                    card.hidden = card.dataset.qrPlatform !== badge.dataset.platform;
+                    card.hidden = card.dataset.qrPlatform !== badge.dataset.storeLink;
                     if (!card.hidden) selected = true;
                 });
                 preview.classList.toggle('is-showing-qr', selected);

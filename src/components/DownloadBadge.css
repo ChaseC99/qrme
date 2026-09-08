@@ -1,3 +1,7 @@
+.download-badge {
+    display: inline-flex;
+}
+
 .download-badge__img {
     width: auto;
     height: 64px;

@@ -11,7 +11,7 @@ const cards = Astro.props.codes.map(({ platform, url, caption }) => {
     qr.addData(url);
     qr.make();
     const svg = qr.createSvgTag({ cellSize: 1, margin: 4, scalable: true });
-    return { platform, caption, svg };
+    return { platform, caption, svg, url };
 });
 ---
 
@@ -22,14 +22,37 @@ const cards = Astro.props.codes.map(({ platform, url, caption }) => {
 
     <!-- Decorative: the download links themselves carry the meaning. -->
     <div class="hover-qr__overlay" aria-hidden="true">
-        {cards.map(({ platform, caption, svg }) => (
-            <div class="hover-qr__card" data-qr-platform={platform} hidden>
+        {cards.map(({ platform, caption, svg, url }) => (
+            <div class="hover-qr__card" data-qr-platform={platform} data-store-url={url} hidden>
                 <div class="hover-qr__code" set:html={svg} />
                 <p class="hover-qr__caption">{caption}</p>
             </div>
         ))}
     </div>
 </div>
+
+<script>
+    import qrcode from 'qrcode-generator';
+    import { getAttributedStoreURL, initializeAttribution } from '../appsflyer';
+
+    const cards = document.querySelectorAll<HTMLElement>('.hover-qr [data-store-url]');
+    if (cards.length) initializeAttribution().then(clickURL => {
+        if (!clickURL) return;
+        cards.forEach(card => {
+            try {
+                const code = card.querySelector('.hover-qr__code');
+                if (!code || !card.dataset.storeUrl) return;
+                const qr = qrcode(0, 'M');
+                qr.addData(getAttributedStoreURL(clickURL, card.dataset.storeUrl));
+                qr.make();
+                // Generated locally by qrcode-generator; no remote HTML is inserted.
+                code.innerHTML = qr.createSvgTag({ cellSize: 1, margin: 4, scalable: true });
+            } catch {
+                // Retain the build-generated direct-store QR if enhancement fails.
+            }
+        });
+    });
+</script>
 
 <style>
     .hover-qr {

@@ -1,20 +1,35 @@
 ---
-import DynamicDownloadButton from './DynamicDownloadButton';
 import { CAMPAIGN_IDS } from "../constants";
+import { getStoreUrl } from "../utils";
 
-const { url = `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${CAMPAIGN_IDS.WEBSITE}&mt=8&platform=iphone` } = Astro.props;
+// The App Store is the default because its listing is nicer; the script below
+// switches Android visitors over once the user agent is known.
 ---
 
-<DynamicDownloadButton client:only="react">
-    <a slot="fallback" href={url}>Download</a>
-</DynamicDownloadButton>
+<a
+    class="download-button"
+    href={getStoreUrl('ios', CAMPAIGN_IDS.WEBSITE)}
+    target="_blank"
+    aria-label="Download on App Store"
+    data-store-link="auto"
+>
+    Download
+</a>
+
+<script>
+    // attributeStoreLinks picks the store for the href; the label has to follow it.
+    if (/Android/.test(navigator.userAgent)) {
+        document.querySelectorAll('a[data-store-link="auto"]')
+            .forEach(link => link.setAttribute('aria-label', 'Download on Google Play'));
+    }
+</script>
 
 <style>
-    a {
+    .download-button {
         padding: 8px;
         text-decoration: none;
         background-color: var(--color-app);
         border-radius: 8px;
-        color: black
+        color: black;
     }
 </style>

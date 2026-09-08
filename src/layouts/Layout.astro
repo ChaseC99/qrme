@@ -54,6 +54,14 @@ import "../styles/variables.css";
 	</body>
 </html>
 
+<script>
+	// Store links are server-rendered with a build-time attribution source.
+	// One pass per page corrects them and applies attribution.
+	import { attributeStoreLinks } from '../utils';
+
+	attributeStoreLinks();
+</script>
+
 <style is:global>
 	html {
 		scroll-behavior: smooth;
