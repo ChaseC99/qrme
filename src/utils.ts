@@ -1,5 +1,13 @@
 import { CAMPAIGN_IDS } from "./constants";
 
+export type Platform = 'android' | 'ios';
+
+export function getStoreUrl(platform: Platform, source: string): string {
+    return platform === 'android'
+        ? `https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${source}`
+        : `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${source}&mt=8&platform=iphone`;
+}
+
 export function getAttributionSource(defaultSource: string = CAMPAIGN_IDS.WEBSITE): string {
     // Attribution tracking source
     let source: string = defaultSource;

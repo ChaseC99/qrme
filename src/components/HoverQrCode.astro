@@ -1,0 +1,120 @@
+---
+import qrcode from 'qrcode-generator';
+import type { Platform } from '../utils';
+
+interface Props {
+    codes: { platform: Platform; url: string; caption: string }[];
+}
+
+const cards = Astro.props.codes.map(({ platform, url, caption }) => {
+    const qr = qrcode(0, 'M');
+    qr.addData(url);
+    qr.make();
+    const svg = qr.createSvgTag({ cellSize: 1, margin: 4, scalable: true });
+    return { platform, caption, svg };
+});
+---
+
+<div class="hover-qr">
+    <div class="hover-qr__subject">
+        <slot />
+    </div>
+
+    <!-- Decorative: the download links themselves carry the meaning. -->
+    <div class="hover-qr__overlay" aria-hidden="true">
+        {cards.map(({ platform, caption, svg }) => (
+            <div class="hover-qr__card" data-qr-platform={platform} hidden>
+                <div class="hover-qr__code" set:html={svg} />
+                <p class="hover-qr__caption">{caption}</p>
+            </div>
+        ))}
+    </div>
+</div>
+
+<style>
+    .hover-qr {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hover-qr__subject {
+        line-height: 0;
+    }
+
+    /* Hidden outright unless the viewport is desktop-sized *and* has a real
+       hovering pointer, so touch tablets wide enough to pass the width test are
+       still excluded. */
+    .hover-qr__overlay {
+        display: none;
+    }
+
+    @media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+        .hover-qr__overlay {
+            display: flex;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .hover-qr__subject {
+            transition:
+                opacity 0.28s ease,
+                transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1);
+        }
+
+        .hover-qr__card {
+            box-sizing: border-box;
+            width: 300px;
+            max-width: 100%;
+            padding: 22px 22px 16px;
+            background: #fff;
+            border: 1px solid var(--color-app);
+            border-radius: 24px;
+            box-shadow: 0 18px 40px rgba(29, 26, 22, 0.14);
+            transform: scale(0.94);
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1);
+        }
+
+        /* Build-generated SVG markup does not receive Astro scope attributes. */
+        .hover-qr__code :global(svg) {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .hover-qr__caption {
+            margin: 12px 0 0;
+            text-align: center;
+            font-size: 14px;
+            color: #3a3a3a;
+        }
+
+        .hover-qr.is-showing-qr .hover-qr__subject {
+            opacity: 0;
+            transform: scale(0.92);
+        }
+
+        .hover-qr.is-showing-qr .hover-qr__overlay {
+            opacity: 1;
+        }
+
+        .hover-qr.is-showing-qr .hover-qr__card {
+            transform: scale(1);
+        }
+
+        /* Leave a plain cross-fade when motion isn't wanted. */
+        @media (prefers-reduced-motion: reduce) {
+            .hover-qr__card,
+            .hover-qr.is-showing-qr .hover-qr__card,
+            .hover-qr.is-showing-qr .hover-qr__subject {
+                transform: none;
+            }
+        }
+    }
+</style>

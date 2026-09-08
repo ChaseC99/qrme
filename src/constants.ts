@@ -7,6 +7,8 @@ export const CAMPAIGN_IDS = {
     MICROSOFT_AD: 'msft',
     FACEBOOK_AD: 'facebook',
     OPENAI: 'openai',
+    // Scanned from the QR code shown when hovering a badge on desktop
+    DESKTOP: 'desktop',
 
     // Inactive
     // Might use these one day for more specific tracking

@@ -1,10 +1,10 @@
 import appStoreBadge from "../images/apple/appstore_black.svg";
 import googlePlayBadge from "../images/android/google-play-badge.png";
-import { getAttributionSource } from "../utils";
+import { getAttributionSource, getStoreUrl, type Platform } from "../utils";
 import "./DownloadBadge.css";
 
 export type DownloadBadgeProps = {
-    platform: 'android' | 'ios';
+    platform: Platform;
     defaultSource?: string;
 }
 
@@ -12,13 +12,8 @@ export default function DownloadBadge(props: DownloadBadgeProps) {
     const { platform, defaultSource } = props;
     const isAndroid = platform === 'android';
 
-    // Attribution tracking source
-    const source = getAttributionSource(defaultSource);
-
     // Construct the appropriate download link
-    const href = isAndroid
-        ? `https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${source}`
-        : `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${source}&mt=8&platform=iphone`;
+    const href = getStoreUrl(platform, getAttributionSource(defaultSource));
     const aria = isAndroid ? 'Link to Google Play' : 'Link to the App Store';
     const alt = isAndroid ? 'Download on Google Play' : 'Download on the App Store';
     const badge = isAndroid ? googlePlayBadge : appStoreBadge;

@@ -2,7 +2,25 @@
 import { Image } from 'astro:assets';
 import qrCodeView from '../images/views/qrcode_view.png';
 import DownloadBadge from './DownloadBadge';
+import HoverQrCode from './HoverQrCode.astro';
 import RatingStar from './RatingStar.astro';
+import { CAMPAIGN_IDS } from '../constants';
+import { getStoreUrl, type Platform } from '../utils';
+
+// Scans come from a desktop visitor pointing their phone at the screen, so they
+// get their own attribution source rather than the one for this page view.
+const qrCodes = [
+    {
+        platform: 'ios',
+        url: getStoreUrl('ios', CAMPAIGN_IDS.DESKTOP),
+        caption: 'Scan to download on iOS',
+    },
+    {
+        platform: 'android',
+        url: getStoreUrl('android', CAMPAIGN_IDS.DESKTOP),
+        caption: 'Scan to download on Android',
+    },
+] satisfies { platform: Platform; url: string; caption: string }[];
 ---
 
 <header class="hero">
@@ -28,8 +46,14 @@ import RatingStar from './RatingStar.astro';
             </p>
 
             <div class="badges">
-                <DownloadBadge platform="ios" client:only="react" />
-                <DownloadBadge platform="android" client:only="react" />
+                <!-- Wrappers are the QR triggers: the badges themselves are -->
+                <!-- client:only islands that don't exist yet at script time. -->
+                <span class="badge" data-platform="ios">
+                    <DownloadBadge platform="ios" client:only="react" />
+                </span>
+                <span class="badge" data-platform="android">
+                    <DownloadBadge platform="android" client:only="react" />
+                </span>
             </div>
 
             <div class="social-proof">
@@ -60,13 +84,15 @@ import RatingStar from './RatingStar.astro';
         </div>
 
         <div class="hero-phone">
-            <Image
-                class="phone-shot"
-                src={qrCodeView}
-                alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
-                loading="eager"
-                fetchpriority="high"
-            />
+            <HoverQrCode codes={qrCodes}>
+                <Image
+                    class="phone-shot"
+                    src={qrCodeView}
+                    alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
+                    loading="eager"
+                    fetchpriority="high"
+                />
+            </HoverQrCode>
         </div>
     </div>
 </header>
@@ -152,6 +178,8 @@ import RatingStar from './RatingStar.astro';
     }
 
     .badges {
+        width: fit-content;
+        max-width: 100%;
         display: flex;
         align-items: center;
         gap: 14px;
@@ -159,6 +187,7 @@ import RatingStar from './RatingStar.astro';
         flex-wrap: wrap;
     }
 
+    .badge,
     .badges :global(a) {
         display: inline-flex;
     }
@@ -244,6 +273,7 @@ import RatingStar from './RatingStar.astro';
         }
 
         .badges {
+            margin-inline: auto;
             justify-content: center;
         }
 
@@ -300,3 +330,33 @@ import RatingStar from './RatingStar.astro';
         }
     }
 </style>
+
+<script>
+    document.querySelectorAll<HTMLElement>('.hero').forEach((hero) => {
+        const badges = hero.querySelector('.badges');
+        const preview = hero.querySelector('.hover-qr');
+        if (!badges || !preview) return;
+
+        const cards = preview.querySelectorAll<HTMLElement>('[data-qr-platform]');
+        const desktop = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+        const hide = () => preview.classList.remove('is-showing-qr');
+
+        badges.querySelectorAll<HTMLElement>('[data-platform]').forEach((badge) => {
+            badge.addEventListener('pointerenter', () => {
+                if (!desktop.matches) return;
+                let selected = false;
+                cards.forEach((card) => {
+                    card.hidden = card.dataset.qrPlatform !== badge.dataset.platform;
+                    if (!card.hidden) selected = true;
+                });
+                preview.classList.toggle('is-showing-qr', selected);
+            });
+        });
+
+        // Keep the last selected code visible throughout the gap between badges.
+        badges.addEventListener('pointerleave', hide);
+        desktop.addEventListener('change', () => {
+            if (!desktop.matches) hide();
+        });
+    });
+</script>
