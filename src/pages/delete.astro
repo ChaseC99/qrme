@@ -1,0 +1,234 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SUPPORT_EMAIL } from "../constants";
+
+const fallbackMailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("QR Me - Contact: Data Deletion Request")}`;
+---
+
+<Layout
+    title="QR Me - Contact | Delete My Data"
+    pageDescription="How to delete your data from QR Me - Contact by Carnaroli Software LLC."
+>
+    <main class="delete-page">
+        <h1>Delete My Data</h1>
+        <p class="intro">
+            How to delete your data from <strong>QR Me - Contact</strong>, an app by Carnaroli Software LLC.
+        </p>
+
+        <ul class="summary">
+            <li>Your contact info and QR codes never leave your device. Delete the app to delete them.</li>
+            <li>To delete anonymous usage and purchase data, <a href="#request">send a deletion request</a> with your Support ID.</li>
+        </ul>
+
+        <section>
+            <h2>Your contact info & QR codes</h2>
+            <p>
+                The contact information and QR codes you create are stored only on your device.
+                On iOS, they may also be synced to your iCloud account.
+                I never collect or store this data, so there is nothing for me to delete.
+            </p>
+            <p>
+                To delete it, simply delete the app from your device.
+                To also remove it from iCloud, see the <a href="https://support.apple.com/en-lamr/guide/icloud/welcome/icloud" target="_blank">iCloud User Guide</a>.
+                If your device backs up app data to Apple or Google, you can delete those backups from your device's settings.
+            </p>
+        </section>
+
+        <section>
+            <h2>Anonymous usage & purchase data</h2>
+            <p>
+                To understand how the app is used and to manage in-app purchases, the app uses third-party services
+                (RevenueCat and AppsFlyer) that collect pseudonymous data.
+                This data is linked to a randomly generated Support ID, <strong>not</strong> to your name, email, or contact information.
+                It may include:
+            </p>
+            <ul>
+                <li>Country and coarse location</li>
+                <li>Device type, operating system, and app version</li>
+                <li>When you first installed and last used the app</li>
+                <li>How you found the app, such as an ad campaign or referral source</li>
+                <li>App usage events, such as creating your first QR code</li>
+                <li>Purchase history and subscription status</li>
+            </ul>
+            <p>AppsFlyer is only used on iOS and is disabled in the European Union, United Kingdom, and Switzerland.</p>
+        </section>
+
+        <section id="request">
+            <h2>Request deletion</h2>
+            <p>If you'd like me to delete this data, just send me your Support ID:</p>
+            <ol>
+                <li>Open QR Me - Contact and go to the Info page.</li>
+                <li>Scroll to the bottom and tap your Support ID to copy it.</li>
+                <li>Paste it below and tap <strong>Email Deletion Request</strong> to open a pre-filled email, then send it.</li>
+            </ol>
+
+            <form id="deletion-form" class="deletion-form">
+                <label for="support-id">Support ID</label>
+                <div class="deletion-form-row">
+                    <input
+                        id="support-id"
+                        name="support-id"
+                        type="text"
+                        required
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        placeholder="Paste your Support ID"
+                    />
+                    <button type="submit">Email Deletion Request</button>
+                </div>
+            </form>
+
+            <p class="fallback">
+                Email didn't open? Send your Support ID to <a href={fallbackMailto}>{SUPPORT_EMAIL}</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>What happens next</h2>
+            <p>
+                I'll delete the data associated with your Support ID from RevenueCat and AppsFlyer
+                and reply to confirm within 30 days of receiving your request (usually much sooner).
+            </p>
+            <p>The following may be kept:</p>
+            <ul>
+                <li>Transaction records held by Apple or Google for purchases made with your Apple or Google account</li>
+                <li>Records required for legal, accounting, fraud-prevention, or dispute-resolution purposes, only for as long as required</li>
+                <li>Aggregated reports that don't identify individual users</li>
+            </ul>
+            <p>
+                Your purchases stay tied to your Apple or Google account, so you can still restore them in the app.
+                If you keep using the app after your data is deleted, new usage data may be collected.
+            </p>
+        </section>
+
+        <section>
+            <h2>Subscriptions</h2>
+            <p>
+                Deleting your data or the app does <strong>not</strong> cancel a subscription.
+                To cancel, manage your subscription through
+                <a href="https://apps.apple.com/account/subscriptions" target="_blank">Apple</a> or
+                <a href="https://play.google.com/store/account/subscriptions" target="_blank">Google Play</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>More information</h2>
+            <p>
+                For more details about what data is collected and how it's used, see the <a href="/privacy">Privacy Policy</a>.
+                Have a question? <a href="/contact">Contact me</a>.
+            </p>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    import { SUPPORT_EMAIL } from "../constants";
+
+    const form = document.getElementById("deletion-form") as HTMLFormElement;
+    const input = document.getElementById("support-id") as HTMLInputElement;
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        // `required` lets whitespace-only values through, so clear them and re-validate
+        const supportId = input.value.trim();
+        if (!supportId) {
+            input.value = "";
+            input.reportValidity();
+            return;
+        }
+
+        const subject = "QR Me - Contact: Data Deletion Request";
+        const body = [
+            `Support ID: ${supportId}`,
+            "",
+            "Delete the analytics and purchase data associated with this Support ID for QR Me - Contact. I understand this doesn't affect contact information or QR codes stored on my device.",
+        ].join("\r\n");
+
+        window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+</script>
+
+<style>
+    .delete-page {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 16px 4em 16px;
+        line-height: 1.5;
+    }
+
+    h1, .intro {
+        text-align: center;
+    }
+
+    .summary {
+        background-color: var(--color-app);
+        border-radius: 1em;
+        padding: 1em 1em 1em 2.5em;
+    }
+
+    section {
+        margin-top: 2.5em;
+    }
+
+    #request {
+        /* Keep the heading visible below the sticky navbar when jumping to #request */
+        scroll-margin-top: 90px;
+    }
+
+    .deletion-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        margin: 1.5em 0 1em 0;
+    }
+
+    .deletion-form label {
+        font-weight: 600;
+    }
+
+    .deletion-form-row {
+        display: flex;
+        gap: 0.5em;
+    }
+
+    .deletion-form input {
+        flex: 1;
+        min-width: 0;
+        padding: 0.75em 1em;
+        font: inherit;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    .deletion-form input:focus {
+        outline: 2px solid var(--color-app);
+        border-color: #000;
+    }
+
+    .deletion-form button {
+        padding: 0.75em 1.25em;
+        font: inherit;
+        font-weight: 600;
+        color: #000;
+        background-color: var(--color-app);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .deletion-form button:hover {
+        filter: brightness(0.95);
+    }
+
+    .fallback {
+        font-size: 0.9em;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .deletion-form-row {
+            flex-direction: column;
+        }
+    }
+</style>

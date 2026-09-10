@@ -17,3 +17,5 @@ export const CAMPAIGN_IDS = {
 } as const;
 
 export type CampaignId = typeof CAMPAIGN_IDS[keyof typeof CAMPAIGN_IDS];
+
+export const SUPPORT_EMAIL = 'support@qrme.contact';

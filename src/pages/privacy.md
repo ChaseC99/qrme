@@ -33,7 +33,7 @@ To remove your data from iCloud (if applicable), please refer to the [iCloud Use
 
 Purchase records, attribution, analytics, and pseudonymous identifiers may be retained by [third-party services](#iii-third-party-services) as needed for purchase entitlement, purchase restoration, refunds, fraud prevention, legal compliance, and platform requirements.
 
-You may contact the Service Provider through [qrme.contact/contact](https://qrme.contact/contact) to request access to or deletion of attribution or analytics information associated with you. Additional information, such as an anonymous Application or installation identifier, may be required to locate the applicable records. Some information may be retained when required by law or for legitimate fraud-prevention, accounting, dispute-resolution, or security purposes.
+To request deletion of attribution or analytics information associated with you, visit [qrme.contact/delete](https://qrme.contact/delete). To request access to this information, contact the Service Provider through [qrme.contact/contact](https://qrme.contact/contact). Your Support ID, found on the Info page of the Application, may be required to locate the applicable records. Some information may be retained when required by law or for legitimate fraud-prevention, accounting, dispute-resolution, or security purposes.
 
 ## III. Third-Party Services
 
@@ -72,7 +72,7 @@ The most current version of this Policy will always be available here.
 
 ## VI. Your Privacy Rights and Choices
 
-Depending on where you live, you may have rights to request access to, correction of, deletion of, or restriction of personal information, or to object to certain processing. To submit a request, contact the Service Provider at [qrme.contact/contact](https://qrme.contact/contact).
+Depending on where you live, you may have rights to request access to, correction of, deletion of, or restriction of personal information, or to object to certain processing. To request deletion, visit [qrme.contact/delete](https://qrme.contact/delete). For other requests, contact the Service Provider at [qrme.contact/contact](https://qrme.contact/contact).
 
 You may also use privacy controls provided by Apple, Google, and your device. 
 Exercising a privacy right will not affect contact information or QR code content stored solely on your device.
