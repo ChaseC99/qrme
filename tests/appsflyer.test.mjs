@@ -32,11 +32,11 @@ test('vendored script matches the unmodified downloaded release', () => {
 });
 
 test('only explicit, nonempty ad context activates, regardless of path', () => {
-    for (const query of ['', '?foo=bar', '?utm_source=google', '?gad_source=5&gad_campaignid=123', '?gclid=', '?gclid=%20', '?pid=other', '?gclid=%', '?oppref=', '?oppref=%20', '?olref=x', '?utm_source=chatgpt.com']) {
+    for (const query of ['', '?foo=bar', '?utm_source=google', '?gad_source=5&gad_campaignid=123', '?gclid=', '?gclid=%20', '?pid=other', '?gclid=%', '?oppref=', '?oppref=%20', '?olref=x', '?utm_source=chatgpt.com', '?msclkid=', '?msclkid=%20', '?utm_source=bing']) {
         // URLSearchParams tolerates malformed percent escapes; nonempty IDs remain eligible.
         assert.equal(getAdNetwork(landing + query), query === '?gclid=%' ? 'google' : null, query);
     }
-    for (const [query, network] of [['?gclid=a', 'google'], ['?gbraid=b', 'google'], ['?wbraid=c', 'google'], ['?pid=googleads_int', 'google'], ['?oppref=d', 'openai'], ['?pid=openai_int', 'openai']]) {
+    for (const [query, network] of [['?gclid=a', 'google'], ['?gbraid=b', 'google'], ['?wbraid=c', 'google'], ['?pid=googleads_int', 'google'], ['?oppref=d', 'openai'], ['?pid=openai_int', 'openai'], ['?msclkid=m', 'microsoft'], ['?pid=mssearchads_int', 'microsoft']]) {
         assert.equal(getAdNetwork(landing + query + '#pricing'), network);
         assert.equal(getAdNetwork(landing + 'download' + query), network);
         assert.equal(getAdNetwork(landing + 'privacy' + query), network);
@@ -135,7 +135,7 @@ test('one shared attempt works for consumers before and after completion', async
 });
 
 test('the initializer configures Smart Script for the network in the URL', async () => {
-    for (const [query, pid] of [['gclid=test-click', 'googleads_int'], ['oppref=OPP-1', 'openai_int']]) {
+    for (const [query, pid] of [['gclid=test-click', 'googleads_int'], ['oppref=OPP-1', 'openai_int'], ['msclkid=MS-1', 'mssearchads_int'], ['pid=mssearchads_int', 'mssearchads_int']]) {
         const href = `${landing}?${query}`;
         const clickURL = await createAttributionInitializer(async () => loadVendor(href), () => href)();
         assert.equal(new URL(clickURL).searchParams.get('pid'), pid);
@@ -183,4 +183,59 @@ test('timeout retains fallback and ignores a late script load', async () => {
     await new Promise(resolve => setImmediate(resolve));
     assert.equal(await init(), null);
     assert.equal(generations, 0);
+});
+
+
+test('actual Smart Script maps Microsoft clicks and campaign details through both stores', () => {
+    const href = `${landing}?msclkid=MS%2B%26id&pid=other&c=Explicit&utm_campaign=Fallback&af_c_id=123&af_adset=Group&af_adset_id=456&af_ad_id=789&af_channel=Search&af_keywords=qr%20code&gad_campaignid=notours&oppref=notours`;
+    const clickURL = loadVendor(href).generateOneLinkURL(getSmartScriptConfig('microsoft')).clickURL;
+    for (const store of ['https://apps.apple.com/app/id1412627381', 'https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact']) {
+        const url = new URL(getAttributedStoreURL(clickURL, store));
+        assert.equal(url.searchParams.get('pid'), 'mssearchads_int');
+        assert.equal(url.searchParams.get('clickid'), 'MS+&id');
+        assert.equal(url.searchParams.get('c'), 'Explicit');
+        assert.equal(url.searchParams.get('af_c_id'), '123');
+        assert.equal(url.searchParams.get('af_adset'), 'Group');
+        assert.equal(url.searchParams.get('af_adset_id'), '456');
+        assert.equal(url.searchParams.get('af_ad_id'), '789');
+        assert.equal(url.searchParams.get('af_channel'), 'Search');
+        assert.equal(url.searchParams.get('af_keywords'), 'qr code');
+        assert.equal(url.searchParams.get('af_r'), store);
+    }
+    const bare = new URL(loadVendor(`${landing}?msclkid=MS-1&gad_campaignid=notours`).generateOneLinkURL(getSmartScriptConfig('microsoft')).clickURL);
+    assert.equal(bare.searchParams.get('clickid'), 'MS-1');
+    for (const key of ['c', 'af_c_id', 'af_adset_id', 'af_ad_id', 'af_keywords']) {
+        assert.equal(bare.searchParams.has(key), false, key);
+    }
+    const utm = new URL(loadVendor(`${landing}?msclkid=m&utm_campaign=Campaign&utm_term=contact`).generateOneLinkURL(getSmartScriptConfig('microsoft')).clickURL);
+    assert.equal(utm.searchParams.get('c'), 'Campaign');
+    assert.equal(utm.searchParams.get('af_keywords'), 'contact');
+});
+
+test('Microsoft context preserves existing mixed-network priority', () => {
+    for (const query of ['gclid=g&msclkid=m', 'msclkid=m&gclid=g', 'pid=googleads_int&msclkid=m']) {
+        assert.equal(getAdNetwork(`${landing}?${query}`), 'google');
+    }
+    for (const query of ['oppref=o&msclkid=m', 'msclkid=m&oppref=o', 'pid=openai_int&msclkid=m']) {
+        assert.equal(getAdNetwork(`${landing}?${query}`), 'openai');
+    }
+});
+
+test('Microsoft tracking template preserves attribution and ignores tracking redirects', async () => {
+    const href = `${landing}?pid=mssearchads_int&af_siteid=msa&c=Performance-Max-24&af_c_id=523875991&af_ad_id=0&af_adset=&af_adset_id=0&af_channel=o&af_sub1=123abc&af_sub2=c&af_sub3=b&af_sub4=&af_sub5=0&af_click_lookback=7d&af_keywords=&clickid=123abc&url=https%3A%2F%2Fbing.com%2Fack%2Frlinkping.htm%3Ft%3D11111111111111111111111111111111_x&type=1&msclkid=123abc&gb=1`;
+    const clickURL = await createAttributionInitializer(async () => loadVendor(href), () => href)();
+    const url = new URL(clickURL);
+    const incoming = new URL(href);
+    for (const key of ['pid', 'af_siteid', 'c', 'af_c_id', 'af_ad_id', 'af_adset_id', 'af_channel', 'af_sub1', 'af_sub2', 'af_sub3', 'af_sub5', 'af_click_lookback', 'clickid']) {
+        assert.equal(url.searchParams.get(key), incoming.searchParams.get(key), key);
+    }
+    for (const key of ['url', 'type', 'gb', 'af_sub4', 'af_keywords', 'af_adset']) {
+        assert.equal(url.searchParams.has(key), false, key);
+    }
+    incoming.searchParams.delete('msclkid');
+    const fallback = await createAttributionInitializer(async () => loadVendor(incoming.href), () => incoming.href)();
+    assert.equal(new URL(fallback).searchParams.get('clickid'), '123abc');
+    incoming.searchParams.set('msclkid', 'preferred');
+    const preferred = new URL(loadVendor(incoming.href).generateOneLinkURL(getSmartScriptConfig('microsoft')).clickURL);
+    assert.equal(preferred.searchParams.get('clickid'), 'preferred');
 });

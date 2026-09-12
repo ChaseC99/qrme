@@ -117,10 +117,11 @@ test('organic visits preserve each link source and never load Smart Script', asy
     }
 });
 
-test('Google and OpenAI enhance both fixed stores while auto routing stays mobile-only', async () => {
+test('Google, OpenAI and Microsoft enhance both fixed stores while auto routing stays mobile-only', async () => {
     for (const [query, pid, clickKey, clickValue] of [
         ['gclid=google-click&gad_campaignid=123', 'googleads_int', 'gclid', 'google-click'],
         ['oppref=openai-click&af_c_id=123', 'openai_int', 'clickid', 'openai-click'],
+        ['msclkid=microsoft-click&af_c_id=123', 'mssearchads_int', 'clickid', 'microsoft-click'],
     ]) {
         for (const [userAgent, mobile] of [['Mozilla/5.0 (iPhone)', true], ['Mozilla/5.0 (Linux; Android 14)', true], ['Mozilla/5.0 (Macintosh)', false]]) {
             const p = page({ query, userAgent });

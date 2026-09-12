@@ -2,14 +2,14 @@ export const ONE_LINK_URL = 'https://app.qrme.contact/7AZi';
 export const SMART_SCRIPT_PATH = '/vendor/appsflyer/onelink-smart-script-v2.9.2.js';
 
 /** Ad networks whose landing-page traffic we hand to Smart Script. */
-export type AdNetwork = 'google' | 'openai';
+export type AdNetwork = 'google' | 'openai' | 'microsoft';
 
 /**
  * Identifies the paid network behind this visit, or null for organic ones.
  *
  * Only explicit click context counts: a nonempty click ID or the network's own
- * `pid`. Google wins a tie because its integration predates OpenAI's and its
- * click IDs are the more specific signal.
+ * `pid`. Keep a stable priority for mixed-network URLs: Google, OpenAI,
+ * then Microsoft.
  */
 export function getAdNetwork(href: string): AdNetwork | null {
     try {
@@ -18,6 +18,7 @@ export function getAdNetwork(href: string): AdNetwork | null {
         const pid = searchParams.get('pid');
         if (['gclid', 'gbraid', 'wbraid'].some(has) || pid === 'googleads_int') return 'google';
         if (has('oppref') || pid === 'openai_int') return 'openai';
+        if (has('msclkid') || pid === 'mssearchads_int') return 'microsoft';
         return null;
     } catch {
         return null;
@@ -25,6 +26,27 @@ export function getAdNetwork(href: string): AdNetwork | null {
 }
 
 const AF_PARAMETERS = {
+    microsoft: {
+        mediaSource: { keys: [], defaultValue: 'mssearchads_int' },
+        campaign: { keys: ['c', 'utm_campaign'] },
+        adSet: { keys: ['af_adset'] },
+        channel: { keys: ['af_channel'] },
+        afSub1: { keys: ['af_sub1'] },
+        afSub2: { keys: ['af_sub2'] },
+        afSub3: { keys: ['af_sub3'] },
+        afSub4: { keys: ['af_sub4'] },
+        afSub5: { keys: ['af_sub5'] },
+        // Microsoft requires its landing-page click ID as AppsFlyer's clickid.
+        afCustom: [
+            { paramKey: 'clickid', keys: ['msclkid', 'clickid'] },
+            { paramKey: 'af_siteid', keys: ['af_siteid'], defaultValue: 'msa' },
+            { paramKey: 'af_click_lookback', keys: ['af_click_lookback'] },
+            { paramKey: 'af_c_id', keys: ['af_c_id'] },
+            { paramKey: 'af_adset_id', keys: ['af_adset_id'] },
+            { paramKey: 'af_ad_id', keys: ['af_ad_id'] },
+            { paramKey: 'af_keywords', keys: ['af_keywords', 'utm_term'] },
+        ],
+    },
     google: {
         mediaSource: { keys: [], defaultValue: 'googleads_int' },
         afCustom: [{ paramKey: 'af_c_id', keys: ['af_c_id', 'gad_campaignid'] }],
