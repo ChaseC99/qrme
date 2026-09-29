@@ -1,0 +1,162 @@
+{
+  "checkedAt": "2026-09-28",
+  "ios": {
+    "source": "https://apps.apple.com/us/app/qr-me-contact/id1412627381",
+    "releases": [
+      {
+        "version": "3.14",
+        "date": "2026-09-30",
+        "notes": "### Improved Contact Editor\n\n- Separate Contact and Style tabs make it easier to edit your contact information and customize your QR code\n- Preview your QR code as you change its colors and logo\n\n### Widget Improvements\n\n- Fixed an issue that prevented older widgets from rendering\n- Fixed a background color mismatch for widgets on iOS 26"
+      },
+      {
+        "version": "3.13",
+        "date": "2026-09-15",
+        "notes": "### Logo Color Palette\n\n- The color picker now suggests colors from your logo, making it easier to match your QR code to your branding.\n\n### Privacy Policy Updates\n\n- We’ve updated our privacy policy to reflect changes to device data collection and explain how this information is used for analytics and app functionality.\n- We don’t collect your contact information or QR code content. Your privacy is important to us.\n- Read more at [qrme.contact/privacy](https://qrme.contact/privacy)."
+      },
+      {
+        "version": "3.12",
+        "date": "2026-09-05",
+        "notes": "### iCloud Integration\n\n- Sync your QR codes across all of your devices\n\n### Language Improvements\n\n- QR Me is now available in Arabic\n- In Japanese, names are now displayed in surname-first order\n\n### Widget Improvements\n\n- Tapping on a widget now opens that QR code in the app\n- Fix a bug where the widget would not update for large contacts\n- Logo resolution was increased to make them look more clear in widgets\n\n### Bug Fixes and Improvements\n\n- Increased error correction for QR codes with logo to improve scannability"
+      },
+      {
+        "version": "3.11",
+        "date": "2026-07-14",
+        "notes": "### New Languages\n\n- QR Me is now available in French and Japanese\n- Added missing translations for widgets, actions, and permission requests\n\n### Bug Fixes and Improvements\n\n- Added a Control Widget, allowing you to access your QR code from your Control Center or Lock Screen\n- Support ID is now available on the Info page\n- Added subscription expiration date on the Info page\n- Fixed an issue that caused the app to crash when submitting feedback"
+      },
+      {
+        "version": "3.10",
+        "date": "2026-03-19",
+        "notes": "### Import Contact\n\n- Create a QR code even faster by importing an existing contact from your phone.\n\n### Revamped Info Page\n\n- New \"How To\" section covering how to add a widget, reorder your contacts, and save your QR code to your photos.\n- Added a QR code that links to the download page, making it easy to share QR Me with friends.\n\n### Share QR Me\n\n- A link to download QR Me is now included in all new contacts. You can remove it if you prefer.\n\n### Bug Fixes and Improvements\n\n- Fixed a widget coloring issue on iOS 26.\n- Fixed a bug that prevented some social media profiles with hyphens from displaying correctly.\n- Added Substack as a social media option\n- Added a scanning warning for non-iOS users when scanning social media QR codes."
+      },
+      {
+        "version": "3.9",
+        "date": "2025-07-01",
+        "notes": "### Onboarding Experience\n\n- A new onboarding screen now shows up the first time you use the app.\n\n### Manage Contacts\n\n- Tapping the dots at the bottom of the screen will show you all of the contacts that you've created.\n- You can select a contact to jump to it, reorder the contacts, or delete contacts from this view.\n\n### Bug Fixes and Improvements\n\n- Fix an issue that caused the Info page to crash on iOS 16.\n- Logo overlay cropper has been redesigned with easier controls.\n- Name, job, and address input fields can now autocomplete.\n- Improved error handling when checking for access to the Professional Branding upgrade."
+      },
+      {
+        "version": "3.8",
+        "date": "2025-06-03",
+        "notes": "### New Languages\n\nQR Me is now available in Spanish and German.\nMore languages are coming soon!\n\n### Bug Fixes\n\nFixed some typos and modernized some code."
+      },
+      {
+        "version": "3.7",
+        "date": "2025-01-02",
+        "notes": "- Resolved an issue where contacts wouldn’t load on iOS 18.3\n\n- The logo overlay cropper tool is now full screen for a smoother logo-editing experience"
+      },
+      {
+        "version": "3.6",
+        "date": "2024-12-31",
+        "notes": "### Improved Postal Addresses\n\nPostal addresses now support an optional second street line for unit numbers, building names, P.O. Boxes, etc.\nAddresses are also clickable within QR Me, making it easy to verify that they map to the right location.\n\n### Redesigned Paywall\n\nThinking about upgrading to unlock premium features like custom colors, logo overlays, and multiple QR codes? This beautiful new paywall just might convince you!"
+      },
+      {
+        "version": "3.5",
+        "date": "2024-12-11",
+        "notes": "- Added the app's version number to the bottom of the Info page\n\n- Fixed a bug that caused the color and background color rows to crash the app on iPads"
+      },
+      {
+        "version": "3.4",
+        "date": "2024-11-24",
+        "notes": "### Improved QR Code Scanability\n\nAdded a warning for QR codes with insufficient color contrast.\nSlightly reduced the size of logo overlays to improve scanning reliability.\n\n### Bug Fixes\n\nFixed a critical bug that caused the app to crash on iOS 18.2.\nFixed an issue preventing the “Edit” button from appearing.\nImproved the layout of the info page on iPads."
+      },
+      {
+        "version": "3.3",
+        "date": "2024-04-01",
+        "notes": "### Logo Overlay Cropper\n\nWhen adding your logo on top of a QR Code, you can now crop it into a square or circle.\n\n### Press-and-hold QR Code to save to photos\n\nHolding a QR Code will open a Share Sheet, allowing you to save to photos, copy to keyboard, and more.\n\n### Bug Fixes\n\nResolves an issue where large logos prevented the contact from saving.\nDisplays a warning when the contact information is too large to be contained inside of a QR Code."
+      },
+      {
+        "version": "3.2",
+        "date": "2024-03-19",
+        "notes": "Version 3.2 makes your contact's websites and social profiles clickable within QR Me, letting you easily verify that your links are working correctly."
+      },
+      {
+        "version": "3.1",
+        "date": "2024-03-18",
+        "notes": "### Widgets\n\nAdd your QR Contact as a widget to your Home Screen or Today View, making it quicker than ever to share your contact with others.\n\n### Reorder Contacts\n\nTap the page indicator at the bottom of the app to easily reorder and delete your contacts.\n\n### Bug Fixes\n\nImproved the layout of the Info page for devices with smaller screens and fixed an issue that sometimes prevented URL schemes from being encoded correctly."
+      },
+      {
+        "version": "3.0",
+        "date": "2024-03-05",
+        "notes": "Version 3.0 is packed with design enhancements and a new optional in-app purchase.\n\n- Revamped User Interface: Enjoy this new and improved design. Your contact info has never looked so good!\n\n- Professional Branding Upgrade: Elevate your branding with this new in-app purchase. Unlock a suite of features to customize your QR Codes like never before:\n    - Multiple QR Codes: Generate as many QR Codes as you need for various purposes – business, personal, school, and more.\n    - Customize Colors: Set the colors of the QR Code to match your branding.\n    - Logo Overlay: Add your logo atop the QR Code for a personalized touch that boosts brand recognition.\n\nUpgrade now to share your contact with style and support future development of QR Me - Contact!"
+      },
+      {
+        "version": "2.6",
+        "date": "2023-10-18",
+        "notes": "Version 2.6\n\n- Adds a note field to contacts\n- Improves support for international phone numbers"
+      },
+      {
+        "version": "2.5",
+        "date": "2023-09-21",
+        "notes": "Version 2.5 fixes a bug in iOS 17 that prevented the QR Codes from showing up."
+      },
+      {
+        "version": "2.4",
+        "date": "2023-02-13",
+        "notes": "Version 2.4 fixes a handful of bugs:\n\n- Resolves a formatting issue that prevented non-iOS devices from reading certain contact fields\n- Removes spaces in Social Profile labels"
+      },
+      {
+        "version": "2.3",
+        "date": "2022-07-15",
+        "notes": "Version 2.3 adds social media accounts to contacts through the new \"Social Profile\" field!\n\nSharing your social media accounts has never been easier. Just select (or write in) a platform and add your username. If you chose one of the social media platforms listed in the app, people who save your contact to their phone can click on the field and get redirected straight to your profile."
+      },
+      {
+        "version": "2.2",
+        "date": "2022-07-07",
+        "notes": "Version 2.2 lets you customize your contacts even further!\n\n### Labeled values\n\nYou can now add labels to phone numbers, emails, websites, and addresses. For example: work phone, school email, mobile phone, home address, etc.\n\n### Phonetic Names\n\nNew fields for phonetic first name, phonetic middle name, and phonetic last name are perfect for telling others how to pronounce your name.\n\n### Bug Fixes\n\nFixes a bug that would cause the app to crash when attempting to copy or save an image of a QR Code."
+      },
+      {
+        "version": "2.1",
+        "date": "2022-06-18",
+        "notes": "Version 2.1 adds support for international phone numbers, fixes a bug that caused QR Codes to not update, and improves the keyboard on several text fields."
+      },
+      {
+        "version": "2.0",
+        "date": "2020-12-20",
+        "notes": "Version 2.0 is here with some new features!\n\n### Multiple QR Codes\n\nYou can now create multiple QR Codes and easily switch between them. This was one of the most requested features, so I am very excited to include it in this release!\n\n### Dark Mode\n\nToggle between Dark and Light Mode from the Info page.\n\n### Postal Addresses\n\nUsers have the option to add postal addresses to their contact.\n\n### Delete Contact Option\n\nWant to get rid of a QR Code? Just click “Edit”, scroll down to the bottom, and press delete!\n\n### QR Code Titles\n\nGive each of your new QR Codes a title (Personal, Networking, etc.). The QR Code Title is not shared when scanned, it is just an optional field to help you keep your QR Codes organized.\n\n- General UI Improvements and Bug Fixes\n\nThank you for using QR Me - Contact!"
+      },
+      {
+        "version": "1.1",
+        "date": "2018-08-14",
+        "notes": "FIRST UPDATE, WOHOO!\nVery excited to be releasing the first update for QR Me - Contact.\n\n### In this update, you can now include the following fields with your contact:\n\n- Websites\n- Job Title, Department, Company\n- Nickname, Middle Name, Maiden Name, Prefix/Suffix\n\nA new “Info” page has also be added, making it easier to share this app with others.\n\nThank you so much to everyone who has downloaded QR Me - Contact. I really appreciate all of the support and kind reviews!\nMore features are on the way soon :)"
+      },
+      {
+        "version": "1.0",
+        "date": "2018-07-17",
+        "notes": "Initial release of QR Me - Contact 🎉"
+      }
+    ]
+  },
+  "android": {
+    "releases": [
+      {
+        "version": "3.0",
+        "date": "2026-09-26",
+        "notes": "### Onboarding Experience\n\n- A new guided setup walks you through creating your first contact and styling your QR code.\n\n### Improved Contact Editor\n\n- Added new fields for middle name, prefix, suffix, nickname, and job department.\n- Separate Detail and Style tabs make it easier to edit your contact and customize its appearance.\n- Preview your QR code as you change its colors and logo.\n\n### Landscape Support\n\n- QR Me now supports landscape mode, with layouts that adapt to your screen size."
+      },
+      {
+        "version": "2.1",
+        "date": "2026-07-01",
+        "notes": "### Import a Contact\n\n- Create a QR code even faster by importing an existing contact from your phone.\n\n### Add a Widget\n\n- Add a home screen widget straight from the info page.\n\n### Onboarding\n\n- A new welcome screen walks you through the app the first time you open it."
+      },
+      {
+        "version": "2.0",
+        "date": "2026-06-12",
+        "notes": "✨ Professional Branding ✨\nYour logo, your colors, your codes. This new in-app purchase let's you customize your QR codes and present a polished, branded look.\n\n- Logo Overlay: Add your logo atop the QR Code for a personalized touch that boosts brand recognition.\n- Customize Colors: Set the colors of the QR Code to match your branding.\n- Multiple QR Codes: Generate as many QR Codes as you need for various purposes – business, personal, school, and more."
+      },
+      {
+        "version": "1.2",
+        "date": "2025-09-19",
+        "notes": "QR Me is now available in Spanish, German, and Hindi!"
+      },
+      {
+        "version": "1.1",
+        "date": "2025-05-09",
+        "notes": "You can now add Postal Addresses to your contact information"
+      },
+      {
+        "version": "1.0",
+        "date": "2025-02-08",
+        "notes": "Initial release of QR Me - Contact on Android 🎉"
+      }
+    ]
+  }
+}

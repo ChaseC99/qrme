@@ -1,0 +1,279 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import history from '../data/release-notes.json';
+
+const markdown = await createMarkdownProcessor({ smartypants: false });
+const platforms = await Promise.all([
+    { id: 'ios', name: 'iOS', ...history.ios },
+    { id: 'android', name: 'Android', ...history.android },
+].map(async platform => ({
+    ...platform,
+    releases: await Promise.all(platform.releases.map(async release => ({
+        ...release,
+        // Repeated headings such as "Bug Fixes" need unique IDs across releases.
+        html: (await markdown.render(release.notes)).code.replace(
+            /(<h[1-6] id=")/g, `$1${platform.id}-${release.version}-`,
+        ),
+    }))),
+})));
+const formatDate = (date: string, short = false) => new Intl.DateTimeFormat('en-US', {
+    month: short ? 'short' : 'long', day: 'numeric', ...(!short && { year: 'numeric' }), timeZone: 'UTC',
+}).format(new Date(`${date}T00:00:00Z`));
+const releaseId = (platform: string, version: string) => `${platform}-${version}`;
+---
+
+<Layout title="Release Notes | QR Me - Contact" pageDescription="What's new in QR Me - Contact for iOS and Android.">
+    <main class="release-page">
+        <header class="page-header">
+            <div class="page-title">
+                <h1>Release notes</h1>
+                <p>See what’s new in QR Me.</p>
+            </div>
+            <div class="release-controls">
+                <nav class="platform-tabs" aria-label="Platform">
+                    {platforms.map(platform => (
+                        <a id={`tab-${platform.id}`} href={`#${platform.id}`}>{platform.name}</a>
+                    ))}
+                </nav>
+                {platforms.map(platform => (
+                    <div class="mobile-jump" data-platform={platform.id} hidden>
+                        <select id={`jump-${platform.id}`} aria-label={`${platform.name} version`}>
+                            {platform.releases.map(release => <option value={releaseId(platform.id, release.version)}>{release.version}</option>)}
+                        </select>
+                    </div>
+                ))}
+            </div>
+        </header>
+
+        {platforms.map(platform => {
+            const years = [...new Set(platform.releases.map(release => release.date.slice(0, 4)))];
+            return (
+                <section id={platform.id} class="platform-panel" aria-labelledby={`tab-${platform.id}`}>
+                    <aside class="version-sidebar">
+                        <nav aria-label={`${platform.name} versions`}>
+                            {years.map(year => (
+                                <div class="year-group">
+                                    <h2>{year}</h2>
+                                    <ul>
+                                        {platform.releases.filter(release => release.date.startsWith(year)).map(release => (
+                                            <li><a href={`#${releaseId(platform.id, release.version)}`} data-version-link>
+                                                <span>{release.version}</span>
+                                                <time datetime={release.date}>{formatDate(release.date, true)}</time>
+                                            </a></li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </nav>
+                    </aside>
+                    <div class="release-content">
+                        <h2 class="platform-title">{platform.name}</h2>
+                        {platform.releases.map(release => (
+                            <article class="release" id={releaseId(platform.id, release.version)}>
+                                <time class="release-date" datetime={release.date}>{formatDate(release.date)}</time>
+                                <h2><a href={`#${releaseId(platform.id, release.version)}`}>Version {release.version}</a></h2>
+                                <div class="notes" set:html={release.html} />
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            );
+        })}
+    </main>
+</Layout>
+
+<script>
+    const page = document.querySelector<HTMLElement>('.release-page')!;
+    const header = page.querySelector<HTMLElement>('.page-header')!;
+    const tablist = page.querySelector<HTMLElement>('.platform-tabs')!;
+    const tabs = [...tablist.querySelectorAll<HTMLAnchorElement>('a')];
+    const panels = [...page.querySelectorAll<HTMLElement>('.platform-panel')];
+    const pickers = [...page.querySelectorAll<HTMLElement>('.mobile-jump')];
+    let activePanel = panels[0];
+    let frame = 0;
+
+    page.classList.add('enhanced');
+    tablist.setAttribute('role', 'tablist');
+    tabs.forEach(tab => {
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-controls', tab.hash.slice(1));
+    });
+    panels.forEach(panel => panel.setAttribute('role', 'tabpanel'));
+
+    function selectVersion(id: string) {
+        activePanel.querySelectorAll<HTMLAnchorElement>('[data-version-link]').forEach(link => {
+            const selected = link.hash === `#${id}`;
+            if (selected) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+        });
+        const select = page.querySelector<HTMLSelectElement>(`#jump-${activePanel.id}`)!;
+        select.value = id;
+    }
+
+    function updateActiveVersion() {
+        const articles = [...activePanel.querySelectorAll<HTMLElement>('.release')];
+        const threshold = Math.max(66, header.getBoundingClientRect().bottom) + 72;
+        let current = articles[0];
+        for (const article of articles) {
+            if (article.getBoundingClientRect().top <= threshold) current = article;
+            else break;
+        }
+        selectVersion(current.id);
+        const link = activePanel.querySelector<HTMLElement>('[aria-current]');
+        const sidebar = activePanel.querySelector<HTMLElement>('.version-sidebar')!;
+        if (link && sidebar.clientHeight) {
+            const bounds = sidebar.getBoundingClientRect();
+            const item = link.getBoundingClientRect();
+            if (item.top < bounds.top || item.bottom > bounds.bottom) sidebar.scrollTop += item.top - bounds.top - 24;
+        }
+        frame = 0;
+    }
+
+    function showPlatform(id: string) {
+        activePanel = panels.find(panel => panel.id === id) ?? panels[0];
+        panels.forEach(panel => { panel.hidden = panel !== activePanel; });
+        pickers.forEach(picker => { picker.hidden = picker.dataset.platform !== activePanel.id; });
+        tabs.forEach(tab => {
+            const selected = tab.hash === `#${activePanel.id}`;
+            tab.setAttribute('aria-selected', String(selected));
+            tab.tabIndex = selected ? 0 : -1;
+        });
+    }
+
+    function followHash(scroll = true) {
+        const id = window.location.hash.slice(1);
+        const target = document.getElementById(id);
+        const panel = target?.closest<HTMLElement>('.platform-panel');
+        showPlatform(panel?.id ?? 'ios');
+        if (scroll && panel) {
+            (target === panel ? page : target)!.scrollIntoView({ block: 'start' });
+        }
+        updateActiveVersion();
+    }
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+            if (window.location.hash === tab.hash) followHash();
+        });
+        tab.addEventListener('keydown', event => {
+            let next: number;
+            if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+            else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+            else if (event.key === 'Home') next = 0;
+            else if (event.key === 'End') next = tabs.length - 1;
+            else return;
+            event.preventDefault();
+            tabs[next].focus();
+            tabs[next].click();
+        });
+    });
+    pickers.forEach(picker => {
+        picker.querySelector('select')!.addEventListener('change', event => {
+            window.location.hash = (event.target as HTMLSelectElement).value;
+        });
+    });
+    window.addEventListener('hashchange', () => followHash());
+    window.addEventListener('scroll', () => {
+        if (!frame) frame = requestAnimationFrame(updateActiveVersion);
+    }, { passive: true });
+    window.addEventListener('resize', () => updateActiveVersion());
+    followHash(Boolean(window.location.hash));
+</script>
+
+<style>
+    .release-page {
+        --sticky-top: 172px; /* Site navbar (66px) + desktop page header (106px). */
+        max-width: 72rem;
+        margin: auto;
+        padding: 0 1.5rem;
+        color: #172b32;
+        line-height: 1.6;
+        scroll-margin-top: 66px;
+    }
+
+    .page-header, .release-controls, .platform-tabs, .year-group a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .page-header {
+        position: sticky;
+        top: 66px;
+        z-index: 20;
+        height: 106px;
+        justify-content: space-between;
+        background: white;
+        border-bottom: 1px solid #dce6ea;
+    }
+
+    h1, h2, .page-title p { margin: 0; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    time, .page-title p { font-size: 0.85rem; color: #435c68; }
+    a { color: inherit; }
+    a:focus-visible, select:focus-visible { outline: 2px solid #087a98; outline-offset: 2px; }
+
+    .release-controls { padding: 0.25rem; border-radius: 2rem; background: #edf3f5; }
+    .platform-tabs a, .year-group a {
+        padding: 0.4rem 0.75rem;
+        text-decoration: none;
+        border-radius: 0.5rem;
+    }
+    .platform-tabs a { border-radius: 2rem; font-weight: 600; }
+    .platform-tabs a[aria-selected="true"], .year-group a[aria-current] { background: var(--color-app); }
+
+    .platform-panel { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 2rem; }
+    .platform-panel[hidden], .mobile-jump, .enhanced .platform-title { display: none; }
+    .version-sidebar {
+        position: sticky;
+        top: var(--sticky-top);
+        align-self: start;
+        max-height: calc(100dvh - var(--sticky-top));
+        overflow-y: auto;
+        border-right: 1px solid #dce6ea;
+        padding-right: 0.5rem;
+    }
+    .year-group { margin: 1rem 0; }
+    .year-group h2 { padding-left: 0.75rem; font-size: 0.85rem; }
+    .year-group ul { list-style: none; padding: 0; margin: 0; }
+    .year-group a { justify-content: space-between; font-size: 0.85rem; }
+
+    .release-content { max-width: 44rem; }
+    .release {
+        padding: 2rem 0;
+        border-bottom: 1px solid #dce6ea;
+        scroll-margin-top: var(--sticky-top);
+    }
+    .release:last-child { min-height: calc(100dvh - var(--sticky-top)); }
+    .release h2 a { text-decoration: none; }
+    .notes { overflow-wrap: anywhere; }
+    .notes :global(h3) { font-size: 1rem; margin-bottom: 0.5rem; }
+    .notes :global(ul), .notes :global(ol) { padding-left: 1.5rem; }
+
+    @media (max-width: 700px) {
+        .release-page { --sticky-top: 66px; padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px)); }
+        .page-header { position: static; }
+        .platform-panel { display: block; }
+        .platform-panel[hidden], .version-sidebar { display: none; }
+        .release-controls {
+            position: fixed;
+            z-index: 90;
+            inset: auto 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
+            max-width: 24rem;
+            margin: auto;
+            padding: 0.5rem;
+            background: white;
+            box-shadow: 0 4px 24px #172b3226;
+        }
+        .platform-tabs { flex: 1; }
+        .platform-tabs a { flex: 1; text-align: center; }
+        .enhanced .mobile-jump:not([hidden]) { display: block; border-left: 1px solid #dce6ea; }
+        select { width: 5rem; padding: 0.5rem; font: inherit; border: 0; background: transparent; color: inherit; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        :global(html) { scroll-behavior: auto; }
+    }
+</style>
