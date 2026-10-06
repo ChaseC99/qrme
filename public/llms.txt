@@ -30,7 +30,7 @@ Contact information is stored directly within the QR code and on the user's devi
 - Works offline because contact data is stored in the QR code.
 - Free version supports one black-and-white QR code with all contact fields, unlimited scans, and unlimited edits.
 - Professional Branding Upgrade adds multiple QR codes, custom colors, and logo overlays.
-- Premium pricing shown on the site: $1.99/month, $12.99/year with 3-day free trial, or $25 lifetime; prices may vary by location. See the App Store or Google Play for current prices.
+- Premium pricing shown on the site: $0.99/week, $12.99/year with 3-day free trial, or $25 lifetime; prices may vary by location. See the App Store or Google Play for current prices.
 
 ## Privacy Facts
 
