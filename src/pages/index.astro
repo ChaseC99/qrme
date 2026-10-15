@@ -15,10 +15,14 @@ import Headline from '../components/Headline.astro';
 import Layout from '../layouts/Layout.astro';
 import FAQ from '../components/FAQ.astro';
 import RatingStar from '../components/RatingStar.astro';
+import ContactQrGenerator from '../components/ContactQrGenerator';
 ---
 
 <Layout>
 	<Headline />
+
+	{/* Desktop only: CSS hides the generator at 900px and below */}
+	<ContactQrGenerator client:media="(min-width: 901px)" />
 
 	<section id="features">
 		<div class="main-feature">

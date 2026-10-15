@@ -12,11 +12,23 @@
     // Track link clicks
     document.addEventListener('click', (e) => {
         const a = e.target && e.target.closest && e.target.closest('a');
-        if (a && a.href) {
+        if (a && a.href && !a.closest('.ph-no-capture')) {
             posthog.capture('Link Clicked', {
                 href: a.href,
                 text: a.ariaLabel
             });
+        }
+    });
+
+    // Successful generator exports are recorded as QR Code Created in PostHog.
+    document.addEventListener('qr-code-created', (e) => {
+        const method = e.detail?.method;
+        if (!['download_png', 'download_svg', 'copy_image'].includes(method)) return;
+        try {
+            // Only the method is sent; contact details never belong in analytics.
+            window.posthog?.capture('QR Code Created', { method });
+        } catch {
+            // Analytics must not interrupt an export.
         }
     });
 </script>
