@@ -1,12 +1,28 @@
 ---
 import qrcode from 'qrcode-generator';
-import type { Platform } from '../utils';
+import { CAMPAIGN_IDS } from '../constants';
+import { getStoreUrl, type Platform } from '../utils';
 
 interface Props {
-    codes: { platform: Platform; url: string; caption: string }[];
+    codes?: { platform: Platform; url: string; caption: string }[];
 }
 
-const cards = Astro.props.codes.map(({ platform, url, caption }) => {
+// Scans come from a desktop visitor pointing their phone at the screen, so they
+// get their own attribution source rather than the one for this page view.
+const { codes = [
+    {
+        platform: 'ios',
+        url: getStoreUrl('ios', CAMPAIGN_IDS.DESKTOP),
+        caption: 'Scan to download on iOS',
+    },
+    {
+        platform: 'android',
+        url: getStoreUrl('android', CAMPAIGN_IDS.DESKTOP),
+        caption: 'Scan to download on Android',
+    },
+] } = Astro.props;
+
+const cards = codes.map(({ platform, url, caption }) => {
     const qr = qrcode(0, 'M');
     qr.addData(url);
     qr.make();
@@ -34,6 +50,34 @@ const cards = Astro.props.codes.map(({ platform, url, caption }) => {
 <script>
     import qrcode from 'qrcode-generator';
     import { getAttributedStoreURL, initializeAttribution } from '../appsflyer';
+
+    document.querySelectorAll<HTMLElement>('.hover-qr').forEach((preview) => {
+        const badges = preview.closest('[data-hover-qr-region]')?.querySelector('[data-hover-qr-triggers]');
+        if (!badges) return;
+
+        const cards = preview.querySelectorAll<HTMLElement>('[data-qr-platform]');
+        const desktop = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+        const hide = () => preview.classList.remove('is-showing-qr');
+
+        // data-store-link carries the badge's platform, so it doubles as the QR key.
+        badges.querySelectorAll<HTMLAnchorElement>('a[data-store-link]').forEach((badge) => {
+            badge.addEventListener('pointerenter', () => {
+                if (!desktop.matches) return;
+                let selected = false;
+                cards.forEach((card) => {
+                    card.hidden = card.dataset.qrPlatform !== badge.dataset.storeLink;
+                    if (!card.hidden) selected = true;
+                });
+                preview.classList.toggle('is-showing-qr', selected);
+            });
+        });
+
+        // Keep the last selected code visible throughout the gap between badges.
+        badges.addEventListener('pointerleave', hide);
+        desktop.addEventListener('change', () => {
+            if (!desktop.matches) hide();
+        });
+    });
 
     const cards = document.querySelectorAll<HTMLElement>('.hover-qr [data-store-url]');
     if (cards.length) initializeAttribution().then(clickURL => {

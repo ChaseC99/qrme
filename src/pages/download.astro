@@ -5,6 +5,7 @@ import qrCodeView from "../images/views/qrcode_view.png";
 import Layout from "../layouts/Layout.astro";
 import { CAMPAIGN_IDS } from "../constants";
 import DownloadBadge from "../components/DownloadBadge.astro";
+import HoverQrCode from "../components/HoverQrCode.astro";
 ---
 
 <Layout 
@@ -13,12 +14,12 @@ import DownloadBadge from "../components/DownloadBadge.astro";
     showNavbar={false}
     backgroundColor={"var(--color-app)"}
 >
-    <div class="header">
+    <div class="header" data-hover-qr-region>
         <div class="header-text">
             <a href="/" class="header-title">
                 <h1>QR Me - Contact</h1>
             </a>
-            <div class="download-buttons">
+            <div class="download-buttons" data-hover-qr-triggers>
                 <DownloadBadge platform="ios" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} />
                 <DownloadBadge platform="android" defaultSource={CAMPAIGN_IDS.DOWNLOAD_PAGE} />
             </div>
@@ -28,11 +29,13 @@ import DownloadBadge from "../components/DownloadBadge.astro";
             </div>
         </div>
         <div class="screenshot-frame">
-            <Image 
-                class="header-screenshot" 
-                src={qrCodeView} 
-                alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
-            />
+            <HoverQrCode>
+                <Image
+                    class="header-screenshot"
+                    src={qrCodeView}
+                    alt="Screenshot of QR Me Contact's homepage displaying a QR Code and a user's contact information"
+                />
+            </HoverQrCode>
         </div>
     </div>
 </Layout>
@@ -85,6 +88,11 @@ import DownloadBadge from "../components/DownloadBadge.astro";
         text-decoration: none; color: inherit;
     }
 
+    .header-title h1 {
+        font-size: clamp(1.25rem, 4vw, 2.5rem);
+        white-space: nowrap;
+    }
+
 	.header-text {
         display: flex;
         flex-direction: column;
@@ -128,6 +136,10 @@ import DownloadBadge from "../components/DownloadBadge.astro";
 			flex-direction: column;
 			gap: 0px;
 		}
+
+        .header-title h1 {
+            font-size: clamp(1.25rem, 8vw, 2rem);
+        }
 
 		.header-text {
 			padding: 0;
