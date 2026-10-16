@@ -241,11 +241,8 @@ import ContactQrGenerator from '../components/ContactQrGenerator';
 
 	<section id="contact">
 		<h2>Contact</h2>
-		<ContactForm client:only="react">
-			<!-- Add a loading placeholder that is the height of the iframe -->
-			<!-- This ensures that /#contact scrolls to the correct spot onload -->
-			<div slot="fallback" style="height: 1000px;"/>
-		</ContactForm>
+		<p class="contact-subtitle">Feedback on how I can improve QR Me is always very much appreciated!</p>
+		<ContactForm client:load />
 	</section>
 
 	<footer>
@@ -256,6 +253,23 @@ import ContactQrGenerator from '../components/ContactQrGenerator';
 <style>
 	h2 {
 		text-align: center;
+	}
+
+	#contact {
+		padding: 56px 0;
+		scroll-margin-top: 70px;
+	}
+
+	#contact h2 {
+		margin: 0 0 10px;
+	}
+
+	.contact-subtitle {
+		max-width: 600px;
+		margin: 0 auto 16px;
+		padding: 0 24px;
+		text-align: center;
+		line-height: 1.6;
 	}
 
 	/* FEATURES */
