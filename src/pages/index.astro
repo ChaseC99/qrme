@@ -14,15 +14,16 @@ import ContactForm from '../components/ContactForm';
 import Headline from '../components/Headline.astro';
 import Layout from '../layouts/Layout.astro';
 import FAQ from '../components/FAQ.astro';
-import RatingStar from '../components/RatingStar.astro';
+import StarRating from '../components/StarRating';
 import ContactQrGenerator from '../components/ContactQrGenerator';
+import { DESKTOP_QR_MEDIA } from '../constants';
 ---
 
 <Layout>
 	<Headline />
 
-	{/* Desktop only: CSS hides the generator at 900px and below */}
-	<ContactQrGenerator client:media="(min-width: 901px)" />
+	{/* Hydrate only for wide, mouse/trackpad-only desktops; CSS uses the same gate. */}
+	<ContactQrGenerator client:media={DESKTOP_QR_MEDIA} />
 
 	<section id="features">
 		<div class="main-feature">
@@ -110,12 +111,8 @@ import ContactQrGenerator from '../components/ContactQrGenerator';
 			<div>
 				Rated
 				<p>4.9/5 Stars</p>
-				<div class="stars" aria-label="4.9 out of 5 stars">
-					<RatingStar filledColor='#000' size={24}/>
-					<RatingStar filledColor='#000' size={24}/>
-					<RatingStar filledColor='#000' size={24}/>
-					<RatingStar filledColor='#000' size={24}/>
-					<RatingStar filledColor='#000' size={24} filled={0.9}/>
+				<div class="stars">
+					<StarRating rating={4.9} filledColor="#000" size={24} />
 				</div>
 			</div>
 			<div>
@@ -422,7 +419,6 @@ import ContactQrGenerator from '../components/ContactQrGenerator';
 
 	.stars {
 		display: flex;
-		gap: 2px;
 		align-items: center;
 		justify-content: center;
 	}

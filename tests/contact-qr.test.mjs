@@ -1,6 +1,38 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { contactVCard, emptyContact, emptyPostalAddress, qrFileName, qrMatrix, qrSvg } from '../src/contact-qr.ts';
+import { contactVCard, emptyContact, emptyPostalAddress, hasContactDetails, qrFileName, qrMatrix, qrSvg } from '../src/contact-qr.ts';
+
+test('an empty or whitespace-only contact returns to the sample regardless of row labels', () => {
+    assert.equal(hasContactDetails(emptyContact()), false);
+    const contact = {
+        ...emptyContact(), first: '  ', note: '\n\t',
+        phones: [{ id: 'new-phone', type: 'Work', value: ' ' }],
+        addresses: [{ id: 'new-address', type: 'Work', value: { ...emptyPostalAddress(), city: '  ' } }],
+    };
+    assert.equal(hasContactDetails(contact), false);
+    assert.equal(hasContactDetails({ ...contact, phones: [], emails: [], websites: [], addresses: [] }), false);
+});
+
+test('unnamed contacts with an email, an address component, or an optional detail are not samples', () => {
+    for (const patch of [
+        { emails: [{ id: 'email', type: 'Work', value: 'jane@example.com' }] },
+        { addresses: [{ id: 'address', type: 'Home', value: { ...emptyPostalAddress(), postalCode: '94103' } }] },
+        { department: 'Design' }, { birthday: '1990-01-02' }, { phFirst: 'Al-ex' }, { note: 'Hello' },
+    ]) {
+        assert.equal(hasContactDetails({ ...emptyContact(), ...patch }), true);
+    }
+});
+
+test('clearing the last value or removing its row restores the empty-contact state', () => {
+    const contact = emptyContact();
+    contact.phones[0].value = '555-0123';
+    assert.equal(hasContactDetails(contact), true);
+    contact.phones[0].value = '';
+    assert.equal(hasContactDetails(contact), false);
+    contact.phones[0].value = '555-0123';
+    contact.phones = [];
+    assert.equal(hasContactDetails(contact), false);
+});
 
 test('an empty contact contains the included website without example data or empty contact methods', () => {
     assert.equal(contactVCard(emptyContact()), 'BEGIN:VCARD\nVERSION:3.0\nN:;;;;\nFN:\nURL;type=Get QR Me:https://qrme.contact/download\nEND:VCARD');

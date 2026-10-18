@@ -16,7 +16,7 @@ export type PostalAddress = { street: string; city: string; state: string; posta
 export type AddressEntry = { id: string; type: string; value: PostalAddress };
 export type ContactField =
     | 'first' | 'last' | 'prefix' | 'middle' | 'suffix' | 'maiden' | 'nickname'
-    | 'phFirst' | 'phMiddle' | 'phLast' | 'title' | 'company' | 'department'
+    | 'phFirst' | 'phMiddle' | 'phLast' | 'title' | 'department' | 'company'
     | 'birthday' | 'note';
 export type Contact = Record<ContactField, string> & Record<TextListKey, ContactEntry[]> & { addresses: AddressEntry[] };
 export type QrMatrix = boolean[][];
@@ -28,13 +28,20 @@ export function emptyPostalAddress(): PostalAddress {
 export function emptyContact(): Contact {
     return {
         first: '', last: '', prefix: '', middle: '', suffix: '', maiden: '', nickname: '',
-        phFirst: '', phMiddle: '', phLast: '', title: '', company: '', department: '',
+        phFirst: '', phMiddle: '', phLast: '', title: '', department: '', company: '',
         birthday: '', note: '',
         phones: [{ id: 'phone-0', type: 'Mobile', value: '' }],
         emails: [{ id: 'email-0', type: 'Home', value: '' }],
         websites: [{ id: 'website-0', type: 'Homepage', value: '' }],
         addresses: [],
     };
+}
+
+export function hasContactDetails(contact: Contact): boolean {
+    const { phones, emails, websites, addresses, ...fields } = contact;
+    return Object.values(fields).some(value => value.trim().length > 0)
+        || [phones, emails, websites].some(entries => entries.some(entry => entry.value.trim().length > 0))
+        || addresses.some(entry => Object.values(entry.value).some(value => value.trim().length > 0));
 }
 
 const escapeText = (value: string) => value.replace(/\\/g, '\\\\')

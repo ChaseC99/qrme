@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import qrCodeView from '../images/views/qrcode_view.png';
 import DownloadBadge from './DownloadBadge.astro';
 import HoverQrCode from './HoverQrCode.astro';
-import RatingStar from './RatingStar.astro';
+import StarRating from './StarRating';
 ---
 
 <header class="hero" data-hover-qr-region>
@@ -42,12 +42,8 @@ import RatingStar from './RatingStar.astro';
                 <div class="stat">
                     <div class="stat-row">
 						<strong>4.9</strong>
-                        <span class="stars" aria-label="4.9 out of 5 stars">
-                            <RatingStar />
-                            <RatingStar />
-                            <RatingStar />
-                            <RatingStar />
-                            <RatingStar filled={0.9} />
+                        <span class="stars">
+                            <StarRating rating={4.9} />
                         </span>
                     </div>
                     <span class="stat-label">App Store rating</span>
@@ -79,6 +75,11 @@ import RatingStar from './RatingStar.astro';
         position: relative;
         overflow: hidden;
         color: #1d1a16;
+    }
+
+    /* Matches DESKTOP_QR_MEDIA: wide touch devices retain this mobile hero. */
+    @media (width > 900px) and (hover: hover) and (pointer: fine) and (not (any-pointer: coarse)) {
+        .hero { display: none; }
     }
 
     .hero-bg-panel {
@@ -188,7 +189,6 @@ import RatingStar from './RatingStar.astro';
 
     .stars {
         display: inline-flex;
-        gap: 2px;
         align-items: center;
     }
 
@@ -219,7 +219,7 @@ import RatingStar from './RatingStar.astro';
         border-radius: 38px;
     }
 
-    @media (max-width: 900px) {
+    @media not all and (width > 900px) and (hover: hover) and (pointer: fine) and (not (any-pointer: coarse)) {
         .hero-inner {
             grid-template-columns: 1fr;
             padding: 20px 24px 48px;
@@ -269,7 +269,7 @@ import RatingStar from './RatingStar.astro';
         }
 
         .stars {
-            gap: 1px;
+            --star-rating-gap: 1px;
         }
 
         .stars :global(.rating-star) {

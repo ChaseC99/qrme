@@ -18,4 +18,8 @@ export const CAMPAIGN_IDS = {
 
 export type CampaignId = typeof CAMPAIGN_IDS[keyof typeof CAMPAIGN_IDS];
 
+// Keep touch-capable tablets on the mobile hero, even with a connected mouse.
+// The same query controls visibility in Headline and ContactQrGenerator CSS.
+export const DESKTOP_QR_MEDIA = '(width > 900px) and (hover: hover) and (pointer: fine) and (not (any-pointer: coarse))';
+
 export const SUPPORT_EMAIL = 'support@qrme.contact';

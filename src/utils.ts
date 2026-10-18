@@ -4,9 +4,27 @@ import { CAMPAIGN_IDS } from "./constants";
 export type Platform = 'android' | 'ios';
 
 export function getStoreUrl(platform: Platform, source: string): string {
+    const campaign = encodeURIComponent(source);
     return platform === 'android'
-        ? `https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${source}`
-        : `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${source}&mt=8&platform=iphone`;
+        ? `https://play.google.com/store/apps/details?id=com.chasecarnaroli.qrme_contact&utm_source=${campaign}`
+        : `https://apps.apple.com/app/apple-store/id1412627381?pt=119166549&ct=${campaign}&mt=8&platform=iphone`;
+}
+
+export async function getDownloadQrUrl(downloadUrl: string, search: string): Promise<string> {
+    // Paid visits use AppsFlyer to route the scanning phone to its store.
+    const clickUrl = await initializeAttribution();
+    if (clickUrl) return clickUrl;
+
+    // Organic visits and attribution failures use the download page, preserving all parameters.
+    const fallbackUrl = new URL(downloadUrl);
+    fallbackUrl.search = search;
+
+    // Label scans as desktop visits when there are no incoming parameters.
+    if (!fallbackUrl.search) {
+        fallbackUrl.searchParams.set('utm_source', CAMPAIGN_IDS.DESKTOP);
+    }
+
+    return fallbackUrl.href;
 }
 
 export function getAttributionSource(defaultSource: string = CAMPAIGN_IDS.WEBSITE): string {

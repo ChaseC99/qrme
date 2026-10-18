@@ -38,11 +38,11 @@ function rootFor(links) {
     };
 }
 
-function page({ query = '', userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X)', links = [anchor('ios'), anchor('android'), anchor('auto')], blockedStorage = false } = {}) {
+function page({ query = '', pathname = '/', userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X)', links = [anchor('ios'), anchor('android'), anchor('auto')], blockedStorage = false } = {}) {
     const scripts = [];
     const timers = new Map();
     let nextTimer = 0;
-    const location = new URL(`https://qrme.contact/?${query}`);
+    const location = new URL(`https://qrme.contact${pathname}?${query}`);
     const document = {
         ...rootFor(links),
         referrer: '',
@@ -68,6 +68,8 @@ function page({ query = '', userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X)
     return {
         links, scripts, timers,
         update(root) { context.module.exports.attributeStoreLinks(root); },
+        downloadQr() { return context.module.exports.getDownloadQrUrl('https://qrme.contact/download', location.search); },
+        storeUrl(platform) { return context.module.exports.getStoreUrl(platform, context.module.exports.getAttributionSource('download')); },
         load() { runInContext(vendor, context); scripts[0].onload(); },
         fail() { scripts[0].onerror(); },
         missingAPI() { scripts[0].onload(); },
@@ -205,4 +207,91 @@ test('a script that arrives after timeout never rewrites the direct links', asyn
     await flush();
     assert.deepEqual(p.links.map(link => link.href), direct);
     assert.equal(p.timers.size, 0);
+});
+
+test('the fallback download QR preserves all incoming parameters, including new ad partners and repeated keys', async () => {
+    const p = page({ query: 'gclid=click%2B%26id&gad_campaignid=123&utm_source=Paid%20Search&utm_medium=cpc&utm_campaign=Fall&utm_content=variant&af_sub1=group&new_partner_click_id=partner%2Bclick&tag=one&tag=two&empty=&af_r=https%3A%2F%2Fexample.com' });
+    const pending = p.downloadQr();
+    await flush();
+    p.fail();
+    const url = new URL(await pending);
+    assert.equal(url.origin + url.pathname, 'https://qrme.contact/download');
+    assert.deepEqual([...url.searchParams], [
+        ['gclid', 'click+&id'], ['gad_campaignid', '123'], ['utm_source', 'Paid Search'],
+        ['utm_medium', 'cpc'], ['utm_campaign', 'Fall'], ['utm_content', 'variant'], ['af_sub1', 'group'],
+        ['new_partner_click_id', 'partner+click'], ['tag', 'one'], ['tag', 'two'], ['empty', ''],
+        ['af_r', 'https://example.com'],
+    ]);
+});
+
+test('paid download QRs point straight to AppsFlyer and share the badges attribution attempt', async () => {
+    for (const [query, pid, key, value] of [
+        ['gclid=google%2Bclick&gad_campaignid=123', 'googleads_int', 'gclid', 'google+click'],
+        ['gbraid=braid&af_c_id=123', 'googleads_int', 'gbraid', 'braid'],
+        ['wbraid=web-braid&af_c_id=123', 'googleads_int', 'wbraid', 'web-braid'],
+        ['oppref=openai-click&af_c_id=123&af_partner_account_id=account', 'openai_int', 'clickid', 'openai-click'],
+        ['msclkid=microsoft-click&af_c_id=123&af_sub1=tracking', 'mssearchads_int', 'clickid', 'microsoft-click'],
+        ['pid=mssearchads_int&clickid=template-click&af_c_id=123', 'mssearchads_int', 'clickid', 'template-click'],
+    ]) {
+        const p = page({ query });
+        p.update();
+        let settled = false;
+        const pending = p.downloadQr().then(url => { settled = true; return url; });
+        await flush();
+        assert.equal(p.scripts.length, 1);
+        assert.equal(settled, false);
+        p.load();
+        const target = new URL(await pending);
+        assert.equal(target.origin + target.pathname, 'https://app.qrme.contact/7AZi');
+        assert.equal(target.searchParams.get('pid'), pid);
+        assert.equal(target.searchParams.get(key), value);
+        assert.equal(target.searchParams.get('af_c_id'), '123');
+        if (pid === 'openai_int') assert.equal(target.searchParams.get('af_partner_account_id'), 'account');
+        if (query.includes('af_sub1')) assert.equal(target.searchParams.get('af_sub1'), 'tracking');
+        // Let OneLink choose the scanning phone's store, independent of the desktop browser.
+        for (const key of ['af_r', 'af_ios_url', 'af_android_url', 'af_web_dp']) {
+            assert.equal(target.searchParams.has(key), false);
+        }
+        assert.equal(await p.downloadQr(), target.href);
+        assert.equal(p.scripts.length, 1);
+        assert.equal(p.timers.size, 0);
+    }
+});
+
+test('organic QR scans keep their source and never initialize paid attribution', async () => {
+    for (const [query, source] of [
+        ['', 'desktop'], ['utm_source=newsletter&utm_campaign=Fall', 'newsletter'],
+        ['ref=A%2BB%26source%3Dcustom', 'A+B&source=custom'], ['olref=organic', 'openai'],
+    ]) {
+        const desktop = page({ query });
+        const qr = new URL(await desktop.downloadQr());
+        assert.equal(qr.origin + qr.pathname, 'https://qrme.contact/download');
+        assert.equal(desktop.scripts.length, 0);
+        const phone = page({ pathname: '/download', query: qr.searchParams.toString() });
+        for (const platform of ['ios', 'android']) {
+            assertDirect({ href: phone.storeUrl(platform) }, platform, source);
+        }
+        assert.equal(phone.scripts.length, 0);
+    }
+});
+
+test('download QRs fall back to /download when attribution fails or times out', async () => {
+    for (const failure of ['fail', 'missingAPI', 'expire']) {
+        const desktop = page({ query: 'oppref=click&ref=campaign' });
+        const pending = desktop.downloadQr();
+        await flush();
+        desktop[failure]();
+        const fallback = await pending;
+        assert.equal(fallback, 'https://qrme.contact/download?oppref=click&ref=campaign');
+        assert.equal(desktop.timers.size, 0);
+        if (failure === 'expire') {
+            desktop.load();
+            assert.equal(await desktop.downloadQr(), fallback);
+        }
+        const phone = page({ pathname: '/download', query: new URL(fallback).searchParams.toString() });
+        for (const platform of ['ios', 'android']) {
+            assertDirect({ href: phone.storeUrl(platform) }, platform, 'campaign');
+        }
+        assert.equal(phone.scripts.length, 0);
+    }
 });
