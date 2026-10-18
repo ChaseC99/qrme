@@ -1,0 +1,12 @@
+.download-button {
+    padding: 8px;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--color-app);
+    color: black;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.download-button:hover { text-decoration: none; }

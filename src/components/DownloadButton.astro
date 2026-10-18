@@ -1,13 +1,19 @@
 ---
-import { CAMPAIGN_IDS } from "../constants";
+import { CAMPAIGN_IDS, DESKTOP_QR_MEDIA } from "../constants";
 import { getStoreUrl } from "../utils";
+import DesktopDownloadButton from "./DesktopDownloadButton";
+import "./DownloadButton.css";
 
 // The App Store is the default because its listing is nicer; the script below
 // switches Android visitors over once the user agent is known.
 ---
 
+<div class="desktop-download">
+    <DesktopDownloadButton client:media={DESKTOP_QR_MEDIA} />
+</div>
+
 <a
-    class="download-button"
+    class="download-button mobile-download"
     href={getStoreUrl('ios', CAMPAIGN_IDS.WEBSITE)}
     target="_blank"
     aria-label="Download on App Store"
@@ -25,11 +31,11 @@ import { getStoreUrl } from "../utils";
 </script>
 
 <style>
-    .download-button {
-        padding: 8px;
-        text-decoration: none;
-        background-color: var(--color-app);
-        border-radius: 8px;
-        color: black;
+    .desktop-download { display: none; }
+
+    /* Matches DESKTOP_QR_MEDIA and the desktop QR generator. */
+    @media (width > 900px) and (hover: hover) and (pointer: fine) and (not (any-pointer: coarse)) {
+        .desktop-download { display: inline; }
+        .mobile-download { display: none; }
     }
 </style>

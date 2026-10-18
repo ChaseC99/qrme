@@ -1,5 +1,8 @@
 html:has(.cq-app-dialog[open]) { overflow: hidden; }
 .cq-app-dialog {
+    --cq-line: #e6e1d6;
+    --cq-ink: #1d1a16;
+    --cq-deep: #5cb8c7;
     position: fixed;
     width: 500px;
     max-width: calc(100vw - 40px);
@@ -14,6 +17,10 @@ html:has(.cq-app-dialog[open]) { overflow: hidden; }
     box-shadow: 0 24px 90px rgba(14, 42, 49, .2);
     overscroll-behavior: contain;
 }
+.cq-app-dialog, .cq-app-dialog *, .cq-app-dialog *::before, .cq-app-dialog *::after { box-sizing: border-box; }
+.cq-app-dialog button { font-family: inherit; cursor: pointer; }
+.cq-app-dialog :is(button, a):focus-visible { outline: 2px solid var(--cq-deep); outline-offset: 3px; }
+.cq-app-dialog .cq-highlight { background: linear-gradient(var(--color-app, #a8edfe), var(--color-app, #a8edfe)) no-repeat 0 90% / 100% .34em; padding-inline: .02em; }
 .cq-app-dialog::backdrop { background: rgba(17, 34, 39, .35); backdrop-filter: blur(4px); }
 .cq-dialog-close {
     position: absolute;
