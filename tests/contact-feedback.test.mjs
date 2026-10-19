@@ -14,7 +14,6 @@ const source = buildSync({
 const context = { module: { exports: {} }, URLSearchParams };
 runInNewContext(source, context);
 const { feedbackFromSearch, feedbackMailto } = context.module.exports;
-const submittedAt = new Date(2026, 9, 2, 12, 21, 22);
 
 test('app links prefill both platforms and all optional device fields', () => {
     const query = new URLSearchParams({
@@ -50,28 +49,26 @@ test('email includes the message and optional details with safe URL encoding', (
         platform: 'Android', message: 'Hi! A&B + 50% #bug?\n日本語 👋 &bcc=someone@example.com',
         device: ' Pixel 10 ', osVersion: 'Android 16', qrmeVersion: '4.2', supportId: 'id+123&456',
     };
-    const url = new URL(feedbackMailto(feedback, submittedAt));
+    const url = new URL(feedbackMailto(feedback));
     assert.equal(url.protocol, 'mailto:');
     assert.equal(url.pathname, 'support@qrme.contact');
-    assert.equal(url.searchParams.get('subject'), 'QR Me - Contact: Feedback');
+    assert.equal(url.searchParams.get('subject'), 'QR Me - Contact | Feedback');
     assert.deepEqual([...url.searchParams.keys()], ['subject', 'body']);
     assert.equal(url.searchParams.get('body'), [
         'Hi! A&B + 50% #bug?', '日本語 👋 &bcc=someone@example.com', '',
-        '----------------------------------------', '', 'Device Information', '',
+        '----------------------------------------', 'Device Information',
         '    Platform: Android | Device: Pixel 10 | OS Version: Android 16 | QR Me Version: 4.2 | Support ID: id+123&456',
-        '', '----------------------------------------', '',
-        'Submitted on 10/2/2026, 12:21:22 PM', 'QR Me - Contact Feedback Form',
+        '----------------------------------------',
     ].join('\r\n'));
 });
 
 test('optional blank fields are omitted and existing Windows newlines are preserved', () => {
     const url = new URL(feedbackMailto({
         ...feedbackFromSearch('?platform=iOS'), message: ' Hello\r\nthere! ', device: '   ',
-    }, submittedAt));
+    }));
     assert.equal(url.searchParams.get('body'), [
         'Hello', 'there!', '',
-        '----------------------------------------', '', 'Device Information', '',
-        '    Platform: iOS', '', '----------------------------------------', '',
-        'Submitted on 10/2/2026, 12:21:22 PM', 'QR Me - Contact Feedback Form',
+        '----------------------------------------', 'Device Information',
+        '    Platform: iOS', '----------------------------------------',
     ].join('\r\n'));
 });
