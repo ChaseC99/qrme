@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import AppDownloadDialog from './AppDownloadDialog';
 import { DESKTOP_QR_MEDIA } from '../constants';
 import {
@@ -40,7 +40,6 @@ const listMeta: Record<ListKey, { label: string; icon: IconName; placeholder: st
     addresses: { label: 'Address', icon: 'pin', placeholder: 'Street, City, State ZIP', inputType: 'text' },
 };
 const singles = [
-    { key: 'title', label: 'Job title', icon: 'briefcase' },
     { key: 'department', label: 'Department', icon: 'department' },
     { key: 'note', label: 'Note', icon: 'note' },
     { key: 'birthday', label: 'Birthday', icon: 'cake' },
@@ -311,6 +310,15 @@ export default function ContactQrGenerator() {
     };
     const field = (key: ContactField, label: string, placeholder?: string, accessibleLabel?: string) =>
         <Field label={label} value={contact[key]} onChange={value => setField(key, value)} placeholder={placeholder} accessibleLabel={accessibleLabel}/>;
+    const listRows = (key: TextListKey) => contact[key].map((entry, index) =>
+        <ListRow key={entry.id} kind={key} entry={entry} index={index} autoFocus={entry.id === newEntry.current}
+            onChange={patch => {
+                setActivePreviewField(entry.id);
+                setContact(current => ({ ...current, [key]: current[key].map(row => row.id === entry.id ? { ...row, ...patch } : row) }));
+            }}
+            onRemove={() => setContact(current => ({ ...current, [key]: current[key].filter(row => row.id !== entry.id) }))}
+            onAdd={index === contact[key].length - 1 ? () => addRow(key) : undefined}/>
+    );
     const nameSummary = [contact.prefix, contact.middle, contact.suffix,
         contact.nickname && `“${contact.nickname}”`, contact.maiden && `née ${contact.maiden}`,
         (contact.phFirst || contact.phMiddle || contact.phLast) && 'pronunciation'].filter(Boolean).join(' · ');
@@ -350,54 +358,48 @@ export default function ContactQrGenerator() {
                 </header>
                 <p className="cq-privacy"><Icon name="lock"/>Made in your browser. No contact information is saved.</p>
                 <form ref={form} id={formId} className={`cq-form${formHighlighted ? ' cq-form-highlighted' : ''}`} aria-label="Create your contact QR code" autoComplete="off" onSubmit={event => event.preventDefault()}>
-                    <div className="cq-columns">
-                        <div>
+                    <div className="cq-stack">
+                        <div className="cq-columns">
+                            {field('first', 'First name', 'John')}
+                            <div className="cq-name-row">
+                                {field('last', 'Last name', 'Appleseed')}
+                                <button type="button" className="cq-name-toggle" title="More name fields" aria-label="More name fields"
+                                    aria-expanded={nameDetailsOpen} aria-controls={detailsId} onClick={() => setNameDetailsOpen(open => !open)}>
+                                    <Icon name="chevron" size={16}/>
+                                </button>
+                            </div>
+                        </div>
+                        <div id={detailsId} className="cq-name-details" hidden={!nameDetailsOpen}>
+                            <div className="cq-pair">{field('prefix', 'Prefix', 'Dr., Ms.')}{field('suffix', 'Suffix', 'Jr., PhD')}</div>
+                            <div className="cq-pair">{field('middle', 'Middle name')}{field('nickname', 'Nickname')}</div>
+                            {field('maiden', 'Maiden name')}
+                            <div className="cq-pronunciation">Pronunciation <span>— how to say your name</span></div>
+                            <div className="cq-phonetics">
+                                {field('phFirst', 'First', undefined, 'Phonetic first name')}
+                                {field('phMiddle', 'Middle', undefined, 'Phonetic middle name')}
+                                {field('phLast', 'Last', undefined, 'Phonetic last name')}
+                            </div>
+                        </div>
+                        {!nameDetailsOpen && nameSummary && <button type="button" className="cq-name-summary" onClick={() => setNameDetailsOpen(true)}>Also: {nameSummary}</button>}
+                        <div className="cq-columns">
+                            {field('company', 'Company', 'Where you work')}
+                            {field('title', 'Job title', 'What you do')}
+                        </div>
+                        {shownSingles.includes('department') && <Field label="Department" value={contact.department}
+                            onChange={value => setField('department', value)} autoFocus onRemove={() => removeSingle('department')}/>}
+                        <div className="cq-columns cq-contact-columns">
                             <div className="cq-stack">
-                                <div className="cq-name-row">
-                                    {field('first', 'First name', 'John')}{field('last', 'Last name', 'Appleseed')}
-                                    <button type="button" className="cq-name-toggle" title="More name fields" aria-label="More name fields"
-                                        aria-expanded={nameDetailsOpen} aria-controls={detailsId} onClick={() => setNameDetailsOpen(open => !open)}>
-                                        <Icon name="chevron" size={16}/>
-                                    </button>
-                                </div>
-                                <div id={detailsId} className="cq-name-details" hidden={!nameDetailsOpen}>
-                                    <div className="cq-pair">{field('prefix', 'Prefix', 'Dr., Ms.')}{field('suffix', 'Suffix', 'Jr., PhD')}</div>
-                                    <div className="cq-pair">{field('middle', 'Middle name')}{field('nickname', 'Nickname')}</div>
-                                    {field('maiden', 'Maiden name')}
-                                    <div className="cq-pronunciation">Pronunciation <span>— how to say your name</span></div>
-                                    <div className="cq-phonetics">
-                                        {field('phFirst', 'First', undefined, 'Phonetic first name')}
-                                        {field('phMiddle', 'Middle', undefined, 'Phonetic middle name')}
-                                        {field('phLast', 'Last', undefined, 'Phonetic last name')}
-                                    </div>
-                                </div>
-                                {!nameDetailsOpen && nameSummary && <button type="button" className="cq-name-summary" onClick={() => setNameDetailsOpen(true)}>Also: {nameSummary}</button>}
-                                {singles.filter(({ key }) => (key === 'title' || key === 'department') && shownSingles.includes(key)).map(({ key, label }) =>
-                                    <Field key={key} label={label} value={contact[key]} onChange={value => setField(key, value)}
-                                        autoFocus onRemove={() => removeSingle(key)}/>
-                                )}
-                                {field('company', 'Company', 'Where you work')}
-                                {singles.filter(({ key }) => key !== 'title' && key !== 'department' && shownSingles.includes(key)).map(({ key, label }) =>
+                                {listRows('phones')}
+                                {listRows('emails')}
+                                {singles.filter(({ key }) => key !== 'department' && shownSingles.includes(key)).map(({ key, label }) =>
                                     <Field key={key} label={label} value={contact[key]} onChange={value => setField(key, value)} autoFocus
                                         type={key === 'birthday' ? 'date' : 'text'} placeholder={key === 'note' ? 'Anything else people should know' : undefined}
                                         onRemove={() => removeSingle(key)}/>
                                 )}
                             </div>
-                        </div>
-                        <div>
                             <div className="cq-stack">
-                                {listKeys.map(key => <Fragment key={key}>
-                                    {contact[key].map((entry, index) =>
-                                        <ListRow key={entry.id} kind={key} entry={entry} index={index} autoFocus={entry.id === newEntry.current}
-                                            onChange={patch => {
-                                                setActivePreviewField(entry.id);
-                                                setContact(current => ({ ...current, [key]: current[key].map(row => row.id === entry.id ? { ...row, ...patch } : row) }));
-                                            }}
-                                            onRemove={() => setContact(current => ({ ...current, [key]: current[key].filter(row => row.id !== entry.id) }))}
-                                            onAdd={index === contact[key].length - 1 ? () => addRow(key) : undefined}/>
-                                    )}
-                                    {key === 'websites' && <LockedWebsite onOpenApp={() => setAppDialogOpen(true)}/>}
-                                </Fragment>)}
+                                {listRows('websites')}
+                                <LockedWebsite onOpenApp={() => setAppDialogOpen(true)}/>
                                 {contact.addresses.map((entry, index) => <AddressRow key={entry.id} entry={entry} index={index} autoFocus={entry.id === newEntry.current}
                                     onChange={patch => {
                                         setActivePreviewField(entry.id);

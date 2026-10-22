@@ -40,7 +40,7 @@
 .cq-form-highlighted { outline-color: var(--color-app, #a8edfe); box-shadow: 0 0 0 7px var(--cq-wash); }
 .cq-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: 24px; }
 .cq-stack { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.cq-name-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 52px; gap: 10px; }
+.cq-name-row { display: grid; grid-template-columns: minmax(0, 1fr) 52px; gap: 10px; }
 .cq-field { display: flex; align-items: center; gap: 6px; height: 52px; border: 1px solid var(--cq-line); border-radius: 12px; padding: 6px 14px; min-width: 0; background: #fff; }
 .cq-field label { display: flex; flex-direction: column; flex: 1; min-width: 0; cursor: text; }
 .cq-field-label { font-size: 10.5px; font-weight: 600; color: #8a8070; letter-spacing: .2px; line-height: 15px; }
@@ -162,7 +162,8 @@
 }
 @media (min-width: 901px) and (max-width: 1100px) {
     .cq-inner { padding: 40px 32px 56px; grid-template-columns: minmax(0, 1fr) 288px; gap: 40px; }
-    .cq-columns { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .cq-columns { gap: 16px; }
+    .cq-contact-columns { grid-template-columns: minmax(0, 1fr); gap: 10px; }
     .cq-editor h1 { font-size: 42px; }
     .cq-subtitle { font-size: 14px; }
     .cq-privacy { align-items: flex-start; }
